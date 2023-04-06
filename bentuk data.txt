@@ -1,0 +1,1 @@
+[{id:"0000001",name:"Kentang Pedas",tags:"makanan,pedas",stock:1,rating:4.8,sold:784,cost:14},{id:"0000002",name:"Kentang Balado",tags:"makanan,pedas",stock:1,rating:4.6,sold:691,cost:16}]
