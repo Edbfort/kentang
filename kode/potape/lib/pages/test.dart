@@ -92,82 +92,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // axis because Columns are vertical (the cross axis would be
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          children: [
+            Text(
+              aireco.recoitems.toString(),
             ),
             Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
+              aireco.datreccost.toString(),
             ),
-            Switch(
-                value: dat,
-                onChanged: (val) {
-                  setState(() {
-                    dat = val;
-                    dot = val;
-                    det = val;
-                  });
-                }),
-            Switch(
-                value: dot,
-                onChanged: (val) {
-                  setState(() {
-                    dot = val;
-                  });
-                }),
-            Switch(
-                value: det,
-                onChanged: (val) {
-                  setState(() {
-                    det = val;
-                  });
-                }),
-            DropdownButton(
-                hint: Text(ree),
-                items: [
-                  for (var i in ha)
-                    DropdownMenuItem(
-                      child: Text(i),
-                      value: i,
-                    ),
-                ],
-                onChanged: (val) {
-                  setState(() {
-                    ree = val.toString();
-                    dat1 = val.toString();
-                  });
-                }),
-            DropdownButton(
-                hint: Text(ree2),
-                items: [
-                  for (var j in fi[dat1]!)
-                    DropdownMenuItem(
-                      child: Text(j),
-                      value: j,
-                    ),
-                ],
-                onChanged: (val) {
-                  setState(() {
-                    ree2 = val.toString();
-                    dat2 = val.toString();
-                  });
-                }),
-            DropdownButton(
-                hint: Text(ree3),
-                items: [
-                  for (var k in ja[dat2]!)
-                    DropdownMenuItem(
-                      child: Text(k),
-                      value: k,
-                    ),
-                ],
-                onChanged: (val) {
-                  setState(() {
-                    ree3 = val.toString();
-                  });
-                }),
-            Text(ree),
           ],
         ),
       ),
