@@ -1,0 +1,137 @@
+
+[
+{
+  "id": "10001",
+  "name": "Kentang Goreng",
+  "tags": "makanan, gorengan",
+  "stock": "10",
+  "rating": "4.5",
+  "sold": "2500",
+  "cost": "12"
+},
+{
+  "id": "10002",
+  "name": "Kentang Panggang",
+  "tags": "makanan, panggang",
+  "stock": "5",
+  "rating": "4.2",
+  "sold": "1200",
+  "cost": "18"
+},
+{
+  "id": "10003",
+  "name": "Kentang Keju Pedas",
+  "tags": "makanan, keju, pedas",
+  "stock": "4",
+  "rating": "4.6",
+  "sold": "550",
+  "cost": "24"
+},
+{
+  "id": "10004",
+  "name": "Kentang Sambal Matah",
+  "tags": "makanan, pedas",
+  "stock": "2",
+  "rating": "4.7",
+  "sold": "600",
+  "cost": "22"
+},
+{
+  "id": "10005",
+  "name": "Kentang Cheese",
+  "tags": "makanan, keju",
+  "stock": "3",
+  "rating": "4.8",
+  "sold": "800",
+  "cost": "20"
+},
+{
+  "id": "10006",
+  "name": "Kentang BBQ",
+  "tags": "makanan, bbq",
+  "stock": "8",
+  "rating": "4.5",
+  "sold": "1500",
+  "cost": "16"
+},
+{
+  "id": "10007",
+  "name": "Kentang Sweet Chili",
+  "tags": "makanan, manis, pedas",
+  "stock": "6",
+  "rating": "4.4",
+  "sold": "900",
+  "cost": "20"
+},
+{
+  "id": "10008",
+  "name": "Kentang Wedges",
+  "tags": "makanan, wedges",
+  "stock": "7",
+  "rating": "4.3",
+  "sold": "1000",
+  "cost": "14"
+},
+{
+  "id": "10009",
+  "name": "Kentang Garlic Parmesan",
+  "tags": "makanan, bawang putih, keju",
+  "stock": "2",
+  "rating": "4.9",
+  "sold": "400",
+  "cost": "26"
+},
+{
+  "id": "10010",
+  "name": "Kentang Sour Cream",
+  "tags": "makanan, cream",
+  "stock": "3",
+  "rating": "4.7",
+  "sold": "700",
+  "cost": "18"
+},
+{
+  "id": "10011",
+  "name": "Kentang Pedas",
+  "tags": "makanan, pedas",
+  "stock": "1",
+  "rating": "4.8",
+  "sold": "784",
+  "cost": "14"
+},
+{
+  "id": "10012",
+  "name": "Kentang Balado",
+  "tags": "makanan, pedas",
+  "stock": "1",
+  "rating": "4.6",
+  "sold": "691",
+  "cost": "16"
+},
+{
+  "id": "10013",
+  "name": "Kentang Manis",
+  "tags": "makanan, manis",
+  "stock": "4",
+  "rating": "4.3",
+  "sold": "600",
+  "cost": "15"
+},
+{
+  "id": "10014",
+  "name": "Kentang Lada Hitam",
+  "tags": "makanan, lada hitam",
+  "stock": "3",
+  "rating": "4.5",
+  "sold": "550",
+  "cost": "17"
+},
+{
+  "id": "10015",
+  "name": "Kentang Pedas Manis",
+  "tags": "makanan, pedas, manis",
+  "stock": "6",
+  "rating": "4.7",
+  "sold": "800",
+  "cost": "19"
+},
