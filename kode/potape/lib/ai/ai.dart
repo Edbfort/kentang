@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dataai.dart';
 
 class Recom extends ChangeNotifier {
   List<Map<String, String>> _items = [

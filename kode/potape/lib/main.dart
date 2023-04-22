@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import "/ai/ai.dart";
 import "/pages/test.dart";
+import "/data/pagedata.dart";
 import 'package:provider/provider.dart';
 
 void main() {
@@ -10,6 +11,7 @@ void main() {
     MultiProvider(
       providers: [
         ChangeNotifierProvider<Recom>(create: (_) => Recom()),
+        ChangeNotifierProvider<PageData>(create: (_) => PageData()),
       ],
       child: const MyApp(),
     ),
@@ -36,7 +38,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: const Test(),
     );
   }
 }
