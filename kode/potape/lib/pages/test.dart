@@ -2,7 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import '/data/pagedata.dart';
 import 'package:provider/provider.dart';
-import '../ai/ai.dart';
+import '../ai_test/ai.dart';
 
 class Test extends StatefulWidget {
   const Test({
@@ -26,11 +26,13 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
 class _Test extends State<Test> {
 // ScrollBehavior can be set for a specific widget.
   final ScrollController controller = ScrollController();
-
+  final ScrollController controller_v = ScrollController();
+  Map<int, int> a = {1: 2};
   @override
   Widget build(BuildContext context) {
     final aireco = Provider.of<Recom>(context);
     final pagedata = Provider.of<PageData>(context);
+    final recodata = aireco.recoitems;
     return Scaffold(
       appBar: AppBar(
         title: Text("Test"),
@@ -39,7 +41,7 @@ class _Test extends State<Test> {
         behavior: MyCustomScrollBehavior(),
         child: SingleChildScrollView(
           scrollDirection: Axis.vertical,
-          controller: controller,
+          controller: controller_v,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,7 +66,7 @@ class _Test extends State<Test> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (int i = 0; i < 10; i++)
+                          for (Map<String, String> i in recodata)
                             Container(
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +77,7 @@ class _Test extends State<Test> {
                                   color: Colors.green,
                                   child: Text("Foto"),
                                 ),
-                                Text("Nama Produk"),
+                                Text(i["name"].toString()),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -150,6 +152,7 @@ class _Test extends State<Test> {
                   ),
                 ],
               )),
+              Text(recodata.toString()),
             ],
           ),
         ),
