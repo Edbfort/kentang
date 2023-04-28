@@ -66,7 +66,7 @@ class _Test extends State<Test> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          for (Map<String, String> i in recodata)
+                          for (Map<String, String> i in recodata.values)
                             Container(
                                 child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
