@@ -1,0 +1,15 @@
+2.1 Task Definition
+
+Tujuan utama dari program ini adalah memberikan rekomendasi produk berdasarkan histori pembelian pengguna. Program ini menggunakan data histori pembelian pengguna untuk menghasilkan rekomendasi produk yang sesuai dengan preferensi pengguna.
+
+2.2 Algorithm Definition
+
+Tujuan utama lain dari program ini adalah menghasilkan rekomendasi produk yang sesuai dengan preferensi pengguna berdasarkan histori pembelian pengguna. Untuk mencapai tujuan ini, program ini menggunakan beberapa algoritma untuk menghitung poin atau skor untuk setiap produk berdasarkan preferensi pengguna dan kemudian mensortir data secara descending sebagai rekomendasi.
+
+Algoritma 
+
+Dalam program ini, kita melihat beberapa objek dan variabel yang berhubungan dengan definisi algoritma ini, seperti:
+
+-poin: variabel yang menyimpan bobot untuk masing-masing preferensi pengguna, seperti nama produk, tag produk, dan harga produk.
+-getdatrecname(), getdatrectags(), dan getdatreccost(): fungsi yang digunakan untuk menghitung preferensi pengguna berdasarkan nama produk, tag produk, dan harga produk.
+-recomend(): fungsi yang digunakan untuk menghitung skor atau poin untuk setiap produk berdasarkan preferensi pengguna dan kemudian memilih produk dengan skor tertinggi sebagai rekomendasi.
