@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:pertemuan4/Getting%20Started/login.dart';
+import './login.dart';
 
 class GStarted extends StatefulWidget {
   const GStarted({Key? key}) : super(key: key);
