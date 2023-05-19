@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
+import '../AppBar/prov_appbar.dart';
+import 'package:provider/provider.dart';
+import '../ai_test/ai.dart';
 
-class MyHome extends StatefulWidget {
-  const MyHome({super.key});
+class MainPage extends StatefulWidget {
+  const MainPage({super.key});
 
   @override
-  State<MyHome> createState() => _MyHomeState();
+  State<MainPage> createState() => _MainPageState();
 }
 
-class _MyHomeState extends State<MyHome> {
+class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+  Map<String, AppBar> apbr = {};
+  String pil_apbr = "";
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+  void _onItemTapped(int index) {}
 
   @override
   Widget build(BuildContext context) {
+    final prov_apbr = Provider.of<Apbr>(context);
     return Scaffold(
+      appBar: prov_apbr.tit("REEE"),
       body: Column(
         children: [
           Container(
@@ -75,36 +78,6 @@ class _MyHomeState extends State<MyHome> {
                     ),
                     padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                   ),
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {},
-          color: Colors.black,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Text(
-                  'Hello, User  ',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage('assets/profile_pic.png'),
                 ),
               ],
             ),

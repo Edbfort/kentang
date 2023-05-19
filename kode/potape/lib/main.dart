@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '/Mainpage/mainpage.dart';
+import 'AppBar/prov_appbar.dart';
 import 'ai_test/ai.dart';
 import "/pages/test.dart";
 import "/data/pagedata.dart";
@@ -12,6 +14,7 @@ void main() {
       providers: [
         ChangeNotifierProvider<Recom>(create: (_) => Recom()),
         ChangeNotifierProvider<PageData>(create: (_) => PageData()),
+        ChangeNotifierProvider<Apbr>(create: (_) => Apbr()),
       ],
       child: const MyApp(),
     ),
@@ -26,6 +29,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -36,9 +40,9 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primaryColor: Color.fromARGB(255, 146, 180, 236),
       ),
-      home: const Test(),
+      home: const MainPage(),
     );
   }
 }
