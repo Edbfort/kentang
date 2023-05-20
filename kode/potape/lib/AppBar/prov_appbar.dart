@@ -1,8 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+/// UNTUK HAL APPBAR KERJAKAN DISINI
+
 class Apbr extends ChangeNotifier {
   /// <- AppBar Template
+
+  AppBar search_pp(BuildContext context) {
+    return AppBar(
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      leading: IconButton(
+        icon: Icon(Icons.menu),
+        onPressed: () {
+          Scaffold.of(context).openDrawer();
+        },
+      ),
+      actions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Icons.search),
+        ),
+        SizedBox(width: 8),
+        CircleAvatar(
+          radius: 20,
+          backgroundImage: AssetImage('assets/profile_pic.png'),
+        ),
+      ],
+    );
+  }
 
   AppBar tit(title_) {
     return AppBar(
@@ -18,40 +44,4 @@ class Apbr extends ChangeNotifier {
   }
 
   /// AppBar Template ->
-
-  /// <- AppBar get
-
-  AppBar search_pp() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      actions: [
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            children: [
-              Text(
-                'Hello, User  ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
-              CircleAvatar(
-                radius: 20,
-                backgroundImage: AssetImage('assets/profile_pic.png'),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  /// AppBar get ->
-
-  /// <- AppBar Data
-
-  /// AppBar Data ->
 }

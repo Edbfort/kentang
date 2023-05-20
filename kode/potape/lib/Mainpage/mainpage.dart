@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import '../AppBar/prov_appbar.dart';
 import 'package:provider/provider.dart';
-import '../ai_test/ai.dart';
+import '../AppBar/prov_appbar.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({super.key});
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   State<MainPage> createState() => _MainPageState();
@@ -12,16 +11,31 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
-  Map<String, AppBar> apbr = {};
-  String pil_apbr = "";
 
   void _onItemTapped(int index) {}
 
   @override
   Widget build(BuildContext context) {
+    ///
+    /// <- Provider
+
     final prov_apbr = Provider.of<Apbr>(context);
+
+    /// Provider ->
+    ///
     return Scaffold(
-      appBar: prov_apbr.tit("REEE"),
+      ///
+      /// <- AppBar
+
+      ///ganti class yang dipanggil disini
+      appBar: prov_apbr.search_pp(context),
+
+      ///         ^       ^         ^
+      ///     Provider   Class   Parameter
+
+      /// AppBar ->
+      ///
+
       body: Column(
         children: [
           Container(
@@ -108,6 +122,9 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
       ),
+      drawer: Drawer(
+          // Tambahkan konten drawer yang diinginkan di sini
+          ),
     );
   }
 }
