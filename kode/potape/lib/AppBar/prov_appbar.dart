@@ -13,10 +13,9 @@ class Apbr extends ChangeNotifier {
     "btmnav": "base_btmnav",
     "btm_index": "1",
     "drawer_page": "",
+    "title": "Shop"
   };
-  Map<String, AppBar> appbars = {
-    "search_pp": search_pp,
-  };
+
   Map<String, Map<String, String>> _pages = {
     "shop": {
       "appbar": "search_pp",
@@ -25,10 +24,9 @@ class Apbr extends ChangeNotifier {
       "btmnav": "base_btmnav",
       "btm_index": "1",
       "drawer_page": "",
+      "title": "Shop"
     }
   };
-
-  int _btm_index = 0;
 
   void _onbtmtap(index) {
     Map<int, String> btm_pages = {
@@ -38,7 +36,6 @@ class Apbr extends ChangeNotifier {
       3: "history",
     };
     current_page = _pages[btm_pages[index]]!;
-    _btm_index = int.parse(current_page["btm_index"]!);
 
     notifyListeners();
   }
@@ -88,7 +85,7 @@ class Apbr extends ChangeNotifier {
 
   /// <- Bottom Navigation Template
 
-  BottomNavigationBar base_btmnav() {
+  BottomNavigationBar base_btmnav(btm_index) {
     return BottomNavigationBar(
       backgroundColor: Color(0xFF92B4EC),
       type: BottomNavigationBarType.fixed,
@@ -110,12 +107,12 @@ class Apbr extends ChangeNotifier {
           label: 'History',
         ),
       ],
-      currentIndex: _btm_index,
+      currentIndex: btm_index,
       onTap: _onbtmtap,
     );
   }
 
-  BottomNavigationBar btmnav_unselec() {
+  BottomNavigationBar btmnav_unselec(btm_index) {
     return BottomNavigationBar(
       backgroundColor: Color(0xFF92B4EC),
       selectedItemColor: Color(0xFF43536C),
@@ -138,7 +135,7 @@ class Apbr extends ChangeNotifier {
           label: 'History',
         ),
       ],
-      currentIndex: _btm_index,
+      currentIndex: btm_index,
       onTap: _onbtmtap,
     );
   }

@@ -23,19 +23,24 @@ class _MainPageState extends State<MainPage> {
 
     /// Provider ->
     ///
-    return Scaffold(
-      ///
-      /// <- AppBar
 
-      ///ganti class yang dipanggil disini
-      appBar: prov_apbr.search_pp(context),
+    Map<String, AppBar> appbars = {
+      "search_pp": prov_apbr.search_pp(),
+      "tit": prov_apbr.tit(prov_apbr.current_page["title"])
+    };
 
-      ///         ^       ^         ^
-      ///     Provider   Class   Parameter
+    Map<String, BottomNavigationBar> btmnavs = {
+      "base_btmnav": prov_apbr
+          .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
+      "btmnav_unselec": prov_apbr
+          .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
+    };
 
-      /// AppBar ->
-      ///
-
+    Scaffold current_scaffold = Scaffold(
+      appBar: appbars[prov_apbr.current_page["appbar"]],
+      drawer: Drawer(
+          // Tambahkan konten drawer yang diinginkan di sini
+          ),
       body: Column(
         children: [
           Container(
@@ -98,10 +103,9 @@ class _MainPageState extends State<MainPage> {
           ),
         ],
       ),
-      bottomNavigationBar: prov_apbr.btmnav_unselec(),
-      drawer: Drawer(
-          // Tambahkan konten drawer yang diinginkan di sini
-          ),
+      bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
     );
+
+    return current_scaffold;
   }
 }
