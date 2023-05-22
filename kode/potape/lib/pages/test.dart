@@ -1,6 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import '/data/pagedata.dart';
+
 import 'package:provider/provider.dart';
 import '../ai_test/ai.dart';
 
@@ -31,7 +31,7 @@ class _Test extends State<Test> {
   @override
   Widget build(BuildContext context) {
     final aireco = Provider.of<Recom>(context);
-    final pagedata = Provider.of<PageData>(context);
+
     final recodata = aireco.recoitems;
     return Scaffold(
       appBar: AppBar(
@@ -176,8 +176,8 @@ class _Test extends State<Test> {
             label: 'Cart',
           ),
         ],
-        currentIndex: pagedata.bottom_nav_selec_index,
-        onTap: pagedata.on_bottom_nav_tap,
+        currentIndex: 0,
+        onTap: null,
       ),
     );
   }

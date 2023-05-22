@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import './login.dart';
 
 class GStarted extends StatefulWidget {
   const GStarted({Key? key}) : super(key: key);
@@ -71,10 +70,7 @@ class _GStartedState extends State<GStarted> {
             height: 60,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const MyLogin()),
-                );
+                /// route to login
               },
               style: elevatedButtonStyle,
               child: const Text(

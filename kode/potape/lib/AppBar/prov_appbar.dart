@@ -25,7 +25,34 @@ class Apbr extends ChangeNotifier {
       "btm_index": "1",
       "drawer_page": "",
       "title": "Shop"
-    }
+    },
+    "home": {
+      "appbar": "tit",
+      "drawer": "base_drawer",
+      "body": "home",
+      "btmnav": "base_btmnav",
+      "btm_index": "0",
+      "drawer_page": "",
+      "title": "Home"
+    },
+    "cart": {
+      "appbar": "tit",
+      "drawer": "base_drawer",
+      "body": "cart",
+      "btmnav": "base_btmnav",
+      "btm_index": "2",
+      "drawer_page": "",
+      "title": "Cart"
+    },
+    "history": {
+      "appbar": "tit",
+      "drawer": "base_drawer",
+      "body": "history",
+      "btmnav": "base_btmnav",
+      "btm_index": "3",
+      "drawer_page": "",
+      "title": "History"
+    },
   };
 
   void _onbtmtap(index) {
@@ -36,7 +63,6 @@ class Apbr extends ChangeNotifier {
       3: "history",
     };
     current_page = _pages[btm_pages[index]]!;
-
     notifyListeners();
   }
 
@@ -78,6 +104,21 @@ class Apbr extends ChangeNotifier {
   }
 
   /// AppBar Template ->
+
+  /// <- Drawer Template
+
+  Drawer base_drawer(title) {
+    return Drawer(
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [],
+        ),
+      ),
+    );
+  }
+
+  /// Drawer Template ->
 
   /// <- Body Template
 

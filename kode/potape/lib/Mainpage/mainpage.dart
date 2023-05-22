@@ -29,6 +29,10 @@ class _MainPageState extends State<MainPage> {
       "tit": prov_apbr.tit(prov_apbr.current_page["title"])
     };
 
+    Map<String, Drawer> drawers = {
+      "base_drawer": prov_apbr.base_drawer(prov_apbr.current_page["title"]!),
+    };
+
     Map<String, BottomNavigationBar> btmnavs = {
       "base_btmnav": prov_apbr
           .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
@@ -36,11 +40,9 @@ class _MainPageState extends State<MainPage> {
           .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
     };
 
-    Scaffold current_scaffold = Scaffold(
+    return Scaffold(
       appBar: appbars[prov_apbr.current_page["appbar"]],
-      drawer: Drawer(
-          // Tambahkan konten drawer yang diinginkan di sini
-          ),
+      drawer: drawers[prov_apbr.current_page["drawer"]],
       body: Column(
         children: [
           Container(
@@ -105,7 +107,5 @@ class _MainPageState extends State<MainPage> {
       ),
       bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
     );
-
-    return current_scaffold;
   }
 }
