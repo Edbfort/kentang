@@ -26,11 +26,13 @@ class _MainPageState extends State<MainPage> {
 
     Map<String, AppBar> appbars = {
       "search_pp": prov_apbr.search_pp(),
-      "tit": prov_apbr.tit(prov_apbr.current_page["title"])
+      "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
+      "tit_tabs": prov_apbr.tit_tabs(
+          prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
 
     Map<String, Drawer> drawers = {
-      "base_drawer": prov_apbr.base_drawer(prov_apbr.current_page["title"]!),
+      "base_drawer": prov_apbr.base_drawer(prov_apbr.current_page["body"]!),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {
@@ -40,72 +42,75 @@ class _MainPageState extends State<MainPage> {
           .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
     };
 
-    return Scaffold(
-      appBar: appbars[prov_apbr.current_page["appbar"]],
-      drawer: drawers[prov_apbr.current_page["drawer"]],
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.only(top: 20),
-            margin: EdgeInsets.symmetric(horizontal: 30),
-            width: MediaQuery.of(context).size.width,
-            height: 225,
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: BorderRadius.circular(10),
-            ),
-          ),
-          SizedBox(height: 20),
-          Container(
-            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+    return DefaultTabController(
+        length: int.parse(prov_apbr.current_page["tab_length"]!),
+        child: Scaffold(
+          appBar: appbars[prov_apbr.current_page["appbar"]],
+          drawer: drawers[prov_apbr.current_page["drawer"]],
+          body: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                margin: EdgeInsets.symmetric(horizontal: 30),
+                width: MediaQuery.of(context).size.width,
+                height: 225,
+                decoration: BoxDecoration(
+                  color: Colors.blue,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              SizedBox(height: 20),
+              Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      'Balanced',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 16,
-                      ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Balanced',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
+                          ),
+                        ),
+                        Text(
+                          '\$500.00',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
                     ),
-                    Text(
-                      '\$500.00',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Top Up'),
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.blue,
+                        textStyle: TextStyle(
+                          color: Colors.white,
+                          fontSize: 14,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        padding:
+                            EdgeInsets.symmetric(vertical: 12, horizontal: 20),
                       ),
                     ),
                   ],
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Top Up'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.blue,
-                    textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 14,
-                    ),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                  ),
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
-        ],
-      ),
-      bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
-    );
+          bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
+        ));
   }
 }

@@ -13,7 +13,8 @@ class Apbr extends ChangeNotifier {
     "btmnav": "base_btmnav",
     "btm_index": "1",
     "drawer_page": "",
-    "title": "Shop"
+    "title": "Shop",
+    "tab_length": "0",
   };
 
   Map<String, Map<String, String>> _pages = {
@@ -24,7 +25,8 @@ class Apbr extends ChangeNotifier {
       "btmnav": "base_btmnav",
       "btm_index": "1",
       "drawer_page": "",
-      "title": "Shop"
+      "title": "Shop",
+      "tab_length": "0",
     },
     "home": {
       "appbar": "tit",
@@ -33,7 +35,8 @@ class Apbr extends ChangeNotifier {
       "btmnav": "base_btmnav",
       "btm_index": "0",
       "drawer_page": "",
-      "title": "Home"
+      "title": "Home",
+      "tab_length": "0",
     },
     "cart": {
       "appbar": "tit",
@@ -42,16 +45,50 @@ class Apbr extends ChangeNotifier {
       "btmnav": "base_btmnav",
       "btm_index": "2",
       "drawer_page": "",
-      "title": "Cart"
+      "title": "Cart",
+      "tab_length": "0",
     },
-    "history": {
-      "appbar": "tit",
+    "ongoing": {
+      "appbar": "tit_tabs",
       "drawer": "base_drawer",
-      "body": "history",
+      "body": "cart",
       "btmnav": "base_btmnav",
       "btm_index": "3",
       "drawer_page": "",
-      "title": "History"
+      "title": "Purchase",
+      "tab_length": "2",
+      "tabs": "Ongoing,Done",
+    },
+    "done": {
+      "appbar": "tit_tabs",
+      "drawer": "base_drawer",
+      "body": "done",
+      "btmnav": "base_btmnav",
+      "btm_index": "3",
+      "drawer_page": "",
+      "title": "Purchase",
+      "tab_length": "2",
+      "tabs": "Ongoing,Done",
+    },
+    "profile": {
+      "appbar": "tit",
+      "drawer": "base_drawer",
+      "body": "profile",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "",
+      "title": "Profile",
+      "tab_length": "0",
+    },
+    "dashboard": {
+      "appbar": "tit",
+      "drawer": "base_drawer",
+      "body": "dashboard",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "dashboard",
+      "title": "Dashboard",
+      "tab_length": "0",
     },
   };
 
@@ -60,11 +97,35 @@ class Apbr extends ChangeNotifier {
       0: "home",
       1: "shop",
       2: "cart",
-      3: "history",
+      3: "ongoing",
     };
     current_page = _pages[btm_pages[index]]!;
     notifyListeners();
   }
+
+  void _ondrawertap(index) {
+    Map<int, String> drawer_pages = {
+      0: "home",
+      1: "shop",
+      2: "cart",
+      3: "ongoing",
+      4: "profile",
+      5: "dashboard",
+      6: "logout",
+    };
+    current_page = _pages[drawer_pages[index]]!;
+    notifyListeners();
+  }
+
+  List drawer_pages = [
+    "home",
+    "shop",
+    "cart",
+    "purchase",
+    "profile",
+    "dashboard",
+    "logout",
+  ];
 
   /// Data ->
 
@@ -103,18 +164,44 @@ class Apbr extends ChangeNotifier {
     );
   }
 
+  AppBar tit_tabs(title_, tabs) {
+    return AppBar(
+      centerTitle: true,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      title: Text(
+        title_.toString(),
+        textAlign: TextAlign.center,
+        style: TextStyle(color: Colors.black),
+      ),
+      bottom: TabBar(indicatorColor: Color(0xFF92B4EC), tabs: [
+        for (String i in tabs.toString().split(","))
+          Tab(
+            text: i,
+
+            /// masih perlu di buat button untuk mengganti current page di child
+          )
+      ]),
+    );
+  }
+
   /// AppBar Template ->
 
   /// <- Drawer Template
 
-  Drawer base_drawer(title) {
+  Drawer base_drawer(active_) {
     return Drawer(
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [],
-        ),
-      ),
+      child: ListView(children: [
+        for (int counter = 0; counter < drawer_pages.length; counter++)
+          ListTile(
+            leading: Icon(Icons.cabin),
+            title: Text(drawer_pages[counter]),
+            selected: drawer_pages.indexOf(active_) == counter,
+            onTap: () {
+              _ondrawertap(counter);
+            },
+          )
+      ]),
     );
   }
 
