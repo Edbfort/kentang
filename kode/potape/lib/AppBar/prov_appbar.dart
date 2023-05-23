@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'body/gettingstarted.dart';
+import 'body/home.dart';
+
 /// UNTUK HAL APPBAR KERJAKAN DISINI
 
 class Apbr extends ChangeNotifier {
@@ -9,23 +12,23 @@ class Apbr extends ChangeNotifier {
   Map<String, String> current_page = {
     "appbar": "search_pp",
     "drawer": "base_drawer",
-    "body": "shop",
+    "body": "home",
     "btmnav": "base_btmnav",
-    "btm_index": "1",
-    "drawer_page": "",
-    "title": "Shop",
+    "btm_index": "0",
+    "drawer_page": "0",
+    "title": "Home",
     "tab_length": "0",
   };
 
   Map<String, Map<String, String>> _pages = {
-    "shop": {
-      "appbar": "search_pp",
-      "drawer": "base_drawer",
-      "body": "shop",
-      "btmnav": "base_btmnav",
-      "btm_index": "1",
-      "drawer_page": "",
-      "title": "Shop",
+    "gettingstarted": {
+      "appbar": "tit",
+      "drawer": "",
+      "body": "gettingstarted",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "",
       "tab_length": "0",
     },
     "home": {
@@ -34,8 +37,18 @@ class Apbr extends ChangeNotifier {
       "body": "home",
       "btmnav": "base_btmnav",
       "btm_index": "0",
-      "drawer_page": "",
+      "drawer_page": "0",
       "title": "Home",
+      "tab_length": "0",
+    },
+    "shop": {
+      "appbar": "search_pp",
+      "drawer": "base_drawer",
+      "body": "shop",
+      "btmnav": "base_btmnav",
+      "btm_index": "1",
+      "drawer_page": "1",
+      "title": "Shop",
       "tab_length": "0",
     },
     "cart": {
@@ -44,7 +57,7 @@ class Apbr extends ChangeNotifier {
       "body": "cart",
       "btmnav": "base_btmnav",
       "btm_index": "2",
-      "drawer_page": "",
+      "drawer_page": "2",
       "title": "Cart",
       "tab_length": "0",
     },
@@ -54,7 +67,7 @@ class Apbr extends ChangeNotifier {
       "body": "cart",
       "btmnav": "base_btmnav",
       "btm_index": "3",
-      "drawer_page": "",
+      "drawer_page": "3",
       "title": "Purchase",
       "tab_length": "2",
       "tabs": "Ongoing,Done",
@@ -65,7 +78,7 @@ class Apbr extends ChangeNotifier {
       "body": "done",
       "btmnav": "base_btmnav",
       "btm_index": "3",
-      "drawer_page": "",
+      "drawer_page": "3",
       "title": "Purchase",
       "tab_length": "2",
       "tabs": "Ongoing,Done",
@@ -76,7 +89,7 @@ class Apbr extends ChangeNotifier {
       "body": "profile",
       "btmnav": "",
       "btm_index": "0",
-      "drawer_page": "",
+      "drawer_page": "4",
       "title": "Profile",
       "tab_length": "0",
     },
@@ -86,7 +99,7 @@ class Apbr extends ChangeNotifier {
       "body": "dashboard",
       "btmnav": "",
       "btm_index": "0",
-      "drawer_page": "dashboard",
+      "drawer_page": "5",
       "title": "Dashboard",
       "tab_length": "0",
     },
@@ -196,7 +209,7 @@ class Apbr extends ChangeNotifier {
           ListTile(
             leading: Icon(Icons.cabin),
             title: Text(drawer_pages[counter]),
-            selected: drawer_pages.indexOf(active_) == counter,
+            selected: active_ == counter,
             onTap: () {
               _ondrawertap(counter);
             },
@@ -208,6 +221,14 @@ class Apbr extends ChangeNotifier {
   /// Drawer Template ->
 
   /// <- Body Template
+
+  Container gettingstarted() {
+    return Container(child: gettingstarted_body());
+  }
+
+  Container home(context) {
+    return Container(child: home_body(context));
+  }
 
   ///  Body Template ->
 
@@ -232,7 +253,7 @@ class Apbr extends ChangeNotifier {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.history),
-          label: 'History',
+          label: 'Purchase',
         ),
       ],
       currentIndex: btm_index,
@@ -260,7 +281,7 @@ class Apbr extends ChangeNotifier {
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.history),
-          label: 'History',
+          label: 'Purchase',
         ),
       ],
       currentIndex: btm_index,

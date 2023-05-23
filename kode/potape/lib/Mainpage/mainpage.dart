@@ -35,6 +35,11 @@ class _MainPageState extends State<MainPage> {
       "base_drawer": prov_apbr.base_drawer(prov_apbr.current_page["body"]!),
     };
 
+    Map<String, Container> bodys = {
+      "gettingstarted": prov_apbr.gettingstarted(),
+      "home": prov_apbr.home(context),
+    };
+
     Map<String, BottomNavigationBar> btmnavs = {
       "base_btmnav": prov_apbr
           .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
@@ -47,69 +52,7 @@ class _MainPageState extends State<MainPage> {
         child: Scaffold(
           appBar: appbars[prov_apbr.current_page["appbar"]],
           drawer: drawers[prov_apbr.current_page["drawer"]],
-          body: Column(
-            children: [
-              Container(
-                padding: EdgeInsets.only(top: 20),
-                margin: EdgeInsets.symmetric(horizontal: 30),
-                width: MediaQuery.of(context).size.width,
-                height: 225,
-                decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              SizedBox(height: 20),
-              Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 30),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Balanced',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                        Text(
-                          '\$500.00',
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                          ),
-                        ),
-                      ],
-                    ),
-                    ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Top Up'),
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.blue,
-                        textStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        padding:
-                            EdgeInsets.symmetric(vertical: 12, horizontal: 20),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
+          body: bodys[prov_apbr.current_page["body"]],
           bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
         ));
   }
