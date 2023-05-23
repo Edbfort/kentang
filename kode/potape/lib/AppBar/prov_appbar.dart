@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'appbar/search_pp.dart';
+import 'appbar/tit.dart';
+import 'appbar/tit_tabs.dart';
 import 'body/gettingstarted.dart';
 import 'body/home.dart';
+import 'btmnav/base_btmnav.dart';
+import 'btmnav/btmnav_unselec.dart';
+import 'drawer/base_drawer.dart';
 
 /// UNTUK HAL APPBAR KERJAKAN DISINI
 
@@ -32,7 +38,7 @@ class Apbr extends ChangeNotifier {
       "tab_length": "0",
     },
     "home": {
-      "appbar": "tit",
+      "appbar": "search_pp",
       "drawer": "base_drawer",
       "body": "home",
       "btmnav": "base_btmnav",
@@ -146,56 +152,16 @@ class Apbr extends ChangeNotifier {
 
   /// Appbar with search and profile picture
   AppBar search_pp() {
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      actions: [
-        IconButton(
-          onPressed: () {},
-          icon: Icon(Icons.search),
-        ),
-        SizedBox(width: 8),
-        CircleAvatar(
-          radius: 20,
-          backgroundImage: AssetImage('assets/profile_pic.png'),
-        ),
-      ],
-    );
+    return search_pp_apbr();
   }
 
   /// Appbar with title in center
   AppBar tit(title_) {
-    return AppBar(
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Text(
-        title_.toString(),
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.black),
-      ),
-    );
+    return tit_apbr(title_);
   }
 
   AppBar tit_tabs(title_, tabs) {
-    return AppBar(
-      centerTitle: true,
-      backgroundColor: Colors.transparent,
-      elevation: 0,
-      title: Text(
-        title_.toString(),
-        textAlign: TextAlign.center,
-        style: TextStyle(color: Colors.black),
-      ),
-      bottom: TabBar(indicatorColor: Color(0xFF92B4EC), tabs: [
-        for (String i in tabs.toString().split(","))
-          Tab(
-            text: i,
-
-            /// masih perlu di buat button untuk mengganti current page di child
-          )
-      ]),
-    );
+    return tit_tabs_apbr(title_, tabs);
   }
 
   /// AppBar Template ->
@@ -203,19 +169,7 @@ class Apbr extends ChangeNotifier {
   /// <- Drawer Template
 
   Drawer base_drawer(active_) {
-    return Drawer(
-      child: ListView(children: [
-        for (int counter = 0; counter < drawer_pages.length; counter++)
-          ListTile(
-            leading: Icon(Icons.cabin),
-            title: Text(drawer_pages[counter]),
-            selected: active_ == counter,
-            onTap: () {
-              _ondrawertap(counter);
-            },
-          )
-      ]),
-    );
+    return base_drawer_drawer(active_, drawer_pages, _ondrawertap);
   }
 
   /// Drawer Template ->
@@ -223,11 +177,12 @@ class Apbr extends ChangeNotifier {
   /// <- Body Template
 
   Container gettingstarted() {
-    return Container(child: gettingstarted_body());
+    return gettingstarted_body();
   }
 
-  Container home(context) {
-    return Container(child: home_body(context));
+  Container home(context, controller, controller_v, recodata) {
+    return Container(
+        child: home_body(context, controller, controller_v, recodata));
   }
 
   ///  Body Template ->
@@ -235,58 +190,11 @@ class Apbr extends ChangeNotifier {
   /// <- Bottom Navigation Template
 
   BottomNavigationBar base_btmnav(btm_index) {
-    return BottomNavigationBar(
-      backgroundColor: Color(0xFF92B4EC),
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.store),
-          label: 'Shop',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_basket),
-          label: 'Cart',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history),
-          label: 'Purchase',
-        ),
-      ],
-      currentIndex: btm_index,
-      onTap: _onbtmtap,
-    );
+    return base_btmnav_btmnav(btm_index, _onbtmtap);
   }
 
   BottomNavigationBar btmnav_unselec(btm_index) {
-    return BottomNavigationBar(
-      backgroundColor: Color(0xFF92B4EC),
-      selectedItemColor: Color(0xFF43536C),
-      type: BottomNavigationBarType.fixed,
-      items: [
-        BottomNavigationBarItem(
-          icon: Icon(Icons.home),
-          label: 'Home',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.store),
-          label: 'Shop',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_basket),
-          label: 'Cart',
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.history),
-          label: 'Purchase',
-        ),
-      ],
-      currentIndex: btm_index,
-      onTap: _onbtmtap,
-    );
+    return btmnav_unselec_btmnav(btm_index, _onbtmtap);
   }
 
   /// Bottom Navigation Template ->

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../AppBar/prov_appbar.dart';
+import '../ai_test/ai.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -20,9 +21,14 @@ class _MainPageState extends State<MainPage> {
     /// <- Provider
 
     final prov_apbr = Provider.of<Apbr>(context);
+    final aireco = Provider.of<Recom>(context);
+    final recodata = aireco.recoitems;
 
     /// Provider ->
     ///
+
+    final ScrollController controller = ScrollController();
+    final ScrollController controller_v = ScrollController();
 
     Map<String, AppBar> appbars = {
       "search_pp": prov_apbr.search_pp(),
@@ -32,12 +38,13 @@ class _MainPageState extends State<MainPage> {
     };
 
     Map<String, Drawer> drawers = {
-      "base_drawer": prov_apbr.base_drawer(prov_apbr.current_page["body"]!),
+      "base_drawer":
+          prov_apbr.base_drawer(prov_apbr.current_page["drawer_page"]!),
     };
 
     Map<String, Container> bodys = {
       "gettingstarted": prov_apbr.gettingstarted(),
-      "home": prov_apbr.home(context),
+      "home": prov_apbr.home(context, controller, controller_v, recodata),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {

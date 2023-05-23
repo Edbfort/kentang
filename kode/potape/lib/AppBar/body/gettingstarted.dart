@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container gettingstarted() {
+Container gettingstarted_body() {
   return Container(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
