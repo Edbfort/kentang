@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 AppBar tit_tabs_apbr(title_, tabs) {
   return AppBar(
+    iconTheme: IconThemeData(color: Colors.black),
     centerTitle: true,
     backgroundColor: Colors.transparent,
     elevation: 0,

@@ -111,6 +111,15 @@ class Apbr extends ChangeNotifier {
     },
   };
 
+  List<Map<String, Icon>> btmnavdata = [
+    {"Home": Icon(Icons.home)},
+    {"Shop": Icon(Icons.store)},
+    {"Cart": Icon(Icons.shopping_basket)},
+    {
+      "Purchase": Icon(Icons.sell),
+    }
+  ];
+
   void _onbtmtap(index) {
     Map<int, String> btm_pages = {
       0: "home",
@@ -190,11 +199,11 @@ class Apbr extends ChangeNotifier {
   /// <- Bottom Navigation Template
 
   BottomNavigationBar base_btmnav(btm_index) {
-    return base_btmnav_btmnav(btm_index, _onbtmtap);
+    return base_btmnav_btmnav(btm_index, _onbtmtap, btmnavdata);
   }
 
   BottomNavigationBar btmnav_unselec(btm_index) {
-    return btmnav_unselec_btmnav(btm_index, _onbtmtap);
+    return btmnav_unselec_btmnav(btm_index, _onbtmtap, btmnavdata);
   }
 
   /// Bottom Navigation Template ->
