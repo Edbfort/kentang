@@ -87,6 +87,11 @@ Container home_body(context, controller, controller_v, recodata) {
   double item_container_width = MediaQuery.of(context).size.width / 2 <= 200
       ? MediaQuery.of(context).size.width / 2
       : 200;
+  for (String i in recodata.keys) {
+    print(recodata[i]["name"] + "(" + recodata[i]["poin"] + ")");
+  }
+  ;
+
   return Container(
     child: ScrollConfiguration(
       behavior: MyCustomScrollBehavior(),
@@ -220,60 +225,59 @@ Container home_body(context, controller, controller_v, recodata) {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                        child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text("Hot Today"),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        ScrollConfiguration(
-                          behavior: MyCustomScrollBehavior(),
-                          child: SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            controller: controller,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                for (int i = 0; i < 10; i++)
-                                  Container(
-                                      child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        height: 220,
-                                        width: 190,
-                                        color: Colors.green,
-                                        child: Text("Foto"),
-                                      ),
-                                      Text("Nama Produk"),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            child: Row(
-                                              children: [
-                                                Icon(Icons.star_border_outlined)
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      )
-                                    ],
-                                  )),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                    // Text(recodata.toString()),
+                    // Container(
+                    //     child: Column(
+                    //   crossAxisAlignment: CrossAxisAlignment.start,
+                    //   children: [
+                    //     Text("Hot Today"),
+                    //     SizedBox(
+                    //       height: 10,
+                    //     ),
+                    //     ScrollConfiguration(
+                    //       behavior: MyCustomScrollBehavior(),
+                    //       child: SingleChildScrollView(
+                    //         scrollDirection: Axis.horizontal,
+                    //         controller: controller,
+                    //         child: Row(
+                    //           mainAxisAlignment: MainAxisAlignment.start,
+                    //           crossAxisAlignment: CrossAxisAlignment.start,
+                    //           children: [
+                    //             for (int i = 0; i < 10; i++)
+                    //               Container(
+                    //                   child: Column(
+                    //                 crossAxisAlignment:
+                    //                     CrossAxisAlignment.start,
+                    //                 children: [
+                    //                   Container(
+                    //                     height: 220,
+                    //                     width: 190,
+                    //                     color: Colors.green,
+                    //                     child: Text("Foto"),
+                    //                   ),
+                    //                   Text("Nama Produk"),
+                    //                   Row(
+                    //                     mainAxisAlignment:
+                    //                         MainAxisAlignment.start,
+                    //                     crossAxisAlignment:
+                    //                         CrossAxisAlignment.start,
+                    //                     children: [
+                    //                       Container(
+                    //                         child: Row(
+                    //                           children: [
+                    //                             Icon(Icons.star_border_outlined)
+                    //                           ],
+                    //                         ),
+                    //                       ),
+                    //                     ],
+                    //                   )
+                    //                 ],
+                    //               )),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // )),
                   ],
                 ),
               ),
