@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -13,7 +13,80 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
       };
 }
 
+Container item_container(i, item_container_height, item_container_width) {
+  return Container(
+      margin: EdgeInsets.all(5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 2),
+            height: item_container_height,
+            width: item_container_width,
+            child: Center(
+              child: Text(i["poin"]!),
+            ),
+            decoration: BoxDecoration(
+              color: Color(0xFF92B4EC),
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+              width: item_container_width,
+              child: Text(
+                i["name"].toString(),
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                child: RatingBarIndicator(
+                  rating: double.parse(i["rating"]!),
+                  itemBuilder: (context, index) => Icon(
+                    Icons.star,
+                    color: Color(0xFFFFD24C),
+                  ),
+                  itemCount: 5,
+                  itemSize: 18.0,
+                  direction: Axis.horizontal,
+                ),
+              ),
+              Container(
+                  margin: EdgeInsets.only(top: 2, left: 10),
+                  child: Text(
+                    i["rating"]!.toString(),
+                    textAlign: TextAlign.left,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ))
+            ],
+          ),
+          Container(
+              margin: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
+              width: item_container_width,
+              child: Text(
+                "Rp. " + i["cost"].toString() + "k /kg",
+                style: TextStyle(fontWeight: FontWeight.bold),
+                textAlign: TextAlign.left,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+              )),
+        ],
+      ));
+}
+
 Container home_body(context, controller, controller_v, recodata) {
+  double item_container_height = MediaQuery.of(context).size.height / 5 <= 140
+      ? MediaQuery.of(context).size.height / 5
+      : 140;
+  double item_container_width = MediaQuery.of(context).size.width / 2 <= 200
+      ? MediaQuery.of(context).size.width / 2
+      : 200;
   return Container(
     child: ScrollConfiguration(
       behavior: MyCustomScrollBehavior(),
@@ -136,36 +209,8 @@ Container home_body(context, controller, controller_v, recodata) {
                                   children: [
                                     for (Map<String, String> i
                                         in recodata.values)
-                                      Container(
-                                          child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Container(
-                                            height: 220,
-                                            width: 190,
-                                            color: Colors.green,
-                                            child: Text("Foto"),
-                                          ),
-                                          Text(i["name"].toString()),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Container(
-                                                child: Row(
-                                                  children: [
-                                                    Icon(Icons
-                                                        .star_border_outlined)
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          )
-                                        ],
-                                      )),
+                                      item_container(i, item_container_height,
+                                          item_container_width)
                                   ],
                                 ),
                               ),
