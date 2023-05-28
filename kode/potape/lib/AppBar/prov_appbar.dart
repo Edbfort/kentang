@@ -145,14 +145,16 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  List drawer_pages = [
-    "home",
-    "shop",
-    "cart",
-    "purchase",
-    "profile",
-    "dashboard",
-    "logout",
+  List<Map<String, Icon>> drawer_pages = [
+    {"Home": Icon(Icons.home)},
+    {"Shop": Icon(Icons.store)},
+    {"Cart": Icon(Icons.shopping_basket)},
+    {
+      "Purchase": Icon(Icons.sell),
+    },
+    {"Profile": Icon(Icons.person)},
+    {"Dashboard": Icon(Icons.bar_chart)},
+    {"Logout": Icon(Icons.exit_to_app)},
   ];
 
   /// Data ->
