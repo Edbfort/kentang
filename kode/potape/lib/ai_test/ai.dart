@@ -382,7 +382,12 @@ class Recom extends ChangeNotifier {
 
 //////
 
-  Map<String, String> _history = {"10040": "2"}; // {"0000001":"1"}
+  Map<String, String> _history = {
+    "10014": '17',
+    "10024": '16',
+    "10029": '4',
+    "10001": '10',
+  }; // {"0000001":"1"}
 
   Map<String, String> get history => _history;
 
@@ -503,9 +508,9 @@ class Recom extends ChangeNotifier {
 
 //////
   var poin = {
-    "name": 4,
+    "name": 3,
     "tags": 5,
-    "cost": 6,
+    "cost": 4,
   };
 
 /////
@@ -541,7 +546,7 @@ class Recom extends ChangeNotifier {
       }
 
       ///
-      int costrange = 5;
+      int costrange = 4;
       int reduc = 20;
       int? tmpcost = int.parse(i["cost"].toString());
 
