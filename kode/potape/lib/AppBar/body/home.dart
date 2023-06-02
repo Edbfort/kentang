@@ -21,10 +21,6 @@ Container home_body(context, controller, controller_v, recodata) {
   double item_container_width = MediaQuery.of(context).size.width / 2 <= 200
       ? MediaQuery.of(context).size.width / 2
       : 200;
-  for (String i in recodata.keys) {
-    print(recodata[i]["name"] + "(" + recodata[i]["poin"] + ")");
-  }
-  ;
 
   return Container(
     child: ScrollConfiguration(

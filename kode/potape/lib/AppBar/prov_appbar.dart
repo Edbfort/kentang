@@ -1,3 +1,5 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:provider/provider.dart';
@@ -36,6 +38,16 @@ class Apbr extends ChangeNotifier {
       "btm_index": "0",
       "drawer_page": "0",
       "title": "",
+      "tab_length": "0",
+    },
+    "login": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "login",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Login",
       "tab_length": "0",
     },
     "home": {
@@ -132,7 +144,7 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _ondrawertap(index) {
+  void _ondrawertap(index, context) {
     Map<int, String> drawer_pages = {
       0: "home",
       1: "shop",
@@ -143,6 +155,7 @@ class Apbr extends ChangeNotifier {
       6: "logout",
     };
     current_page = _pages[drawer_pages[index]]!;
+    Navigator.pop(context);
     notifyListeners();
   }
 
@@ -180,8 +193,8 @@ class Apbr extends ChangeNotifier {
 
   /// <- Drawer Template
 
-  Drawer base_drawer(active_) {
-    return base_drawer_drawer(active_, drawer_pages, _ondrawertap);
+  Drawer base_drawer(active_, context) {
+    return base_drawer_drawer(active_, drawer_pages, _ondrawertap, context);
   }
 
   /// Drawer Template ->

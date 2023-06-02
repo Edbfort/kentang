@@ -34,8 +34,8 @@ class _MainPageState extends State<MainPage> {
     };
 
     Map<String, Drawer> drawers = {
-      "base_drawer":
-          prov_apbr.base_drawer(prov_apbr.current_page["drawer_page"]!),
+      "base_drawer": prov_apbr.base_drawer(
+          prov_apbr.current_page["drawer_page"]!, context),
     };
 
     Map<String, Container> bodys = {
