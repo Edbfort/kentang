@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:js';
+
+import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'appbar/search_pp.dart';
@@ -11,10 +14,10 @@ import 'appbar/tit.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/gettingstarted.dart';
 import 'body/home.dart';
+import 'body/shop.dart';
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
 import 'drawer/base_drawer.dart';
-import '../data/profiles/WilliamTolol/items.json';
 
 /// UNTUK HAL APPBAR KERJAKAN DISINI
 
@@ -24,11 +27,11 @@ class Apbr extends ChangeNotifier {
   Map<String, String> current_page = {
     "appbar": "search_pp",
     "drawer": "base_drawer",
-    "body": "home",
+    "body": "shop",
     "btmnav": "base_btmnav",
-    "btm_index": "0",
-    "drawer_page": "0",
-    "title": "Home",
+    "btm_index": "1",
+    "drawer_page": "1",
+    "title": "Shop",
     "tab_length": "0",
   };
 
@@ -182,15 +185,6 @@ class Apbr extends ChangeNotifier {
     "abc3@gmail.com": {"email": "abc3@gmail.com"},
   };
 
-  Future<Map<String, Map<String, Map<String, String>>>> readJsonFile(
-      profile) async {
-    var input = await File("../data/profiles/" + profile + "/items.json")
-        .readAsString();
-    print(input);
-    var map = jsonDecode(input);
-    return map;
-  }
-
   /// Data ->
 
   /// <- AppBar Template
@@ -229,6 +223,10 @@ class Apbr extends ChangeNotifier {
   Container home(context, controller, controller_v, recodata) {
     return Container(
         child: home_body(context, controller, controller_v, recodata));
+  }
+
+  Container shop(context) {
+    return Container(child: shop_body(context));
   }
 
   ///  Body Template ->

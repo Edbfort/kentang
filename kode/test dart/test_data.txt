@@ -1,4 +1,5 @@
-{"Lemari William":{
+{
+    "Lemari William":{
     "Kaki William":{
         "quantity":"6",
         "deskripsi":"Kaki kesukaan William",
