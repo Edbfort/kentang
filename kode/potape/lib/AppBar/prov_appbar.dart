@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:js';
 
 import 'package:flutter/material.dart';
@@ -12,6 +14,7 @@ import 'body/home.dart';
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
 import 'drawer/base_drawer.dart';
+import '../data/profiles/WilliamTolol/items.json';
 
 /// UNTUK HAL APPBAR KERJAKAN DISINI
 
@@ -28,6 +31,8 @@ class Apbr extends ChangeNotifier {
     "title": "Home",
     "tab_length": "0",
   };
+
+  Map<String, String> current_profile = {"email": "abc1@gmail.com"};
 
   Map<String, Map<String, String>> _pages = {
     "gettingstarted": {
@@ -171,6 +176,21 @@ class Apbr extends ChangeNotifier {
     {"Logout": Icon(Icons.exit_to_app)},
   ];
 
+  Map<String, Map<String, String>> _profiles = {
+    "abc1@gmail.com": {"email": "abc1@gmail.com"},
+    "abc2@gmail.com": {"email": "abc2@gmail.com"},
+    "abc3@gmail.com": {"email": "abc3@gmail.com"},
+  };
+
+  Future<Map<String, Map<String, Map<String, String>>>> readJsonFile(
+      profile) async {
+    var input = await File("../data/profiles/" + profile + "/items.json")
+        .readAsString();
+    print(input);
+    var map = jsonDecode(input);
+    return map;
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -194,7 +214,8 @@ class Apbr extends ChangeNotifier {
   /// <- Drawer Template
 
   Drawer base_drawer(active_, context) {
-    return base_drawer_drawer(active_, drawer_pages, _ondrawertap, context);
+    return base_drawer_drawer(
+        active_, drawer_pages, _ondrawertap, context, current_profile);
   }
 
   /// Drawer Template ->
