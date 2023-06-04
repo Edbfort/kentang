@@ -15,16 +15,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  Future<String> localPath() async {
-    final directory = await getApplicationDocumentsDirectory();
-    return directory.path;
-  }
-
   @override
   Widget build(BuildContext context) {
     ///
-    print(localPath());
-
     /// <- Provider
 
     final prov_apbr = Provider.of<Apbr>(context);
@@ -37,73 +30,119 @@ class _MainPageState extends State<MainPage> {
     final ScrollController controller = ScrollController();
     final ScrollController controller_v = ScrollController();
 
-    // If something goes wrong, call this.
-
-    Future<Directory?>? _ApplicationDocumentsDirectory;
-
-    Widget item_builder(context, AsyncSnapshot<Directory?> snapshot) {
+    Container getItems(profile) {
       Container content = Container();
-      if (snapshot.connectionState == ConnectionState.done) {
-        if (snapshot.hasError) {
-          content = Container(
-            child: Center(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.error,
-                  color: Colors.grey,
-                  size: MediaQuery.of(context).size.width / 5,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Something went wrong.",
-                      style: TextStyle(fontSize: 12, color: Colors.grey),
-                    ),
-                    TextButton(
-                        onPressed: null,
-                        child: Row(
-                          children: [
-                            Text(
-                              "Refresh",
-                              style: TextStyle(
-                                  fontSize: 12, color: Colors.lightBlueAccent),
-                            ),
-                            Icon(
-                              Icons.refresh,
-                              size: 18,
-                              color: Colors.lightBlueAccent,
-                            )
-                          ],
-                        ))
-                  ],
-                )
-              ],
-            )),
-          );
-        } else if (snapshot.hasData) {
-          content = Container(
-            child: Text('path: ${snapshot.data!.path}'),
-          );
-        } else {
-          content = Container(
-            child: Text('path unavailable'),
-          );
-        }
+      // try {
+      Future<String> getFileData() async {
+        File file = File('/assets/data/profiles/$profile/items.json');
+
+        return await file.readAsString();
       }
 
-      return content;
-    }
-
-    FutureBuilder<Directory?> home_item_builder() {
-      _ApplicationDocumentsDirectory = getApplicationDocumentsDirectory();
-      return FutureBuilder<Directory?>(
-        future: _ApplicationDocumentsDirectory,
-        builder: item_builder,
-      );
+      return Container(
+          child: FutureBuilder<String>(
+        future: getFileData(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            var mapItems = jsonDecode(snapshot.data!);
+            return Container(
+              child: Text('path: ${mapItems.toString()}'),
+            );
+          } else if (snapshot.hasError) {
+            return Container(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.error,
+                      color: Colors.grey,
+                      size: MediaQuery.of(context).size.width / 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Something went wrong.",
+                          style: TextStyle(fontSize: 12, color: Colors.grey),
+                        ),
+                        TextButton(
+                          onPressed: null,
+                          child: Row(
+                            children: [
+                              Text(
+                                "Refresh",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: Colors.lightBlueAccent,
+                                ),
+                              ),
+                              Icon(
+                                Icons.refresh,
+                                size: 18,
+                                color: Colors.lightBlueAccent,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      ));
+      // } catch (e) {
+      //   content = Container(
+      //     child: Center(
+      //       child: Column(
+      //         mainAxisAlignment: MainAxisAlignment.center,
+      //         crossAxisAlignment: CrossAxisAlignment.center,
+      //         children: [
+      //           Icon(
+      //             Icons.error,
+      //             color: Colors.grey,
+      //             size: MediaQuery.of(context).size.width / 5,
+      //           ),
+      //           Row(
+      //             mainAxisAlignment: MainAxisAlignment.center,
+      //             children: [
+      //               Text(
+      //                 "Something went wrong.",
+      //                 style: TextStyle(fontSize: 12, color: Colors.grey),
+      //               ),
+      //               TextButton(
+      //                 onPressed: null,
+      //                 child: Row(
+      //                   children: [
+      //                     Text(
+      //                       "Refresh",
+      //                       style: TextStyle(
+      //                         fontSize: 12,
+      //                         color: Colors.lightBlueAccent,
+      //                       ),
+      //                     ),
+      //                     Icon(
+      //                       Icons.refresh,
+      //                       size: 18,
+      //                       color: Colors.lightBlueAccent,
+      //                     ),
+      //                   ],
+      //                 ),
+      //               ),
+      //             ],
+      //           ),
+      //         ],
+      //       ),
+      //     ),
+      //   );
+      // }
+      // return content;
     }
 
     Map<String, AppBar> appbars = {
@@ -123,7 +162,7 @@ class _MainPageState extends State<MainPage> {
       "home": prov_apbr.home(context, controller, controller_v, recodata),
       "shop": prov_apbr.shop(context),
       "cart": Container(
-        child: home_item_builder(),
+        child: getItems("WilliamTolol"),
       ),
     };
 
