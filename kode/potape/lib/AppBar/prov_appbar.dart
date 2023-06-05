@@ -6,7 +6,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:path_provider/path_provider.dart';
+
 import 'package:provider/provider.dart';
 
 import 'appbar/search_pp.dart';
@@ -27,11 +27,11 @@ class Apbr extends ChangeNotifier {
   Map<String, String> current_page = {
     "appbar": "search_pp",
     "drawer": "base_drawer",
-    "body": "shop",
-    "btmnav": "base_btmnav",
-    "btm_index": "1",
-    "drawer_page": "1",
-    "title": "Shop",
+    "body": "home",
+    "btmnav": "",
+    "btm_index": "0",
+    "drawer_page": "0",
+    "title": "Home",
     "tab_length": "0",
   };
 
@@ -62,7 +62,7 @@ class Apbr extends ChangeNotifier {
       "appbar": "search_pp",
       "drawer": "base_drawer",
       "body": "home",
-      "btmnav": "base_btmnav",
+      "btmnav": "",
       "btm_index": "0",
       "drawer_page": "0",
       "title": "Home",
@@ -220,9 +220,8 @@ class Apbr extends ChangeNotifier {
     return gettingstarted_body();
   }
 
-  Container home(context, controller, controller_v, recodata) {
-    return Container(
-        child: home_body(context, controller, controller_v, recodata));
+  Container home(context, controller, sortedItem) {
+    return Container(child: home_body(context, controller, sortedItem));
   }
 
   Container shop(context) {

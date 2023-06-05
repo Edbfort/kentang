@@ -5,30 +5,37 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 Container item_container(i, item_container_height, item_container_width) {
   return Container(
       margin: EdgeInsets.all(5),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
-            margin: EdgeInsets.symmetric(vertical: 2),
-            height: item_container_height,
+            // margin: EdgeInsets.symmetric(vertical: 2),
+            // height: item_container_height,
             width: item_container_width,
             child: Center(
-              child: Text(i["poin"]!),
-            ),
-            decoration: BoxDecoration(
-              color: Color(0xFF92B4EC),
-              borderRadius: BorderRadius.circular(20),
-            ),
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Title",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  "Gudang A",
+                  style: TextStyle(color: Colors.black54),
+                ),
+              ],
+            )),
           ),
           Container(
-              margin: EdgeInsets.symmetric(vertical: 2, horizontal: 4),
-              width: item_container_width,
-              child: Text(
-                i["name"].toString(),
-                style: TextStyle(fontWeight: FontWeight.bold),
-                textAlign: TextAlign.left,
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
+              margin: EdgeInsets.symmetric(horizontal: 5),
+              child: Center(
+                child: Text(
+                  "10",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               )),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,

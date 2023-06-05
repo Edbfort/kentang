@@ -1,0 +1,3 @@
+04/06/2023
+pengambialn data dari json/txt dengan File atau readAsStringSync() dimana di kasih error dibawah di json/txt nya :
+Error: Expected a declaration, but got '{'.
