@@ -28,6 +28,7 @@ class _MainPageState extends State<MainPage> {
     Map<String, AppBar> appbars = {
       "search_pp": prov_apbr.search_pp(),
       "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
+      "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"],""),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -41,6 +42,7 @@ class _MainPageState extends State<MainPage> {
       "gettingstarted": prov_apbr.gettingstarted(),
       "home": prov_apbr.home(context, controller, sortedItem),
       "shop": prov_apbr.shop(context),
+      "register": prov_apbr.register(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {
@@ -50,13 +52,15 @@ class _MainPageState extends State<MainPage> {
           .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
     };
 
-    return DefaultTabController(
-        length: int.parse(prov_apbr.current_page["tab_length"]!),
-        child: Scaffold(
-          appBar: appbars[prov_apbr.current_page["appbar"]],
-          drawer: drawers[prov_apbr.current_page["drawer"]],
-          body: bodys[prov_apbr.current_page["body"]],
-          bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
-        ));
+    return WillPopScope(
+        child: DefaultTabController(
+            length: int.parse(prov_apbr.current_page["tab_length"]!),
+            child: Scaffold(
+              appBar: appbars[prov_apbr.current_page["appbar"]],
+              drawer: drawers[prov_apbr.current_page["drawer"]],
+              body: bodys[prov_apbr.current_page["body"]],
+              bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
+            )),
+        onWillPop: ()async{prov_apbr.onPageChange("home");return false;});
   }
 }

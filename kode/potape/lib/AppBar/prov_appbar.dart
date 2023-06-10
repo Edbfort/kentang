@@ -6,14 +6,17 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:potape/AppBar/body/login.dart';
 
 import 'package:provider/provider.dart';
 
 import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
+import 'appbar/tit_back.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/gettingstarted.dart';
 import 'body/home.dart';
+import 'body/register.dart';
 import 'body/shop.dart';
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
@@ -25,13 +28,13 @@ class Apbr extends ChangeNotifier {
   /// <- Data
 
   Map<String, String> current_page = {
-    "appbar": "search_pp",
-    "drawer": "base_drawer",
-    "body": "home",
+    "appbar": "tit_back",
+    "drawer": "",
+    "body": "register",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Home",
+    "title": "Register",
     "tab_length": "0",
   };
 
@@ -52,6 +55,16 @@ class Apbr extends ChangeNotifier {
       "appbar": "tit_back",
       "drawer": "",
       "body": "login",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Login",
+      "tab_length": "0",
+    },
+    "register": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "register",
       "btmnav": "",
       "btm_index": "0",
       "drawer_page": "0",
@@ -167,6 +180,11 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  void onPageChange(page) {
+    current_page = _pages[page]!;
+    notifyListeners();
+  }
+
   List<Map<String, Icon>> drawer_pages = [
     {"Home": Icon(Icons.home)},
     {"Shop": Icon(Icons.store)},
@@ -185,6 +203,26 @@ class Apbr extends ChangeNotifier {
     "abc3@gmail.com": {"email": "abc3@gmail.com"},
   };
 
+  bool isObs1 = true;
+  bool isObs2 = true;
+  bool isTr = false;
+
+
+  void _isObs1() {
+    isObs1 = !isObs1;
+    notifyListeners();
+  }
+
+  void _isObs2() {
+    isObs2 = !isObs2;
+    notifyListeners();
+  }
+
+  void _isTru() {
+    isTr = !isTr;
+    notifyListeners();
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -197,6 +235,10 @@ class Apbr extends ChangeNotifier {
   /// Appbar with title in center
   AppBar tit(title_) {
     return tit_apbr(title_);
+  }
+
+  AppBar tit_back(title_, navs) {
+    return tit_back_apbr(title_, navs);
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -226,6 +268,18 @@ class Apbr extends ChangeNotifier {
 
   Container shop(context) {
     return Container(child: shop_body(context));
+  }
+
+  Container register(context) {
+    return Container(
+        child: register_body(
+            context, isObs1, isObs2, _isObs1, _isObs2, isTr, _isTru,onPageChange,"login" ));
+  }
+
+  Container login(context) {
+    return Container(
+        child: login_body(
+            context, isObs1,_isObs1,onPageChange,"home" ));
   }
 
   ///  Body Template ->
