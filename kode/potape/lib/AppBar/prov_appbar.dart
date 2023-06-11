@@ -207,7 +207,6 @@ class Apbr extends ChangeNotifier {
   bool isObs2 = true;
   bool isTr = false;
 
-
   void _isObs1() {
     isObs1 = !isObs1;
     notifyListeners();
@@ -258,8 +257,8 @@ class Apbr extends ChangeNotifier {
 
   /// <- Body Template
 
-  Container gettingstarted() {
-    return gettingstarted_body();
+  Container gettingstarted(context) {
+    return gettingstarted_body(context);
   }
 
   Container home(context, controller, sortedItem) {
@@ -270,16 +269,15 @@ class Apbr extends ChangeNotifier {
     return Container(child: shop_body(context));
   }
 
-  Container register(context) {
+  Container register(context, serverProfiles) {
     return Container(
-        child: register_body(
-            context, isObs1, isObs2, _isObs1, _isObs2, isTr, _isTru,onPageChange,"login" ));
+        child: register_body(context, isObs1, isObs2, _isObs1, _isObs2, isTr,
+            _isTru, onPageChange, "login", serverProfiles));
   }
 
   Container login(context) {
     return Container(
-        child: login_body(
-            context, isObs1,_isObs1,onPageChange,"home" ));
+        child: login_body(context, isObs1, _isObs1, onPageChange, "home"));
   }
 
   ///  Body Template ->

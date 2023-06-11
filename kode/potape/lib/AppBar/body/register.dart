@@ -18,8 +18,8 @@ Container textFieldTitle(title_) {
   ));
 }
 
-Container register_body(
-    context, isObs1, isObs2, _isObs1, _isObs2, isTr, _isTru, _onPageChange, nextPage) {
+Container register_body(context, isObs1, isObs2, _isObs1, _isObs2, isTr, _isTru,
+    _onPageChange, nextPage, serverProfiles) {
   return Container(
     child: Center(
       child: Container(

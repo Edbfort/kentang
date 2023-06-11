@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 
-Container gettingstarted_body() {
+Container gettingstarted_body(context) {
   return Container(
+    width: MediaQuery.of(context).size.width,
     child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 120.0, bottom: 10.0),
+        Container(
+          height: MediaQuery.of(context).size.height / 14,
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 0.0, bottom: 10.0),
           child: Text(
             "Getting Started",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 33.0,
+              fontSize: 24.0,
             ),
           ),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 10.0),
+        Container(
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Image(
             image: AssetImage('assets/potape.png'),
-            width: 500,
-            height: 200, // reduce the height to 140 (3/4 of 187)
+            width: MediaQuery.of(context).size.width / 4 * 3,
+            height: MediaQuery.of(context).size.height /
+                3, // reduce the height to 140 (3/4 of 187)
           ),
         ),
         const SizedBox(

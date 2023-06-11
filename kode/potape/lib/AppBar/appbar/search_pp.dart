@@ -19,7 +19,7 @@ AppBar search_pp_apbr() {
         padding: EdgeInsets.only(right: 20),
         child: CircleAvatar(
           radius: 20,
-          backgroundImage: AssetImage('assets/profile_pic.png'),
+          // backgroundImage: AssetImage('assets/profile_pic.png'),
         ),
       ),
     ],

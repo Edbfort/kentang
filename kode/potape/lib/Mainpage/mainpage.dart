@@ -21,6 +21,7 @@ class _MainPageState extends State<MainPage> {
     final prov_apbr = Provider.of<Apbr>(context);
     final sorter = Provider.of<Sorter>(context);
     final sortedItem = sorter.sortedItems;
+    final serverProfiles = sorter.server_profiles;
 
     /// Provider ->
     ///
@@ -28,7 +29,7 @@ class _MainPageState extends State<MainPage> {
     Map<String, AppBar> appbars = {
       "search_pp": prov_apbr.search_pp(),
       "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
-      "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"],""),
+      "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"], ""),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -39,10 +40,11 @@ class _MainPageState extends State<MainPage> {
     };
 
     Map<String, Container> bodys = {
-      "gettingstarted": prov_apbr.gettingstarted(),
+      "gettingstarted": prov_apbr.gettingstarted(context),
+      "login": prov_apbr.login(context),
+      "register": prov_apbr.register(context, serverProfiles),
       "home": prov_apbr.home(context, controller, sortedItem),
       "shop": prov_apbr.shop(context),
-      "register": prov_apbr.register(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {
@@ -61,6 +63,9 @@ class _MainPageState extends State<MainPage> {
               body: bodys[prov_apbr.current_page["body"]],
               bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
             )),
-        onWillPop: ()async{prov_apbr.onPageChange("home");return false;});
+        onWillPop: () async {
+          prov_apbr.onPageChange("home");
+          return false;
+        });
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 Container home_body(context, controller, sortedItem) {
-  Iterable data = sortedItem.values;
-  Iterable names = sortedItem.keys;
+  Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
+  Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   return Container(
     child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Container(

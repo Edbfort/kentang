@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container login_body(context, isObs3, _isObs3, onPageChange,nextPage) {
+Container login_body(context, isObs1, _isObs1, onPageChange, nextPage) {
   return Container(
     child: Center(
       child: Container(
@@ -86,7 +86,7 @@ Container login_body(context, isObs3, _isObs3, onPageChange,nextPage) {
                       height: 10,
                     ),
                     TextField(
-                      obscureText: isObs3,
+                      obscureText: isObs1,
                       decoration: InputDecoration(
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           enabledBorder: OutlineInputBorder(
@@ -105,11 +105,11 @@ Container login_body(context, isObs3, _isObs3, onPageChange,nextPage) {
                           ),
                           labelText: "Password",
                           suffixIcon: IconButton(
-                              icon: Icon(isObs3
+                              icon: Icon(isObs1
                                   ? Icons.visibility
                                   : Icons.visibility_off),
                               onPressed: () {
-                                _isObs3();
+                                _isObs1();
                               })),
                     ),
                     SizedBox(
