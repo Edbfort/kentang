@@ -14,8 +14,10 @@ import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
 import 'appbar/tit_tabs.dart';
+import 'body/forgotpass.dart';
 import 'body/gettingstarted.dart';
 import 'body/home.dart';
+import 'body/otp.dart';
 import 'body/register.dart';
 import 'body/shop.dart';
 import 'btmnav/base_btmnav.dart';
@@ -30,11 +32,11 @@ class Apbr extends ChangeNotifier {
   Map<String, String> current_page = {
     "appbar": "tit_back",
     "drawer": "",
-    "body": "register",
+    "body": "forgotpass",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Register",
+    "title": "Forgot Password",
     "tab_length": "0",
   };
 
@@ -69,6 +71,26 @@ class Apbr extends ChangeNotifier {
       "btm_index": "0",
       "drawer_page": "0",
       "title": "Login",
+      "tab_length": "0",
+    },
+    "otp": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "otp",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Verification",
+      "tab_length": "0",
+    },
+    "forgotpass": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "forgotpass",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Forgot Password",
       "tab_length": "0",
     },
     "home": {
@@ -261,14 +283,6 @@ class Apbr extends ChangeNotifier {
     return gettingstarted_body(context);
   }
 
-  Container home(context, controller, sortedItem) {
-    return Container(child: home_body(context, controller, sortedItem));
-  }
-
-  Container shop(context) {
-    return Container(child: shop_body(context));
-  }
-
   Container register(context, serverProfiles) {
     return Container(
         child: register_body(context, isObs1, isObs2, _isObs1, _isObs2, isTr,
@@ -278,6 +292,22 @@ class Apbr extends ChangeNotifier {
   Container login(context) {
     return Container(
         child: login_body(context, isObs1, _isObs1, onPageChange, "home"));
+  }
+
+  Container otp(context) {
+    return Container(child: otp_body(context));
+  }
+
+  Container forgotpass(context) {
+    return Container(child: body_forgotpass(context));
+  }
+
+  Container home(context, controller, sortedItem) {
+    return Container(child: home_body(context, controller, sortedItem));
+  }
+
+  Container shop(context) {
+    return Container(child: shop_body(context));
   }
 
   ///  Body Template ->
@@ -291,6 +321,7 @@ class Apbr extends ChangeNotifier {
   BottomNavigationBar btmnav_unselec(btm_index) {
     return btmnav_unselec_btmnav(btm_index, _onbtmtap, btmnavdata);
   }
+
 
   /// Bottom Navigation Template ->
 }

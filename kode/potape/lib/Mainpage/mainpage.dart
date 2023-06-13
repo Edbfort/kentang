@@ -45,6 +45,8 @@ class _MainPageState extends State<MainPage> {
       "register": prov_apbr.register(context, serverProfiles),
       "home": prov_apbr.home(context, controller, sortedItem),
       "shop": prov_apbr.shop(context),
+      "otp": prov_apbr.otp(context),
+      "forgotpass": prov_apbr.forgotpass(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {

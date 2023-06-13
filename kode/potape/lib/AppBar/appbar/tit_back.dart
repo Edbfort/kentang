@@ -9,7 +9,7 @@ AppBar tit_back_apbr(title_, navs) {
     title: Text(
       title_.toString(),
       textAlign: TextAlign.center,
-      style: TextStyle(color: Colors.black),
+      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
     ),
   );
 }
