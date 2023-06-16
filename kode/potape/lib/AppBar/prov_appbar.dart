@@ -15,6 +15,7 @@ import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/forgotpass.dart';
+import 'body/forgotpass2.dart';
 import 'body/gettingstarted.dart';
 import 'body/home.dart';
 import 'body/otp.dart';
@@ -32,11 +33,11 @@ class Apbr extends ChangeNotifier {
   Map<String, String> current_page = {
     "appbar": "tit_back",
     "drawer": "",
-    "body": "forgotpass",
+    "body": "register",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Forgot Password",
+    "title": "Login",
     "tab_length": "0",
   };
 
@@ -87,6 +88,16 @@ class Apbr extends ChangeNotifier {
       "appbar": "tit_back",
       "drawer": "",
       "body": "forgotpass",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Forgot Password",
+      "tab_length": "0",
+    },
+    "forgotpass2": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "forgotpass2",
       "btmnav": "",
       "btm_index": "0",
       "drawer_page": "0",
@@ -302,6 +313,11 @@ class Apbr extends ChangeNotifier {
     return Container(child: body_forgotpass(context));
   }
 
+  Container forgotpass2(context) {
+    return Container(
+        child: body_forgotpass2(context, isObs1, isObs2, _isObs1, _isObs2));
+  }
+
   Container home(context, controller, sortedItem) {
     return Container(child: home_body(context, controller, sortedItem));
   }
@@ -321,7 +337,6 @@ class Apbr extends ChangeNotifier {
   BottomNavigationBar btmnav_unselec(btm_index) {
     return btmnav_unselec_btmnav(btm_index, _onbtmtap, btmnavdata);
   }
-
 
   /// Bottom Navigation Template ->
 }

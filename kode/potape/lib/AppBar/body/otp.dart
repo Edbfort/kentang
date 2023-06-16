@@ -85,7 +85,7 @@ Container otp_body(context) {
           ),
         ]),
         SizedBox(
-          height: MediaQuery.of(context).size.height / 2,
+          height: MediaQuery.of(context).size.height / 2.5,
         ),
         Divider(
           thickness: 2,
