@@ -1,22 +1,21 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:potape/AppBar/body/login.dart';
-
 import 'package:provider/provider.dart';
 
 import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
 import 'appbar/tit_tabs.dart';
+import 'body/gettingstarted.dart';
+import 'body/login.dart';
+import 'body/register.dart';
+import 'body/otp.dart';
 import 'body/forgotpass.dart';
 import 'body/forgotpass2.dart';
-import 'body/gettingstarted.dart';
 import 'body/home.dart';
 import 'body/otp.dart';
 import 'body/register.dart';
@@ -37,7 +36,7 @@ class Apbr extends ChangeNotifier {
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Login",
+    "title": "Register",
     "tab_length": "0",
   };
 
@@ -71,7 +70,7 @@ class Apbr extends ChangeNotifier {
       "btmnav": "",
       "btm_index": "0",
       "drawer_page": "0",
-      "title": "Login",
+      "title": "Register",
       "tab_length": "0",
     },
     "otp": {
@@ -255,6 +254,26 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  TextEditingController username = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+  TextEditingController conpassword = TextEditingController();
+
+  String usernameErrText = "";
+  String emailErrText = "";
+  String passwordErrText = "";
+  String conpasswordErrText = "";
+
+  void registerErrTextChange(value) {
+    usernameErrText = value[0];
+    emailErrText = value[1];
+    passwordErrText = value[2];
+    conpasswordErrText = value[3];
+    notifyListeners();
+  }
+
+  TextStyle labelTextStyle = TextStyle(color: Colors.white54);
+
   /// Data ->
 
   /// <- AppBar Template
@@ -294,15 +313,34 @@ class Apbr extends ChangeNotifier {
     return gettingstarted_body(context);
   }
 
-  Container register(context, serverProfiles) {
-    return Container(
-        child: register_body(context, isObs1, isObs2, _isObs1, _isObs2, isTr,
-            _isTru, onPageChange, "login", serverProfiles));
-  }
-
   Container login(context) {
     return Container(
         child: login_body(context, isObs1, _isObs1, onPageChange, "home"));
+  }
+
+  Container register(context, server_profiles) {
+    return Container(
+        child: register_body(
+            context,
+            isObs1,
+            isObs2,
+            _isObs1,
+            _isObs2,
+            isTr,
+            _isTru,
+            onPageChange,
+            "otp",
+            server_profiles,
+            username,
+            email,
+            password,
+            conpassword,
+            usernameErrText,
+            emailErrText,
+            passwordErrText,
+            conpasswordErrText,
+            registerErrTextChange,
+            labelTextStyle));
   }
 
   Container otp(context) {
@@ -310,12 +348,12 @@ class Apbr extends ChangeNotifier {
   }
 
   Container forgotpass(context) {
-    return Container(child: body_forgotpass(context));
+    return Container(child: forgotpass_body(context));
   }
 
   Container forgotpass2(context) {
     return Container(
-        child: body_forgotpass2(context, isObs1, isObs2, _isObs1, _isObs2));
+        child: forgotpass2_body(context, isObs1, isObs2, _isObs1, _isObs2));
   }
 
   Container home(context, controller, sortedItem) {

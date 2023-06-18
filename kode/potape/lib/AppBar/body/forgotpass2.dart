@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:potape/AppBar/body/register.dart';
 
-Container body_forgotpass2(context, isObs1, isObs2, _isObs1, _isObs2) {
+Container forgotpass2_body(context, isObs1, isObs2, _isObs1, _isObs2) {
   return Container(
     margin: EdgeInsets.only(
         top: MediaQuery.of(context).size.height / 10,

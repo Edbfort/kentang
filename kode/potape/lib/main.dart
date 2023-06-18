@@ -34,13 +34,15 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final newTextTheme = Theme.of(context).textTheme.apply(
+          bodyColor: Colors.white,
+          displayColor: Colors.white,
+        );
     return MaterialApp(
       scrollBehavior: MyCustomScrollBehavior(),
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primaryColor: Color.fromARGB(255, 146, 180, 236),
-      ),
+      theme: ThemeData(textTheme: newTextTheme, brightness: Brightness.dark),
       home: MainPage(),
     );
   }

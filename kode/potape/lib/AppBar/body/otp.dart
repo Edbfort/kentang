@@ -2,31 +2,11 @@ import 'package:flutter/material.dart';
 
 Container otp_body(context) {
   return Container(
-    margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height / 6.5,
-        left: MediaQuery.of(context).size.width / 10,
-        right: MediaQuery.of(context).size.width / 10),
+      child: Center(
+          child: Container(
+    width: MediaQuery.of(context).size.width * 8 / 10,
     child: Column(
       children: [
-        TextField(
-          decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  width: 2,
-                  color: Color.fromARGB(255, 146, 180, 236),
-                ),
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  width: 2,
-                  color: Color.fromARGB(255, 146, 180, 236),
-                ),
-              ),
-              labelText: "Email"),
-        ),
         Row(
           children: [
             Expanded(
@@ -73,19 +53,14 @@ Container otp_body(context) {
             ),
           ],
         ),
-        Row(children: [
-          Padding(
-            padding: EdgeInsets.only(
-                left: MediaQuery.of(context).size.width / 25,
-                top: MediaQuery.of(context).size.height / 20),
-          ),
-          Text(
+        Center(
+          child: Text(
             "Enter your 4 digit verification code here",
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-        ]),
+        ),
         SizedBox(
-          height: MediaQuery.of(context).size.height / 2.5,
+          height: MediaQuery.of(context).size.height / 2,
         ),
         Divider(
           thickness: 2,
@@ -123,5 +98,5 @@ Container otp_body(context) {
         )
       ],
     ),
-  );
+  )));
 }

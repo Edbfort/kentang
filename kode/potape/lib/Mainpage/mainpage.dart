@@ -21,7 +21,7 @@ class _MainPageState extends State<MainPage> {
     final prov_apbr = Provider.of<Apbr>(context);
     final sorter = Provider.of<Sorter>(context);
     final sortedItem = sorter.sortedItems;
-    final serverProfiles = sorter.server_profiles;
+    final server_profiles = sorter.server_profiles;
 
     /// Provider ->
     ///
@@ -42,7 +42,7 @@ class _MainPageState extends State<MainPage> {
     Map<String, Container> bodys = {
       "gettingstarted": prov_apbr.gettingstarted(context),
       "login": prov_apbr.login(context),
-      "register": prov_apbr.register(context, serverProfiles),
+      "register": prov_apbr.register(context, server_profiles),
       "home": prov_apbr.home(context, controller, sortedItem),
       "shop": prov_apbr.shop(context),
       "otp": prov_apbr.otp(context),
@@ -61,6 +61,7 @@ class _MainPageState extends State<MainPage> {
         child: DefaultTabController(
             length: int.parse(prov_apbr.current_page["tab_length"]!),
             child: Scaffold(
+              backgroundColor: Color(0xFF141D26),
               appBar: appbars[prov_apbr.current_page["appbar"]],
               drawer: drawers[prov_apbr.current_page["drawer"]],
               body: bodys[prov_apbr.current_page["body"]],
