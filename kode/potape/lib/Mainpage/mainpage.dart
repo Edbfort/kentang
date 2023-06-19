@@ -30,6 +30,7 @@ class _MainPageState extends State<MainPage> {
       "search_pp": prov_apbr.search_pp(),
       "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
       "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"], ""),
+      "tit_back_edit": prov_apbr.tit_back_edit(prov_apbr.current_page["title"], ""),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -43,7 +44,7 @@ class _MainPageState extends State<MainPage> {
       "gettingstarted": prov_apbr.gettingstarted(context),
       "login": prov_apbr.login(context),
       "register": prov_apbr.register(context, server_profiles),
-      "home": prov_apbr.home(context, controller, sortedItem),
+      "home": prov_apbr.home(context, controller, sortedItem,),
       "shop": prov_apbr.shop(context),
       "otp": prov_apbr.otp(context),
       "forgotpass": prov_apbr.forgotpass(context),

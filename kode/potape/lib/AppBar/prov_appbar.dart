@@ -9,7 +9,9 @@ import 'package:provider/provider.dart';
 import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
+import 'appbar/tit_back_edit.dart';
 import 'appbar/tit_tabs.dart';
+import 'body/detailsitem.dart';
 import 'body/gettingstarted.dart';
 import 'body/login.dart';
 import 'body/register.dart';
@@ -30,13 +32,13 @@ class Apbr extends ChangeNotifier {
   /// <- Data
 
   Map<String, String> current_page = {
-    "appbar": "tit_back",
-    "drawer": "",
-    "body": "register",
+    "appbar": "search_pp",
+    "drawer": "base_drawer",
+    "body": "home",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Register",
+    "title": "Home",
     "tab_length": "0",
   };
 
@@ -165,6 +167,15 @@ class Apbr extends ChangeNotifier {
       "title": "Profile",
       "tab_length": "0",
     },
+    "detailitem": {
+      "appbar": "tit_back_edit",
+      "body": "detailsitem",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "5",
+      "title": "Detail Item [Nama Barang]",
+      "tab_length": "0",
+    },
     "dashboard": {
       "appbar": "tit",
       "drawer": "base_drawer",
@@ -217,6 +228,24 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  Map<String, dynamic> _currentSingleItem = {
+    "Kaki William": {
+      "gudang": "Gudang A",
+      "quantity": "6",
+      "deskripsi": "Kaki kesukaan William",
+      "manage_cost": "0",
+      "history": {'stok': {}, 'harga': {}}
+    },
+  };
+
+  Map<String, dynamic> get currentSingleItem =>
+      _currentSingleItem;
+
+  void changeCurrentSingleItem(val) {
+    _currentSingleItem = val;
+    notifyListeners();
+  }
+
   List<Map<String, Icon>> drawer_pages = [
     {"Home": Icon(Icons.home)},
     {"Shop": Icon(Icons.store)},
@@ -234,6 +263,8 @@ class Apbr extends ChangeNotifier {
     "abc2@gmail.com": {"email": "abc2@gmail.com"},
     "abc3@gmail.com": {"email": "abc3@gmail.com"},
   };
+
+  var pkItem = "";
 
   bool isObs1 = true;
   bool isObs2 = true;
@@ -290,6 +321,12 @@ class Apbr extends ChangeNotifier {
 
   AppBar tit_back(title_, navs) {
     return tit_back_apbr(title_, navs);
+  }
+
+  AppBar tit_back_edit(title_, navs) {
+    // print(_currentSingleItem.keys.first);
+    return tit_back_edit_apbr(title_, navs, currentSingleItem.keys.first);
+    
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -357,11 +394,17 @@ class Apbr extends ChangeNotifier {
   }
 
   Container home(context, controller, sortedItem) {
-    return Container(child: home_body(context, controller, sortedItem));
+    return Container(
+        child: home_body(context, controller, sortedItem, onPageChange,
+            "detailitem", currentSingleItem,changeCurrentSingleItem));
   }
 
   Container shop(context) {
     return Container(child: shop_body(context));
+  }
+
+  Container detailsitem(context) {
+    return Container(child: detailsietm_body(context));
   }
 
   ///  Body Template ->

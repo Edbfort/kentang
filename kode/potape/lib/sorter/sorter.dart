@@ -19,6 +19,34 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "200000",
           "history": {'stok': {}, 'harga': {}}
         },
+        "Barang A": {
+          "gudang": "Gudang A",
+          "quantity": "6",
+          "deskripsi": "Kaki kesukaan William",
+          "manage_cost": "0",
+          "history": {'stok': {}, 'harga': {}}
+        },
+        "Barang B": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": {'stok': {}, 'harga': {}}
+        },
+        "Barang C": {
+          "gudang": "Gudang A",
+          "quantity": "6",
+          "deskripsi": "Kaki kesukaan William",
+          "manage_cost": "0",
+          "history": {'stok': {}, 'harga': {}}
+        },
+        "Barang D": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": {'stok': {}, 'harga': {}}
+        },
       },
     },
   };
@@ -166,7 +194,7 @@ class Sorter extends ChangeNotifier {
 /////
 
   Map<String, Map<String, Map<String, dynamic>>> sortItems() {
-    print(current_items[current_items.keys.first]!["items"]);
+    // print(current_items[current_items.keys.first]!["items"]);
     sortedItems = current_items;
 
     if (pref["ascending"] == "1") {
