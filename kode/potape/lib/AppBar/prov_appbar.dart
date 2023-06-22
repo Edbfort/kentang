@@ -404,7 +404,7 @@ class Apbr extends ChangeNotifier {
   }
 
   Container detailsitem(context) {
-    return Container(child: detailsietm_body(context));
+    return Container(child: detailsietm_body(context,currentSingleItem));
   }
 
   ///  Body Template ->

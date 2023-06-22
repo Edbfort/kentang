@@ -49,6 +49,7 @@ class _MainPageState extends State<MainPage> {
       "otp": prov_apbr.otp(context),
       "forgotpass": prov_apbr.forgotpass(context),
       "forgotpass2": prov_apbr.forgotpass2(context),
+      "detailsitem": prov_apbr.detailsitem(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {

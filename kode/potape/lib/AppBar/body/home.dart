@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Container home_body(context, controller, sortedItem,onPageChange,nextPage,currentSingleItem,changeCurrentSingleItem) {
+Container home_body(context, controller, sortedItem, onPageChange, nextPage,
+    currentSingleItem, changeCurrentSingleItem) {
   Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
   Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   // Iterable subtitle = sortedItem[sortedItem.keys.first]!["items"]["gudang"].keys;
@@ -23,14 +24,13 @@ Container home_body(context, controller, sortedItem,onPageChange,nextPage,curren
         child: ListView.separated(
             itemBuilder: (context, index) {
               return ListTile(
-                onTap: () {
-                  Map<String,dynamic>oneData =  { names.elementAt(index):data.elementAt(index)};
-                  changeCurrentSingleItem(oneData); 
-                  onPageChange(nextPage);
-                },
-                onLongPress: () {
-                  //Do something
-                },
+                  onTap: () {
+                    Map<String, dynamic> oneData = {
+                      names.elementAt(index): data.elementAt(index)
+                    };
+                    changeCurrentSingleItem(oneData);
+                    onPageChange(nextPage);
+                  },
                   title: Text(
                     names.elementAt(index).toString(),
                     style: TextStyle(
@@ -51,7 +51,8 @@ Container home_body(context, controller, sortedItem,onPageChange,nextPage,curren
               );
             },
             itemCount: data.length),
-      )
+            // ListTile()
+      ),
     ]),
   );
 }
