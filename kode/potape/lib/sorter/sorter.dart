@@ -10,42 +10,55 @@ class Sorter extends ChangeNotifier {
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Babi": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Barang A": {
           "gudang": "Gudang A",
           "quantity": "60",
-          "deskripsi": "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
+          "deskripsi":
+              "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Barang B": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Barang C": {
           "gudang": "Gudang A",
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Barang D": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": {'stok': {}, 'harga': {},'waktu':{}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
       },
     },
@@ -64,14 +77,18 @@ class Sorter extends ChangeNotifier {
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Babi": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
       },
     },
@@ -80,6 +97,14 @@ class Sorter extends ChangeNotifier {
   Map<String, Map<String, Map<String, dynamic>>> get local_profiles =>
       _local_profiles;
 
+  void loginProfile(username) {
+    _local_profiles[username.toString()] =
+        _server_profiles[username.toString()]!;
+    _current_items.clear();
+    _current_items[username.toString()] =
+        _server_profiles[username.toString()]!;
+    notifyListeners();
+  }
 //////
 
   Map<String, Map<String, Map<String, dynamic>>> _server_profiles = {
@@ -91,14 +116,18 @@ class Sorter extends ChangeNotifier {
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Babi": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
       },
     },
@@ -113,21 +142,27 @@ class Sorter extends ChangeNotifier {
           "quantity": "171",
           "deskripsi": "Minuman kesukaan William",
           "manage_cost": "311520",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Promag 10 Tablet": {
           "gudang": "Bawah Meja",
           "quantity": "4",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
         "Binder Clips no.200 JOYKO": {
           "gudang": "Sepatu William",
           "quantity": "12",
           "deskripsi": "Snack kesukaan William",
           "manage_cost": "0",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "", "harga": "", "time": ""},
+          ]
         },
       },
     },
@@ -143,7 +178,20 @@ class Sorter extends ChangeNotifier {
   Map<String, Map<String, Map<String, dynamic>>> get server_profiles =>
       _server_profiles;
 
-  set dataChange(val) {
+  void addNewProfile(username, profileData) {
+    _server_profiles[username.toString()] = {
+      "profileData": profileData,
+      "items": {},
+    };
+    _local_profiles[username.toString()] = {
+      "profileData": profileData,
+      "items": {},
+    };
+    _current_items.clear();
+    _current_items[username.toString()] = {
+      "profileData": profileData,
+      "items": {},
+    };
     notifyListeners();
   }
 //////
@@ -157,14 +205,22 @@ class Sorter extends ChangeNotifier {
           "quantity": "dummy",
           "deskripsi": "dummy",
           "manage_cost": "dummy",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"},
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"},
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"}
+          ]
         },
         "dummyItem": {
           "gudang": "dummy",
           "quantity": "dummy",
           "deskripsi": "dummy",
           "manage_cost": "dummy",
-          "history": {'stok': {}, 'harga': {}}
+          "history": [
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"},
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"},
+            {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"}
+          ]
         }
       },
     }

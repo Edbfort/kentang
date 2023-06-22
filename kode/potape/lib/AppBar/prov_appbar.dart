@@ -32,13 +32,13 @@ class Apbr extends ChangeNotifier {
   /// <- Data
 
   Map<String, String> current_page = {
-    "appbar": "search_pp",
-    "drawer": "base_drawer",
-    "body": "home",
+    "appbar": "tit",
+    "drawer": "",
+    "body": "gettingstarted",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "Home",
+    "title": "",
     "tab_length": "0",
   };
 
@@ -238,8 +238,7 @@ class Apbr extends ChangeNotifier {
     },
   };
 
-  Map<String, dynamic> get currentSingleItem =>
-      _currentSingleItem;
+  Map<String, dynamic> get currentSingleItem => _currentSingleItem;
 
   void changeCurrentSingleItem(val) {
     _currentSingleItem = val;
@@ -263,8 +262,6 @@ class Apbr extends ChangeNotifier {
     "abc2@gmail.com": {"email": "abc2@gmail.com"},
     "abc3@gmail.com": {"email": "abc3@gmail.com"},
   };
-
-  var pkItem = "";
 
   bool isObs1 = true;
   bool isObs2 = true;
@@ -326,7 +323,6 @@ class Apbr extends ChangeNotifier {
   AppBar tit_back_edit(title_, navs) {
     // print(_currentSingleItem.keys.first);
     return tit_back_edit_apbr(title_, navs, currentSingleItem.keys.first);
-    
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -347,12 +343,29 @@ class Apbr extends ChangeNotifier {
   /// <- Body Template
 
   Container gettingstarted(context) {
-    return gettingstarted_body(context);
+    return gettingstarted_body(context, onPageChange);
   }
 
-  Container login(context) {
+  Container login(context, server_profiles, loginProfile) {
     return Container(
-        child: login_body(context, isObs1, _isObs1, onPageChange, "home"));
+        child: login_body(
+            context,
+            isObs1,
+            _isObs1,
+            onPageChange,
+            "home",
+            server_profiles,
+            username,
+            email,
+            password,
+            conpassword,
+            usernameErrText,
+            emailErrText,
+            passwordErrText,
+            conpasswordErrText,
+            registerErrTextChange,
+            labelTextStyle,
+            loginProfile));
   }
 
   Container register(context, server_profiles) {
@@ -380,8 +393,10 @@ class Apbr extends ChangeNotifier {
             labelTextStyle));
   }
 
-  Container otp(context) {
-    return Container(child: otp_body(context));
+  Container otp(context, addNewProfile) {
+    return Container(
+        child: otp_body(context, onPageChange, "home", username, email,
+            password, addNewProfile));
   }
 
   Container forgotpass(context) {
@@ -396,7 +411,7 @@ class Apbr extends ChangeNotifier {
   Container home(context, controller, sortedItem) {
     return Container(
         child: home_body(context, controller, sortedItem, onPageChange,
-            "detailitem", currentSingleItem,changeCurrentSingleItem));
+            "detailitem", currentSingleItem, changeCurrentSingleItem));
   }
 
   Container shop(context) {
@@ -404,7 +419,7 @@ class Apbr extends ChangeNotifier {
   }
 
   Container detailsitem(context) {
-    return Container(child: detailsietm_body(context,currentSingleItem));
+    return Container(child: detailsietm_body(context, currentSingleItem));
   }
 
   ///  Body Template ->

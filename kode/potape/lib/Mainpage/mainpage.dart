@@ -22,6 +22,8 @@ class _MainPageState extends State<MainPage> {
     final sorter = Provider.of<Sorter>(context);
     final sortedItem = sorter.sortedItems;
     final server_profiles = sorter.server_profiles;
+    final addNewProfile = sorter.addNewProfile;
+    final loginProfile = sorter.loginProfile;
 
     /// Provider ->
     ///
@@ -42,11 +44,11 @@ class _MainPageState extends State<MainPage> {
 
     Map<String, Container> bodys = {
       "gettingstarted": prov_apbr.gettingstarted(context),
-      "login": prov_apbr.login(context),
+      "login": prov_apbr.login(context, server_profiles, loginProfile),
       "register": prov_apbr.register(context, server_profiles),
       "home": prov_apbr.home(context, controller, sortedItem,),
       "shop": prov_apbr.shop(context),
-      "otp": prov_apbr.otp(context),
+      "otp": prov_apbr.otp(context, addNewProfile),
       "forgotpass": prov_apbr.forgotpass(context),
       "forgotpass2": prov_apbr.forgotpass2(context),
       "detailsitem": prov_apbr.detailsitem(context),

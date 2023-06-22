@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-Container otp_body(context) {
+Container otp_body(
+    context, onPageChange, nextPage, username, email, password, addNewProfile) {
   return Container(
       child: Center(
           child: Container(
@@ -70,7 +71,12 @@ Container otp_body(context) {
           height: 60,
           child: ElevatedButton(
             onPressed: () {
-              // onPageChange(nextPage);
+              Map<String, dynamic> newProfileData = {
+                "email": email.text.toString(),
+                "password": password.text.toString()
+              };
+              addNewProfile(username.text.toString(), newProfileData);
+              onPageChange(nextPage);
             },
             style: ElevatedButton.styleFrom(
               // ignore: deprecated_member_use

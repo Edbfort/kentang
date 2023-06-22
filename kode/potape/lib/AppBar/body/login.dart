@@ -1,6 +1,41 @@
 import 'package:flutter/material.dart';
 
-Container login_body(context, isObs1, _isObs1, onPageChange, nextPage) {
+Container textFieldTitle(title_) {
+  return Container(
+      child: Column(
+    children: [
+      SizedBox(
+        height: 10,
+      ),
+      Text(
+        title_,
+        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
+      ),
+      SizedBox(
+        height: 10,
+      ),
+    ],
+  ));
+}
+
+Container login_body(
+    context,
+    isObs1,
+    _isObs1,
+    onPageChange,
+    nextPage,
+    Map<String, Map<String, Map<String, dynamic>>> server_profiles,
+    username,
+    email,
+    password,
+    conpassword,
+    usernameErrText,
+    emailErrText,
+    passwordErrText,
+    conpasswordErrText,
+    registerErrTextChange,
+    labelTextStyle,
+    loginProfile) {
   return Container(
     child: Center(
       child: Container(
@@ -14,106 +49,92 @@ Container login_body(context, isObs1, _isObs1, onPageChange, nextPage) {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Username",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    textFieldTitle("Username"),
                     TextField(
+                      controller: username,
                       decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xFF182631),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.blueGrey,
                             ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.white70,
                             ),
                           ),
-                          labelText: "Username"),
+                          labelText: "Username",
+                          labelStyle: labelTextStyle,
+                          errorText:
+                              usernameErrText == "" ? null : usernameErrText),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Email",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    textFieldTitle("Email"),
                     TextField(
+                      controller: email,
                       decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xFF182631),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.blueGrey,
                             ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.blueGrey,
                             ),
                           ),
-                          labelText: "Email"),
+                          labelText: "Email",
+                          labelStyle: labelTextStyle,
+                          errorText: emailErrText == "" ? null : emailErrText),
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      "Password",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    textFieldTitle("Password"),
                     TextField(
+                      controller: password,
                       obscureText: isObs1,
                       decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xFF182631),
                           floatingLabelBehavior: FloatingLabelBehavior.never,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.blueGrey,
                             ),
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(15),
                             borderSide: const BorderSide(
                               width: 2,
-                              color: Color.fromARGB(255, 146, 180, 236),
+                              color: Colors.blueGrey,
                             ),
                           ),
                           labelText: "Password",
+                          labelStyle: labelTextStyle,
                           suffixIcon: IconButton(
-                              icon: Icon(isObs1
-                                  ? Icons.visibility
-                                  : Icons.visibility_off),
+                              icon: Icon(
+                                isObs1
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                              ),
                               onPressed: () {
                                 _isObs1();
-                              })),
-                    ),
-                    SizedBox(
-                      height: 10,
+                              }),
+                          errorText:
+                              passwordErrText == "" ? null : passwordErrText),
                     ),
                   ],
                 ),
@@ -139,7 +160,60 @@ Container login_body(context, isObs1, _isObs1, onPageChange, nextPage) {
                           height: 60,
                           child: ElevatedButton(
                             onPressed: () {
-                              onPageChange(nextPage);
+                              usernameErrText = "";
+                              emailErrText = "";
+                              passwordErrText = "";
+                              conpasswordErrText = "";
+
+                              if (username.text == "") {
+                                usernameErrText = "Username cannot be empty";
+                              }
+                              if (email.text == "") {
+                                emailErrText = "Email cannot be empty";
+                              }
+                              if (password.text == "") {
+                                passwordErrText = "Password cannot be empty";
+                              }
+                              try {
+                                if (usernameErrText == "" &&
+                                    emailErrText == "" &&
+                                    passwordErrText == "" &&
+                                    conpasswordErrText == "") {
+                                  if (server_profiles[username.text
+                                                      .toString()]![
+                                                  "profileData"]!["email"]
+                                              .toString() !=
+                                          email.text.toString() ||
+                                      server_profiles[username.text
+                                                      .toString()]![
+                                                  "profileData"]!["password"]
+                                              .toString() !=
+                                          password.text.toString()) {
+                                    throw "Login Check Fail";
+                                  }
+                                }
+                              } catch (err) {
+                                usernameErrText =
+                                    "Username/Email/Password is incorrect";
+                                emailErrText =
+                                    "Username/Email/Password is incorrect";
+                                passwordErrText =
+                                    "Username/Email/Password is incorrect";
+                              }
+
+                              registerErrTextChange([
+                                usernameErrText,
+                                emailErrText,
+                                passwordErrText,
+                                conpasswordErrText
+                              ]);
+                              if (usernameErrText == "" &&
+                                  emailErrText == "" &&
+                                  passwordErrText == "" &&
+                                  conpasswordErrText == "") {
+                                loginProfile(username.text.toString());
+                                onPageChange(nextPage);
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               // ignore: deprecated_member_use

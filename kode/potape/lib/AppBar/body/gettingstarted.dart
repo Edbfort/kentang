@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container gettingstarted_body(context) {
+Container gettingstarted_body(context, onPageChange) {
   return Container(
     width: MediaQuery.of(context).size.width,
     child: Column(
@@ -59,7 +59,7 @@ Container gettingstarted_body(context) {
           height: 60,
           child: ElevatedButton(
             onPressed: () {
-              /// route to login
+              onPageChange("login");
             },
             style: ElevatedButton.styleFrom(
               // ignore: deprecated_member_use
@@ -85,7 +85,7 @@ Container gettingstarted_body(context) {
           height: 60,
           child: OutlinedButton(
             onPressed: () {
-              // Handle register button press
+              onPageChange("register");
             },
             style: OutlinedButton.styleFrom(
               // ignore: deprecated_member_use
