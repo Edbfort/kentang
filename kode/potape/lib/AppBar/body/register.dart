@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Container textFieldTitle(title_) {
   return Container(
@@ -61,6 +62,10 @@ Container register_body(
                           children: [
                             textFieldTitle("Username"),
                             TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9a-zA-Z]'))
+                              ],
                               controller: username,
                               decoration: InputDecoration(
                                   filled: true,
@@ -116,6 +121,10 @@ Container register_body(
                             ),
                             textFieldTitle("Password"),
                             TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9a-zA-Z]'))
+                              ],
                               controller: password,
                               obscureText: isObs1,
                               decoration: InputDecoration(
@@ -154,6 +163,10 @@ Container register_body(
                             ),
                             textFieldTitle("Confirm Password"),
                             TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp(r'[0-9a-zA-Z]'))
+                              ],
                               autocorrect: false,
                               enableSuggestions: false,
                               controller: conpassword,

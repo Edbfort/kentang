@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
-Container otp_body(
-    context, onPageChange, nextPage, username, email, password, addNewProfile) {
+Container otp_body(context, onPageChange, nextPage, username, email, password,
+    addNewProfile, otpText, otpErrText, otpNum) {
   return Container(
       child: Center(
           child: Container(
@@ -14,6 +15,12 @@ Container otp_body(
                 child: SizedBox(
               height: 50,
               child: TextField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(4),
+                  FilteringTextInputFormatter.digitsOnly
+                ],
+                keyboardType: TextInputType.number,
+                controller: otpText,
                 decoration: InputDecoration(
                     floatingLabelBehavior: FloatingLabelBehavior.never,
                     enabledBorder: OutlineInputBorder(
@@ -34,7 +41,8 @@ Container otp_body(
                         color: Color.fromARGB(255, 146, 180, 236),
                       ),
                     ),
-                    labelText: "Insert 4 digit code here"),
+                    labelText: "Insert 4 digit code here",
+                    errorText: otpErrText == "" ? null : otpErrText),
               ),
             )),
             SizedBox(
@@ -71,6 +79,11 @@ Container otp_body(
           height: 60,
           child: ElevatedButton(
             onPressed: () {
+              otpErrText = "";
+              if (otpText.text == "" || otpText.text == otpNum.text) {
+                otpErrText = "OTP is incorrect";
+              }
+              if (otpErrText == "") {}
               Map<String, dynamic> newProfileData = {
                 "email": email.text.toString(),
                 "password": password.text.toString()

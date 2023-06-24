@@ -4,9 +4,10 @@ import 'package:potape/AppBar/body/register.dart';
 Container forgotpass2_body(context, isObs1, isObs2, _isObs1, _isObs2) {
   return Container(
     margin: EdgeInsets.only(
-        top: MediaQuery.of(context).size.height / 10,
-        left: MediaQuery.of(context).size.width / 10,
-        right: MediaQuery.of(context).size.width / 10),
+      top: 20,
+      left: 20,
+      right: 20,
+    ),
     child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       Row(
         children: [

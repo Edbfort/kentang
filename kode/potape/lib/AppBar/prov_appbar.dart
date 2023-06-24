@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -32,13 +33,13 @@ class Apbr extends ChangeNotifier {
   /// <- Data
 
   Map<String, String> current_page = {
-    "appbar": "tit",
+    "appbar": "tit_back",
     "drawer": "",
-    "body": "gettingstarted",
+    "body": "otp",
     "btmnav": "",
     "btm_index": "0",
     "drawer_page": "0",
-    "title": "",
+    "title": "Verification",
     "tab_length": "0",
   };
 
@@ -282,18 +283,20 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  TextEditingController username = TextEditingController();
+  TextEditingController usernameEmail = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController conpassword = TextEditingController();
+  TextEditingController otpText = TextEditingController();
 
-  String usernameErrText = "";
+  String usernameEmailErrText = "";
   String emailErrText = "";
   String passwordErrText = "";
   String conpasswordErrText = "";
+  String otpErrText = "";
 
   void registerErrTextChange(value) {
-    usernameErrText = value[0];
+    usernameEmailErrText = value[0];
     emailErrText = value[1];
     passwordErrText = value[2];
     conpasswordErrText = value[3];
@@ -301,6 +304,65 @@ class Apbr extends ChangeNotifier {
   }
 
   TextStyle labelTextStyle = TextStyle(color: Colors.white54);
+
+  List<dynamic> userCheck = [];
+
+  List<dynamic> usernameEmailCheck(String usernameEmail, String password,
+      Map<String, Map<String, Map<String, dynamic>>> server_profiles) {
+    if (server_profiles.containsKey(usernameEmail)) {
+      if (server_profiles[usernameEmail.toString()]!["profileData"]!["password"]
+              .toString() ==
+          password.toString()) {
+        return [false, usernameEmail];
+      }
+    }
+    for (String key_ in server_profiles.keys) {
+      if (server_profiles[key_]!["profileData"]!["email"] == usernameEmail &&
+          server_profiles[key_]!["profileData"]!["password"].toString() ==
+              password.toString()) {
+        return [false, key_];
+      }
+    }
+    return [true];
+  }
+
+  String otpNum = "WilliamTolol";
+
+  Timer? otpCountdownTimer;
+  Duration otpTime = Duration(seconds: 60);
+  void startTimer() {
+    if (otpNum == "WilliamTolol") {
+      otpNum = 1234.toString();
+      // otpNum = (Random().nextDouble() * 10000).toInt().toString();
+      otpTime = Duration(seconds: 60);
+      otpCountdownTimer =
+          Timer.periodic(Duration(seconds: 1), (_) => otpSetCountDown());
+    }
+    notifyListeners();
+  }
+
+  void otpStopTimer() {
+    otpCountdownTimer!.cancel();
+    notifyListeners();
+  }
+
+  void otpResetTimer() {
+    otpStopTimer();
+    otpNum = "WilliamTolol";
+    otpTime = Duration(seconds: 60);
+    notifyListeners();
+  }
+
+  void otpSetCountDown() {
+    int reduceSecondsBy = 1;
+    int seconds = otpTime.inSeconds - reduceSecondsBy;
+    if (seconds < 0) {
+      otpCountdownTimer!.cancel();
+    } else {
+      otpTime = Duration(seconds: seconds);
+    }
+    notifyListeners();
+  }
 
   /// Data ->
 
@@ -355,17 +417,19 @@ class Apbr extends ChangeNotifier {
             onPageChange,
             "home",
             server_profiles,
-            username,
+            usernameEmail,
             email,
             password,
             conpassword,
-            usernameErrText,
+            usernameEmailErrText,
             emailErrText,
             passwordErrText,
             conpasswordErrText,
             registerErrTextChange,
             labelTextStyle,
-            loginProfile));
+            loginProfile,
+            userCheck,
+            usernameEmailCheck));
   }
 
   Container register(context, server_profiles) {
@@ -381,11 +445,11 @@ class Apbr extends ChangeNotifier {
             onPageChange,
             "otp",
             server_profiles,
-            username,
+            usernameEmail,
             email,
             password,
             conpassword,
-            usernameErrText,
+            usernameEmailErrText,
             emailErrText,
             passwordErrText,
             conpasswordErrText,
@@ -395,8 +459,8 @@ class Apbr extends ChangeNotifier {
 
   Container otp(context, addNewProfile) {
     return Container(
-        child: otp_body(context, onPageChange, "home", username, email,
-            password, addNewProfile));
+        child: otp_body(context, onPageChange, "home", usernameEmail, email,
+            password, addNewProfile, otpText, otpErrText, otpNum));
   }
 
   Container forgotpass(context) {

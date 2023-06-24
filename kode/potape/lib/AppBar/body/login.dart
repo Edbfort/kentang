@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Container textFieldTitle(title_) {
   return Container(
@@ -25,17 +26,19 @@ Container login_body(
     onPageChange,
     nextPage,
     Map<String, Map<String, Map<String, dynamic>>> server_profiles,
-    username,
+    usernameEmail,
     email,
     password,
     conpassword,
-    usernameErrText,
+    usernameEmailErrText,
     emailErrText,
     passwordErrText,
     conpasswordErrText,
     registerErrTextChange,
     labelTextStyle,
-    loginProfile) {
+    loginProfile,
+    userCheck,
+    usernameEmailCheck) {
   return Container(
     child: Center(
       child: Container(
@@ -49,9 +52,13 @@ Container login_body(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    textFieldTitle("Username"),
+                    textFieldTitle("Username/Email"),
                     TextField(
-                      controller: username,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[0-9a-zA-Z]'))
+                      ],
+                      controller: usernameEmail,
                       decoration: InputDecoration(
                           filled: true,
                           fillColor: Color(0xFF182631),
@@ -70,38 +77,18 @@ Container login_body(
                               color: Colors.white70,
                             ),
                           ),
-                          labelText: "Username",
+                          labelText: "Username/Email",
                           labelStyle: labelTextStyle,
-                          errorText:
-                              usernameErrText == "" ? null : usernameErrText),
-                    ),
-                    textFieldTitle("Email"),
-                    TextField(
-                      controller: email,
-                      decoration: InputDecoration(
-                          filled: true,
-                          fillColor: Color(0xFF182631),
-                          floatingLabelBehavior: FloatingLabelBehavior.never,
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              width: 2,
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide: const BorderSide(
-                              width: 2,
-                              color: Colors.blueGrey,
-                            ),
-                          ),
-                          labelText: "Email",
-                          labelStyle: labelTextStyle,
-                          errorText: emailErrText == "" ? null : emailErrText),
+                          errorText: usernameEmailErrText == ""
+                              ? null
+                              : usernameEmailErrText),
                     ),
                     textFieldTitle("Password"),
                     TextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'[0-9a-zA-Z]'))
+                      ],
                       controller: password,
                       obscureText: isObs1,
                       decoration: InputDecoration(
@@ -139,9 +126,6 @@ Container login_body(
                   ],
                 ),
               ),
-              // SizedBox(
-              //   height: MediaQuery.of(context).size.height / 4,
-              // ),
               Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -160,40 +144,33 @@ Container login_body(
                           height: 60,
                           child: ElevatedButton(
                             onPressed: () {
-                              usernameErrText = "";
+                              usernameEmailErrText = "";
                               emailErrText = "";
                               passwordErrText = "";
                               conpasswordErrText = "";
 
-                              if (username.text == "") {
-                                usernameErrText = "Username cannot be empty";
-                              }
-                              if (email.text == "") {
-                                emailErrText = "Email cannot be empty";
+                              if (usernameEmail.text == "") {
+                                usernameEmailErrText =
+                                    "Username/Email cannot be empty";
                               }
                               if (password.text == "") {
                                 passwordErrText = "Password cannot be empty";
                               }
                               try {
-                                if (usernameErrText == "" &&
+                                if (usernameEmailErrText == "" &&
                                     emailErrText == "" &&
                                     passwordErrText == "" &&
                                     conpasswordErrText == "") {
-                                  if (server_profiles[username.text
-                                                      .toString()]![
-                                                  "profileData"]!["email"]
-                                              .toString() !=
-                                          email.text.toString() ||
-                                      server_profiles[username.text
-                                                      .toString()]![
-                                                  "profileData"]!["password"]
-                                              .toString() !=
-                                          password.text.toString()) {
+                                  userCheck = usernameEmailCheck(
+                                      usernameEmail.text.toString(),
+                                      password.text.toString(),
+                                      server_profiles);
+                                  if (userCheck[0]) {
                                     throw "Login Check Fail";
                                   }
                                 }
                               } catch (err) {
-                                usernameErrText =
+                                usernameEmailErrText =
                                     "Username/Email/Password is incorrect";
                                 emailErrText =
                                     "Username/Email/Password is incorrect";
@@ -202,16 +179,16 @@ Container login_body(
                               }
 
                               registerErrTextChange([
-                                usernameErrText,
+                                usernameEmailErrText,
                                 emailErrText,
                                 passwordErrText,
                                 conpasswordErrText
                               ]);
-                              if (usernameErrText == "" &&
+                              if (usernameEmailErrText == "" &&
                                   emailErrText == "" &&
                                   passwordErrText == "" &&
                                   conpasswordErrText == "") {
-                                loginProfile(username.text.toString());
+                                loginProfile(userCheck[1].toString());
                                 onPageChange(nextPage);
                               }
                             },
