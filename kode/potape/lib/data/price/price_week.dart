@@ -25,4 +25,82 @@ List<Map<String, String>> price_week = [
     "Binder Clips no.200 JOYKO": "9588",
     "Bir Bintang Can 500ml": "31150"
   },
+  {
+    "time": "18_05_2023",
+    "Kaki William": "4340",
+    "Hati William": "1990",
+    "Ban": "691300",
+    "Babi": "50489000",
+    "Botol Kaca": "4150",
+    "Kentang Putih": "16510",
+    "Ballpoint Gel Koroko": "3850",
+    "Promag 10 Tablet": "7561",
+    "Binder Clips no.200 JOYKO": "9708",
+    "Bir Bintang Can 500ml": "31250"
+  },
+  {
+    "time": "11_05_2023",
+    "Kaki William": "4550",
+    "Hati William": "1991",
+    "Ban": "691400",
+    "Babi": "50289040",
+    "Botol Kaca": "4200",
+    "Kentang Putih": "16710",
+    "Ballpoint Gel Koroko": "3820",
+    "Promag 10 Tablet": "7531",
+    "Binder Clips no.200 JOYKO": "9388",
+    "Bir Bintang Can 500ml": "31150"
+  },
+  {
+    "time": "04_05_2023",
+    "Kaki William": "4540",
+    "Hati William": "1930",
+    "Ban": "692200",
+    "Babi": "50289900",
+    "Botol Kaca": "4210",
+    "Kentang Putih": "15610",
+    "Ballpoint Gel Koroko": "3770",
+    "Promag 10 Tablet": "7681",
+    "Binder Clips no.200 JOYKO": "9998",
+    "Bir Bintang Can 500ml": "32250"
+  },
+  {
+    "time": "27_04_2023",
+    "Kaki William": "4530",
+    "Hati William": "1920",
+    "Ban": "691290",
+    "Babi": "50579000",
+    "Botol Kaca": "4999",
+    "Kentang Putih": "16710",
+    "Ballpoint Gel Koroko": "3780",
+    "Promag 10 Tablet": "7571",
+    "Binder Clips no.200 JOYKO": "9598",
+    "Bir Bintang Can 500ml": "31190"
+  },
+  {
+    "time": "20_04_2023",
+    "Kaki William": "4770",
+    "Hati William": "1970",
+    "Ban": "693000",
+    "Babi": "50339000",
+    "Botol Kaca": "4570",
+    "Kentang Putih": "16210",
+    "Ballpoint Gel Koroko": "3871",
+    "Promag 10 Tablet": "7281",
+    "Binder Clips no.200 JOYKO": "9788",
+    "Bir Bintang Can 500ml": "31250"
+  },
+  {
+    "time": "13_04_2023",
+    "Kaki William": "4540",
+    "Hati William": "1930",
+    "Ban": "691030",
+    "Babi": "50289030",
+    "Botol Kaca": "4300",
+    "Kentang Putih": "16710",
+    "Ballpoint Gel Koroko": "3470",
+    "Promag 10 Tablet": "7581",
+    "Binder Clips no.200 JOYKO": "9988",
+    "Bir Bintang Can 500ml": "31190"
+  }
 ];
