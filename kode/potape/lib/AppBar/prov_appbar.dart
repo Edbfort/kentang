@@ -32,7 +32,7 @@ import 'drawer/base_drawer.dart';
 class Apbr extends ChangeNotifier {
   /// <- Data
 
-  Map<String, String> current_page = {
+  Map<String, String> _current_page = {
     "appbar": "tit_back",
     "drawer": "",
     "body": "otp",
@@ -42,6 +42,30 @@ class Apbr extends ChangeNotifier {
     "title": "Verification",
     "tab_length": "0",
   };
+
+  Map<String, String> get current_page => currentPage();
+
+  Map<String, String> currentPage() {
+    Map<String, String> curPage = _pages[pageHistory.last]!;
+    return curPage;
+  }
+
+  List<String> pageHistory = ["gettingstarted"];
+
+  void removeHistoryOne() {
+    pageHistory.removeLast();
+    notifyListeners();
+  }
+
+  void historyLogout() {
+    pageHistory = ["gettingstarted"];
+    notifyListeners();
+  }
+
+  void setPageHistory(val) {
+    pageHistory = val;
+    notifyListeners();
+  }
 
   Map<String, String> current_profile = {"email": "abc1@gmail.com"};
 
@@ -205,7 +229,7 @@ class Apbr extends ChangeNotifier {
       2: "cart",
       3: "ongoing",
     };
-    current_page = _pages[btm_pages[index]]!;
+    pageHistory.add(btm_pages[index]!);
     notifyListeners();
   }
 
@@ -219,13 +243,18 @@ class Apbr extends ChangeNotifier {
       5: "dashboard",
       6: "logout",
     };
-    current_page = _pages[drawer_pages[index]]!;
+    if (index == 6) {
+      historyLogout();
+    } else {
+      pageHistory.add(drawer_pages[index]!);
+    }
+
     Navigator.pop(context);
     notifyListeners();
   }
 
   void onPageChange(page) {
-    current_page = _pages[page]!;
+    pageHistory.add(page);
     notifyListeners();
   }
 
@@ -326,42 +355,168 @@ class Apbr extends ChangeNotifier {
     return [true];
   }
 
-  String otpNum = "WilliamTolol";
+  String dgoNum = "WilliamTolol";
 
-  Timer? otpCountdownTimer;
-  Duration otpTime = Duration(seconds: 60);
-  void startTimer() {
-    if (otpNum == "WilliamTolol") {
+  var dgoCountdownTimer;
+  Duration dgoTime = Duration(seconds: 0);
+  void dgostartTimer() {
+    if (dgoTime.inSeconds == 0) {
       otpNum = 1234.toString();
+      dgoNum = "Tolol";
       // otpNum = (Random().nextDouble() * 10000).toInt().toString();
+      dgoTime = Duration(seconds: 60);
       otpTime = Duration(seconds: 60);
-      otpCountdownTimer =
-          Timer.periodic(Duration(seconds: 1), (_) => otpSetCountDown());
+      if (otpCountdownTimer != null) otpCountdownTimer!.cancel();
+      dgoCountdownTimer = Timer.periodic(
+          Duration(seconds: 1), (_) => dgoSetCountDown(dgoCountdownTimer));
+      otpCountdownTimer = Timer.periodic(
+          Duration(seconds: 1), (_) => otpSetCountDown(otpCountdownTimer));
     }
     notifyListeners();
   }
 
-  void otpStopTimer() {
+  void dgoStopTimer(dgoCountdownTimer) {
+    dgoCountdownTimer!.cancel();
+    notifyListeners();
+  }
+
+  void dgoResetTimer(dgoCountdownTimer) {
+    dgoStopTimer(dgoCountdownTimer);
+    otpNum = "WilliamTolol";
+    dgoTime = Duration(seconds: 0);
+    notifyListeners();
+  }
+
+  void dgoSetCountDown(dgoCountdownTimer) {
+    int dgoreduceSecondsBy = 1;
+    int dgoseconds = dgoTime.inSeconds - dgoreduceSecondsBy;
+    if (dgoseconds < 0) {
+      dgoCountdownTimer!.cancel();
+    } else {
+      dgoTime = Duration(seconds: dgoseconds);
+    }
+    notifyListeners();
+  }
+
+  String otpNum = "WilliamTolol";
+
+  var otpCountdownTimer;
+
+  Duration otpTime = Duration(seconds: 0);
+
+  void otpstartTimer() {
+    if (otpTime.inSeconds == 0) {
+      otpNum = 1234.toString();
+      // otpNum = (Random().nextDouble() * 10000).toInt().toString();
+      otpTime = Duration(seconds: 60);
+
+      otpCountdownTimer = Timer.periodic(
+          Duration(seconds: 1), (_) => otpSetCountDown(otpCountdownTimer));
+    }
+    notifyListeners();
+  }
+
+  void otpStopTimer(otpCountdownTimer) {
     otpCountdownTimer!.cancel();
     notifyListeners();
   }
 
-  void otpResetTimer() {
-    otpStopTimer();
+  void otpResetTimer(otpCountdownTimer) {
+    otpStopTimer(otpCountdownTimer);
     otpNum = "WilliamTolol";
-    otpTime = Duration(seconds: 60);
+    otpTime = Duration(seconds: 0);
     notifyListeners();
   }
 
-  void otpSetCountDown() {
+  void otpSetCountDown(otpCountdownTimer) {
     int reduceSecondsBy = 1;
     int seconds = otpTime.inSeconds - reduceSecondsBy;
     if (seconds < 0) {
+      otpNum = "WilliamTolol";
       otpCountdownTimer!.cancel();
     } else {
       otpTime = Duration(seconds: seconds);
     }
     notifyListeners();
+  }
+
+  List<String> otpList = ["", "", "", ""];
+
+  void resetOtpList() {
+    otpList = ["", "", "", ""];
+    notifyListeners();
+  }
+
+  void otpListChange(val, index) {
+    otpList[index] = val;
+    notifyListeners();
+  }
+
+  List<FocusNode> focusNodes = [for (int j = 0; j < 4; j++) FocusNode()];
+
+  Container OtpTextFieldWilliamTolol({
+    List<TextEditingController>? handleControllers,
+    int numberOfFields = 4,
+    double fieldWidth = 50,
+    Color borderColor = const Color(0xFF182631),
+    Color focusedBorderColor = const Color(0xFF2196F3),
+    List<TextInputFormatter>? inputFormatters,
+    BuildContext? context,
+    String? nextPage,
+  }) {
+    return Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          for (int i = 0; i < numberOfFields; i++)
+            Container(
+              margin: EdgeInsets.only(right: 8),
+              width: fieldWidth,
+              child: TextField(
+                controller: handleControllers![i],
+                focusNode: focusNodes[i],
+                keyboardType: TextInputType.number,
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
+                ],
+                textAlign: TextAlign.center,
+                decoration: InputDecoration(
+                  hintText: "",
+                  counterText: "",
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(16),
+                    borderSide: const BorderSide(
+                      width: 2,
+                      color: Colors.blueGrey,
+                    ),
+                  ),
+                ),
+                maxLength: 1,
+                readOnly: false,
+                autofocus: false,
+                style: TextStyle(color: Colors.white),
+                onChanged: (value) {
+                  otpListChange(value, i);
+                  if (value != "") {
+                    if (i < numberOfFields - 1) {
+                      focusNodes[i].unfocus();
+                      FocusScope.of(context!).requestFocus(focusNodes[i + 1]);
+                    } else {
+                      focusNodes[i].unfocus();
+                    }
+                    if (otpList.join().length == 4) {
+                      if (otpList.join() == otpNum) {
+                        onPageChange(nextPage);
+                      } else {}
+                    }
+                  }
+                  notifyListeners();
+                },
+              ),
+            )
+        ],
+      ),
+    );
   }
 
   /// Data ->
@@ -432,35 +587,61 @@ class Apbr extends ChangeNotifier {
             usernameEmailCheck));
   }
 
-  Container register(context, server_profiles) {
+  Container register(context, server_profiles, otpF1, otpF2, otpF3, otpF4) {
     return Container(
         child: register_body(
-            context,
-            isObs1,
-            isObs2,
-            _isObs1,
-            _isObs2,
-            isTr,
-            _isTru,
-            onPageChange,
-            "otp",
-            server_profiles,
-            usernameEmail,
-            email,
-            password,
-            conpassword,
-            usernameEmailErrText,
-            emailErrText,
-            passwordErrText,
-            conpasswordErrText,
-            registerErrTextChange,
-            labelTextStyle));
+      context,
+      isObs1,
+      isObs2,
+      _isObs1,
+      _isObs2,
+      isTr,
+      _isTru,
+      onPageChange,
+      "otp",
+      server_profiles,
+      usernameEmail,
+      email,
+      password,
+      conpassword,
+      usernameEmailErrText,
+      emailErrText,
+      passwordErrText,
+      conpasswordErrText,
+      registerErrTextChange,
+      labelTextStyle,
+      otpstartTimer,
+      otpF1,
+      otpF2,
+      otpF3,
+      otpF4,
+      resetOtpList,
+    ));
   }
 
-  Container otp(context, addNewProfile) {
+  Container otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4) {
     return Container(
-        child: otp_body(context, onPageChange, "home", usernameEmail, email,
-            password, addNewProfile, otpText, otpErrText, otpNum));
+        child: otp_body(
+      context,
+      onPageChange,
+      "home",
+      usernameEmail,
+      email,
+      password,
+      addNewProfile,
+      otpText,
+      otpErrText,
+      otpNum,
+      otpTime,
+      dgoNum,
+      dgoTime,
+      dgostartTimer,
+      otpF1,
+      otpF2,
+      otpF3,
+      otpF4,
+      OtpTextFieldWilliamTolol,
+    ));
   }
 
   Container forgotpass(context) {
@@ -499,4 +680,52 @@ class Apbr extends ChangeNotifier {
   }
 
   /// Bottom Navigation Template ->
+  ///
+  /// <- Kelas
+
+  TimeOfDay selTime = TimeOfDay.now();
+
+  void selTimeChange(val) {
+    selTime = val;
+    notifyListeners();
+  }
+
+  DateTime selDate = DateTime.now();
+
+  void selDateChange(val) {
+    selDate = val;
+    notifyListeners();
+  }
+
+  String type = "date";
+  void typeChange(val) {
+    type = val;
+    notifyListeners();
+  }
+
+  DateTimeRange selDateRange =
+      DateTimeRange(start: DateTime(2023, 6, 26), end: DateTime(2023, 6, 27));
+
+  void selDateRangeChange(val) {
+    selDateRange = val;
+    notifyListeners();
+  }
+
+  /// Kelas ->
 }
+
+//  class MySingleton {
+//      static MySingleton? _instance_ = null;
+
+//     late Timer timer_;
+
+
+//      static GetInstance(){
+//         if (_instance_ == null) _instance_ = new MySingleton();
+//         return _instance_;
+//     }
+
+//      _MySingleton(){
+//          timer_ = new Timer(Callback, ...);
+//     }
+// }

@@ -13,6 +13,49 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final ScrollController controller = ScrollController();
+
+  TextEditingController otpF1 = TextEditingController();
+  TextEditingController otpF2 = TextEditingController();
+  TextEditingController otpF3 = TextEditingController();
+  TextEditingController otpF4 = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    otpF1.addListener(() {
+      final String text = otpF1.text;
+      otpF1.value = otpF1.value.copyWith(
+        text: text,
+        selection: TextSelection(baseOffset: 0, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    otpF2.addListener(() {
+      final String text = otpF2.text;
+      otpF2.value = otpF2.value.copyWith(
+        text: text,
+        selection: TextSelection(baseOffset: 0, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    otpF3.addListener(() {
+      final String text = otpF3.text;
+      otpF3.value = otpF3.value.copyWith(
+        text: text,
+        selection: TextSelection(baseOffset: 0, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+    otpF4.addListener(() {
+      final String text = otpF4.text;
+      otpF4.value = otpF4.value.copyWith(
+        text: text,
+        selection: TextSelection(baseOffset: 0, extentOffset: text.length),
+        composing: TextRange.empty,
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     ///
@@ -32,7 +75,8 @@ class _MainPageState extends State<MainPage> {
       "search_pp": prov_apbr.search_pp(),
       "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
       "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"], ""),
-      "tit_back_edit": prov_apbr.tit_back_edit(prov_apbr.current_page["title"], ""),
+      "tit_back_edit":
+          prov_apbr.tit_back_edit(prov_apbr.current_page["title"], ""),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -45,10 +89,15 @@ class _MainPageState extends State<MainPage> {
     Map<String, Container> bodys = {
       "gettingstarted": prov_apbr.gettingstarted(context),
       "login": prov_apbr.login(context, server_profiles, loginProfile),
-      "register": prov_apbr.register(context, server_profiles),
-      "home": prov_apbr.home(context, controller, sortedItem,),
+      "register": prov_apbr.register(
+          context, server_profiles, otpF1, otpF2, otpF3, otpF4),
+      "home": prov_apbr.home(
+        context,
+        controller,
+        sortedItem,
+      ),
       "shop": prov_apbr.shop(context),
-      "otp": prov_apbr.otp(context, addNewProfile),
+      "otp": prov_apbr.otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4),
       "forgotpass": prov_apbr.forgotpass(context),
       "forgotpass2": prov_apbr.forgotpass2(context),
       "detailsitem": prov_apbr.detailsitem(context),
@@ -72,7 +121,7 @@ class _MainPageState extends State<MainPage> {
               bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
             )),
         onWillPop: () async {
-          prov_apbr.onPageChange("home");
+          prov_apbr.removeHistoryOne();
           return false;
         });
   }

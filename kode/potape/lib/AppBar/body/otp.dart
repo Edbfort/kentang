@@ -1,8 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+// import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-Container otp_body(context, onPageChange, nextPage, username, email, password,
-    addNewProfile, otpText, otpErrText, otpNum) {
+Container otp_body(
+  context,
+  onPageChange,
+  nextPage,
+  username,
+  email,
+  password,
+  addNewProfile,
+  otpText,
+  otpErrText,
+  otpNum,
+  otpTime,
+  dgoNum,
+  dgoTime,
+  dgostartTimer,
+  TextEditingController otpF1,
+  TextEditingController otpF2,
+  TextEditingController otpF3,
+  TextEditingController otpF4,
+  OtpTextFieldWilliamTolol,
+) {
   return Container(
       child: Center(
           child: Container(
@@ -14,59 +34,53 @@ Container otp_body(context, onPageChange, nextPage, username, email, password,
             Expanded(
                 child: SizedBox(
               height: 50,
-              child: TextField(
+              child: OtpTextFieldWilliamTolol(
+                context: context,
+                nextPage: "home",
+                handleControllers: [
+                  otpF1,
+                  otpF2,
+                  otpF3,
+                  otpF4,
+                ], //taruh controler agar bisa di kosongkan nanti setelah submit
+                numberOfFields: 4,
+                fieldWidth: 50,
+                borderColor: Color(0xFF182631),
+                focusedBorderColor: Color(0xFF2196F3),
                 inputFormatters: [
-                  LengthLimitingTextInputFormatter(4),
-                  FilteringTextInputFormatter.digitsOnly
+                  FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
-                keyboardType: TextInputType.number,
-                controller: otpText,
-                decoration: InputDecoration(
-                    floatingLabelBehavior: FloatingLabelBehavior.never,
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          bottomLeft: Radius.circular(15)),
-                      borderSide: const BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(255, 146, 180, 236),
-                      ),
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(15),
-                          bottomLeft: Radius.circular(15)),
-                      borderSide: const BorderSide(
-                        width: 2,
-                        color: Color.fromARGB(255, 146, 180, 236),
-                      ),
-                    ),
-                    labelText: "Insert 4 digit code here",
-                    errorText: otpErrText == "" ? null : otpErrText),
               ),
             )),
-            SizedBox(
-              height: 50,
-              child: ElevatedButton(
-                onPressed: () {},
-                child: Text("Get OTP"),
-                style: ElevatedButton.styleFrom(
-                  primary: const Color(0xFF92B4EC),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                        topRight: Radius.circular(15),
-                        bottomRight: Radius.circular(15)),
-                  ),
-                ),
-              ),
+          ],
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              "OTP Code sent " + otpTime.inSeconds.toString(),
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ],
         ),
-        Center(
-          child: Text(
-            "Enter your 4 digit verification code here",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                dgostartTimer();
+              },
+              child: Text(
+                dgoNum == "WilliamTolol"
+                    ? "Didn't get code?"
+                    : dgoTime.inSeconds.toString() == "0"
+                        ? "Didn't get code?"
+                        : "Resend Code in " + dgoTime.inSeconds.toString(),
+                style: TextStyle(
+                    fontWeight: FontWeight.bold, color: Color(0xFF2196F3)),
+              ),
+            )
+          ],
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height / 2,
@@ -78,19 +92,7 @@ Container otp_body(context, onPageChange, nextPage, username, email, password,
           width: 350,
           height: 60,
           child: ElevatedButton(
-            onPressed: () {
-              otpErrText = "";
-              if (otpText.text == "" || otpText.text == otpNum.text) {
-                otpErrText = "OTP is incorrect";
-              }
-              if (otpErrText == "") {}
-              Map<String, dynamic> newProfileData = {
-                "email": email.text.toString(),
-                "password": password.text.toString()
-              };
-              addNewProfile(username.text.toString(), newProfileData);
-              onPageChange(nextPage);
-            },
+            onPressed: () {},
             style: ElevatedButton.styleFrom(
               // ignore: deprecated_member_use
               primary: const Color(0xFF92B4EC),
@@ -98,7 +100,7 @@ Container otp_body(context, onPageChange, nextPage, username, email, password,
                 borderRadius: BorderRadius.circular(30.0),
               ),
             ),
-            child: const Text(
+            child: Text(
               'Register',
               style: TextStyle(
                 fontWeight: FontWeight.bold,

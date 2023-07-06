@@ -21,6 +21,7 @@ Container gettingstarted_body(context, onPageChange) {
           ),
         ),
         Container(
+          color: Colors.transparent,
           padding: EdgeInsets.symmetric(vertical: 10),
           child: Image(
             image: AssetImage('assets/potape.png'),

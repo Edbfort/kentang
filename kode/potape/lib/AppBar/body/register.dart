@@ -40,6 +40,12 @@ Container register_body(
   conpasswordErrText,
   registerErrTextChange,
   labelTextStyle,
+  otpstartTimer,
+  otpF1,
+  otpF2,
+  otpF3,
+  otpF4,
+  resetOtpList,
 ) {
   // List<String> errTextType = ["empty", "incorrect", "false"];
   return Container(
@@ -329,6 +335,12 @@ Container register_body(
                                                     emailErrText == "" &&
                                                     passwordErrText == "" &&
                                                     conpasswordErrText == "") {
+                                                  otpstartTimer();
+                                                  otpF1.clear();
+                                                  otpF2.clear();
+                                                  otpF3.clear();
+                                                  otpF4.clear();
+                                                  resetOtpList();
                                                   onPageChange(nextPage);
                                                 }
                                                 ;
