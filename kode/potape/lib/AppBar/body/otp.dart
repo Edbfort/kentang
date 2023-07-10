@@ -50,6 +50,7 @@ Container otp_body(
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
+                addNewProfile: addNewProfile,
               ),
             )),
           ],

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 AppBar tit_back_apbr(title_, navs) {
   return AppBar(
     iconTheme: IconThemeData(color: Colors.white),
+    leading: BackButton(),
     backgroundColor: Colors.transparent,
     elevation: 0,
     title: Text(

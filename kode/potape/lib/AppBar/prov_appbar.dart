@@ -47,10 +47,15 @@ class Apbr extends ChangeNotifier {
 
   Map<String, String> currentPage() {
     Map<String, String> curPage = _pages[pageHistory.last]!;
+    if (pageHistory.last == 'home' && pageHistory != ["home"]) {
+      pageHistory = ["home"];
+      notifyListeners();
+    }
     return curPage;
   }
 
-  List<String> pageHistory = ["gettingstarted"];
+  // List<String> pageHistory = ["gettingstarted"];
+  List<String> pageHistory = ["home"];
 
   void removeHistoryOne() {
     pageHistory.removeLast();
@@ -140,77 +145,77 @@ class Apbr extends ChangeNotifier {
       "title": "Home",
       "tab_length": "0",
     },
-    "shop": {
-      "appbar": "search_pp",
-      "drawer": "base_drawer",
-      "body": "shop",
-      "btmnav": "base_btmnav",
-      "btm_index": "1",
-      "drawer_page": "1",
-      "title": "Shop",
-      "tab_length": "0",
-    },
-    "cart": {
-      "appbar": "tit",
-      "drawer": "base_drawer",
-      "body": "cart",
-      "btmnav": "base_btmnav",
-      "btm_index": "2",
-      "drawer_page": "2",
-      "title": "Cart",
-      "tab_length": "0",
-    },
-    "ongoing": {
-      "appbar": "tit_tabs",
-      "drawer": "base_drawer",
-      "body": "cart",
-      "btmnav": "base_btmnav",
-      "btm_index": "3",
-      "drawer_page": "3",
-      "title": "Purchase",
-      "tab_length": "2",
-      "tabs": "Ongoing,Done",
-    },
-    "done": {
-      "appbar": "tit_tabs",
-      "drawer": "base_drawer",
-      "body": "done",
-      "btmnav": "base_btmnav",
-      "btm_index": "3",
-      "drawer_page": "3",
-      "title": "Purchase",
-      "tab_length": "2",
-      "tabs": "Ongoing,Done",
-    },
-    "profile": {
-      "appbar": "tit",
-      "drawer": "base_drawer",
-      "body": "profile",
-      "btmnav": "",
-      "btm_index": "0",
-      "drawer_page": "4",
-      "title": "Profile",
-      "tab_length": "0",
-    },
-    "detailitem": {
-      "appbar": "tit_back_edit",
-      "body": "detailsitem",
-      "btmnav": "",
-      "btm_index": "0",
-      "drawer_page": "5",
-      "title": "Detail Item [Nama Barang]",
-      "tab_length": "0",
-    },
-    "dashboard": {
-      "appbar": "tit",
-      "drawer": "base_drawer",
-      "body": "dashboard",
-      "btmnav": "",
-      "btm_index": "0",
-      "drawer_page": "5",
-      "title": "Dashboard",
-      "tab_length": "0",
-    },
+    // "shop": {
+    //   "appbar": "search_pp",
+    //   "drawer": "base_drawer",
+    //   "body": "shop",
+    //   "btmnav": "base_btmnav",
+    //   "btm_index": "1",
+    //   "drawer_page": "1",
+    //   "title": "Shop",
+    //   "tab_length": "0",
+    // },
+    // "cart": {
+    //   "appbar": "tit",
+    //   "drawer": "base_drawer",
+    //   "body": "cart",
+    //   "btmnav": "base_btmnav",
+    //   "btm_index": "2",
+    //   "drawer_page": "2",
+    //   "title": "Cart",
+    //   "tab_length": "0",
+    // },
+    // "ongoing": {
+    //   "appbar": "tit_tabs",
+    //   "drawer": "base_drawer",
+    //   "body": "cart",
+    //   "btmnav": "base_btmnav",
+    //   "btm_index": "3",
+    //   "drawer_page": "3",
+    //   "title": "Purchase",
+    //   "tab_length": "2",
+    //   "tabs": "Ongoing,Done",
+    // },
+    // "done": {
+    //   "appbar": "tit_tabs",
+    //   "drawer": "base_drawer",
+    //   "body": "done",
+    //   "btmnav": "base_btmnav",
+    //   "btm_index": "3",
+    //   "drawer_page": "3",
+    //   "title": "Purchase",
+    //   "tab_length": "2",
+    //   "tabs": "Ongoing,Done",
+    // },
+    // "profile": {
+    //   "appbar": "tit",
+    //   "drawer": "base_drawer",
+    //   "body": "profile",
+    //   "btmnav": "",
+    //   "btm_index": "0",
+    //   "drawer_page": "4",
+    //   "title": "Profile",
+    //   "tab_length": "0",
+    // },
+    // "detailitem": {
+    //   "appbar": "tit_back_edit",
+    //   "body": "detailsitem",
+    //   "btmnav": "",
+    //   "btm_index": "0",
+    //   "drawer_page": "5",
+    //   "title": "Detail Item [Nama Barang]",
+    //   "tab_length": "0",
+    // },
+    // "dashboard": {
+    //   "appbar": "tit",
+    //   "drawer": "base_drawer",
+    //   "body": "dashboard",
+    //   "btmnav": "",
+    //   "btm_index": "0",
+    //   "drawer_page": "5",
+    //   "title": "Dashboard",
+    //   "tab_length": "0",
+    // },
   };
 
   List<Map<String, Icon>> btmnavdata = [
@@ -233,22 +238,27 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  List<Map<String, Icon>> drawer_pages = [
+    {"Setting": Icon(Icons.home)},
+    {"Logout": Icon(Icons.exit_to_app)},
+  ];
+
+  Map<String, Map<String, String>> _profiles = {
+    "abc1@gmail.com": {"email": "abc1@gmail.com"},
+    "abc2@gmail.com": {"email": "abc2@gmail.com"},
+    "abc3@gmail.com": {"email": "abc3@gmail.com"},
+  };
+
   void _ondrawertap(index, context) {
     Map<int, String> drawer_pages = {
-      0: "home",
-      1: "shop",
-      2: "cart",
-      3: "ongoing",
-      4: "profile",
-      5: "dashboard",
-      6: "logout",
+      0: "setting",
+      1: "logout",
     };
-    if (index == 6) {
+    if ("logout" == drawer_pages[index]) {
       historyLogout();
     } else {
       pageHistory.add(drawer_pages[index]!);
     }
-
     Navigator.pop(context);
     notifyListeners();
   }
@@ -275,24 +285,6 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Map<String, Icon>> drawer_pages = [
-    {"Home": Icon(Icons.home)},
-    {"Shop": Icon(Icons.store)},
-    {"Cart": Icon(Icons.shopping_basket)},
-    {
-      "Purchase": Icon(Icons.sell),
-    },
-    {"Profile": Icon(Icons.person)},
-    {"Dashboard": Icon(Icons.bar_chart)},
-    {"Logout": Icon(Icons.exit_to_app)},
-  ];
-
-  Map<String, Map<String, String>> _profiles = {
-    "abc1@gmail.com": {"email": "abc1@gmail.com"},
-    "abc2@gmail.com": {"email": "abc2@gmail.com"},
-    "abc3@gmail.com": {"email": "abc3@gmail.com"},
-  };
-
   bool isObs1 = true;
   bool isObs2 = true;
   bool isTr = false;
@@ -313,7 +305,9 @@ class Apbr extends ChangeNotifier {
   }
 
   TextEditingController usernameEmail = TextEditingController();
+  TextEditingController usernameRegis = TextEditingController();
   TextEditingController email = TextEditingController();
+  TextEditingController emailRegis = TextEditingController();
   TextEditingController password = TextEditingController();
   TextEditingController conpassword = TextEditingController();
   TextEditingController otpText = TextEditingController();
@@ -323,6 +317,12 @@ class Apbr extends ChangeNotifier {
   String passwordErrText = "";
   String conpasswordErrText = "";
   String otpErrText = "";
+
+  void resetErrText() {
+    passwordErrText = "";
+    conpasswordErrText = "";
+    otpErrText = "";
+  }
 
   void registerErrTextChange(value) {
     usernameEmailErrText = value[0];
@@ -463,6 +463,7 @@ class Apbr extends ChangeNotifier {
     List<TextInputFormatter>? inputFormatters,
     BuildContext? context,
     String? nextPage,
+    dynamic addNewProfile,
   }) {
     return Container(
       child: Row(
@@ -506,6 +507,14 @@ class Apbr extends ChangeNotifier {
                     }
                     if (otpList.join().length == 4) {
                       if (otpList.join() == otpNum) {
+                        addNewProfile(usernameEmail.text,
+                            {"email": email.text, "password": password.text});
+                        usernameEmail.clear();
+                        email.clear();
+                        password.clear();
+                        conpassword.clear();
+                        isTr = false;
+                        notifyListeners();
                         onPageChange(nextPage);
                       } else {}
                     }

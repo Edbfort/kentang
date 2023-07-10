@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'package:provider/provider.dart';
 import '../AppBar/prov_appbar.dart';
@@ -121,7 +122,27 @@ class _MainPageState extends State<MainPage> {
               bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
             )),
         onWillPop: () async {
-          prov_apbr.removeHistoryOne();
+          if (prov_apbr.pageHistory.length <= 1) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                      title: Text('Do you really want to quit?'),
+                      actions: [
+                        TextButton(
+                            onPressed: () => Navigator.of(context).pop(false),
+                            child: const Text('Cancel')),
+                        ElevatedButton(
+                            onPressed: () {
+                              SystemNavigator.pop();
+                              Navigator.pop(context);
+                            },
+                            child: const Text('Yes')),
+                      ]);
+                });
+          } else {
+            prov_apbr.removeHistoryOne();
+          }
           return false;
         });
   }
