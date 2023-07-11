@@ -1,3 +1,8 @@
 04/06/2023
-pengambialn data dari json/txt dengan File atau readAsStringSync() dimana di kasih error dibawah di json/txt nya :
+pengambilan data dari json/txt dengan File atau readAsStringSync() dimana di kasih error dibawah di json/txt nya.
 Error: Expected a declaration, but got '{'.
+Solusi: Tidak memakainya
+
+10/7/2023
+masalah dalam running apk di BlueStacks (grey screen)
+e: C:/Users/Fortin/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib-common/1.8.22/1a8e3601703ae14bb58757ea6b2d8e8e5935a586/kotlin-stdlib-common-1.8.22.jar!/META-INF/kotlin-stdlib-common.kotlin_module: Module was compiled with an incompatible version of Kotlin. The binary version of its metadata is 1.8.0, expected version is 1.6.0.

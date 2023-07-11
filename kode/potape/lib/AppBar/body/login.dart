@@ -123,14 +123,47 @@ Container login_body(
                           errorText:
                               passwordErrText == "" ? null : passwordErrText),
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            onPageChange("forgotpass");
+                          },
+                          child: Text(
+                            "Forgot password?",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2196F3)),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),
               Container(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("Don't have account?"),
+                        TextButton(
+                          onPressed: () {
+                            onPageChange("register");
+                          },
+                          child: Text(
+                            "Sign Up",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2196F3)),
+                          ),
+                        ),
+                      ],
+                    ),
                     Divider(
                       thickness: 2,
                     ),

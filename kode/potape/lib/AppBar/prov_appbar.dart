@@ -11,6 +11,7 @@ import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
 import 'appbar/tit_back_edit.dart';
+import 'appbar/tit_double_back.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/detailsitem.dart';
 import 'body/gettingstarted.dart';
@@ -54,8 +55,8 @@ class Apbr extends ChangeNotifier {
     return curPage;
   }
 
-  // List<String> pageHistory = ["gettingstarted"];
-  List<String> pageHistory = ["home"];
+  List<String> pageHistory = ["gettingstarted"];
+  // List<String> pageHistory = ["home"];
 
   void removeHistoryOne() {
     pageHistory.removeLast();
@@ -126,7 +127,7 @@ class Apbr extends ChangeNotifier {
       "tab_length": "0",
     },
     "forgotpass2": {
-      "appbar": "tit_back",
+      "appbar": "tit_double_back",
       "drawer": "",
       "body": "forgotpass2",
       "btmnav": "",
@@ -143,6 +144,15 @@ class Apbr extends ChangeNotifier {
       "btm_index": "0",
       "drawer_page": "0",
       "title": "Home",
+      "tab_length": "0",
+    },
+    "detailitem": {
+      "appbar": "tit_back_edit",
+      "body": "detailsitem",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "5",
+      "title": "Detail Item [Nama Barang]",
       "tab_length": "0",
     },
     // "shop": {
@@ -195,15 +205,6 @@ class Apbr extends ChangeNotifier {
     //   "btm_index": "0",
     //   "drawer_page": "4",
     //   "title": "Profile",
-    //   "tab_length": "0",
-    // },
-    // "detailitem": {
-    //   "appbar": "tit_back_edit",
-    //   "body": "detailsitem",
-    //   "btmnav": "",
-    //   "btm_index": "0",
-    //   "drawer_page": "5",
-    //   "title": "Detail Item [Nama Barang]",
     //   "tab_length": "0",
     // },
     // "dashboard": {
@@ -264,6 +265,9 @@ class Apbr extends ChangeNotifier {
   }
 
   void onPageChange(page) {
+    isObs1 = true;
+    isObs2 = true;
+    registerErrTextChange(["", "", "", ""]);
     pageHistory.add(page);
     notifyListeners();
   }
@@ -280,8 +284,11 @@ class Apbr extends ChangeNotifier {
 
   Map<String, dynamic> get currentSingleItem => _currentSingleItem;
 
-  void changeCurrentSingleItem(val) {
-    _currentSingleItem = val;
+  void changeCurrentSingleItem(names, data, index) {
+    Map<String, dynamic> oneData = {
+      names.elementAt(index): data.elementAt(index)
+    };
+    _currentSingleItem = oneData;
     notifyListeners();
   }
 
@@ -308,8 +315,11 @@ class Apbr extends ChangeNotifier {
   TextEditingController usernameRegis = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController emailRegis = TextEditingController();
+  TextEditingController emailForgot = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController passwordForgot = TextEditingController();
   TextEditingController conpassword = TextEditingController();
+  TextEditingController conpasswordForgot = TextEditingController();
   TextEditingController otpText = TextEditingController();
 
   String usernameEmailErrText = "";
@@ -319,9 +329,12 @@ class Apbr extends ChangeNotifier {
   String otpErrText = "";
 
   void resetErrText() {
+    usernameEmailErrText = "";
+    emailErrText = "";
     passwordErrText = "";
     conpasswordErrText = "";
     otpErrText = "";
+    notifyListeners();
   }
 
   void registerErrTextChange(value) {
@@ -452,18 +465,38 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  void otpRegister(addNewProfile, nextPage) {
+    addNewProfile(
+        usernameEmail.text, {"email": email.text, "password": password.text});
+    usernameEmail.clear();
+    email.clear();
+    password.clear();
+    conpassword.clear();
+    isTr = false;
+    onPageChange(nextPage);
+    notifyListeners();
+  }
+
+  void otpForgotpass() {
+    emailForgot.clear();
+    passwordForgot.clear();
+    onPageChange("forgotpass2");
+    notifyListeners();
+  }
+
   List<FocusNode> focusNodes = [for (int j = 0; j < 4; j++) FocusNode()];
 
   Container OtpTextFieldWilliamTolol({
     List<TextEditingController>? handleControllers,
     int numberOfFields = 4,
-    double fieldWidth = 50,
+    double fieldWidth = 50.0,
     Color borderColor = const Color(0xFF182631),
     Color focusedBorderColor = const Color(0xFF2196F3),
     List<TextInputFormatter>? inputFormatters,
     BuildContext? context,
     String? nextPage,
     dynamic addNewProfile,
+    String? otpPurpose,
   }) {
     return Container(
       child: Row(
@@ -495,27 +528,28 @@ class Apbr extends ChangeNotifier {
                 maxLength: 1,
                 readOnly: false,
                 autofocus: false,
-                style: TextStyle(color: Colors.white),
+                style: TextStyle(color: Colors.white, fontSize: 30),
                 onChanged: (value) {
                   otpListChange(value, i);
                   if (value != "") {
+                    ///
+                    /// <- Bagian pergantian Focus
                     if (i < numberOfFields - 1) {
                       focusNodes[i].unfocus();
                       FocusScope.of(context!).requestFocus(focusNodes[i + 1]);
                     } else {
                       focusNodes[i].unfocus();
                     }
+
+                    /// Bagian pergantian Focus ->
+                    ///
                     if (otpList.join().length == 4) {
                       if (otpList.join() == otpNum) {
-                        addNewProfile(usernameEmail.text,
-                            {"email": email.text, "password": password.text});
-                        usernameEmail.clear();
-                        email.clear();
-                        password.clear();
-                        conpassword.clear();
-                        isTr = false;
-                        notifyListeners();
-                        onPageChange(nextPage);
+                        otpPurpose == "register"
+                            ? otpRegister(addNewProfile, nextPage)
+                            : otpPurpose == "forgotpass"
+                                ? otpForgotpass()
+                                : null;
                       } else {}
                     }
                   }
@@ -526,6 +560,13 @@ class Apbr extends ChangeNotifier {
         ],
       ),
     );
+  }
+
+  String? otpPurpose;
+
+  void otpPurposeChange(val) {
+    otpPurpose = val;
+    notifyListeners();
   }
 
   /// Data ->
@@ -542,13 +583,17 @@ class Apbr extends ChangeNotifier {
     return tit_apbr(title_);
   }
 
-  AppBar tit_back(title_, navs) {
-    return tit_back_apbr(title_, navs);
+  AppBar tit_back(title_) {
+    return tit_back_apbr(title_);
   }
 
-  AppBar tit_back_edit(title_, navs) {
+  AppBar tit_double_back(title_, context) {
+    return tit_double_back_apbr(title_, context);
+  }
+
+  AppBar tit_back_edit(title_) {
     // print(_currentSingleItem.keys.first);
-    return tit_back_edit_apbr(title_, navs, currentSingleItem.keys.first);
+    return tit_back_edit_apbr(title_, currentSingleItem.keys.first);
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -599,33 +644,33 @@ class Apbr extends ChangeNotifier {
   Container register(context, server_profiles, otpF1, otpF2, otpF3, otpF4) {
     return Container(
         child: register_body(
-      context,
-      isObs1,
-      isObs2,
-      _isObs1,
-      _isObs2,
-      isTr,
-      _isTru,
-      onPageChange,
-      "otp",
-      server_profiles,
-      usernameEmail,
-      email,
-      password,
-      conpassword,
-      usernameEmailErrText,
-      emailErrText,
-      passwordErrText,
-      conpasswordErrText,
-      registerErrTextChange,
-      labelTextStyle,
-      otpstartTimer,
-      otpF1,
-      otpF2,
-      otpF3,
-      otpF4,
-      resetOtpList,
-    ));
+            context,
+            isObs1,
+            isObs2,
+            _isObs1,
+            _isObs2,
+            isTr,
+            _isTru,
+            onPageChange,
+            "otp",
+            server_profiles,
+            usernameEmail,
+            email,
+            password,
+            conpassword,
+            usernameEmailErrText,
+            emailErrText,
+            passwordErrText,
+            conpasswordErrText,
+            registerErrTextChange,
+            labelTextStyle,
+            otpstartTimer,
+            otpF1,
+            otpF2,
+            otpF3,
+            otpF4,
+            resetOtpList,
+            otpPurposeChange));
   }
 
   Container otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4) {
@@ -650,16 +695,50 @@ class Apbr extends ChangeNotifier {
       otpF3,
       otpF4,
       OtpTextFieldWilliamTolol,
+      otpPurpose,
     ));
   }
 
-  Container forgotpass(context) {
-    return Container(child: forgotpass_body(context));
+  Container forgotpass(context, server_profiles, otpF1, otpF2, otpF3, otpF4) {
+    return Container(
+        child: forgotpass_body(
+            context,
+            onPageChange,
+            server_profiles,
+            emailForgot,
+            usernameEmailErrText,
+            emailErrText,
+            passwordErrText,
+            conpasswordErrText,
+            registerErrTextChange,
+            labelTextStyle,
+            otpstartTimer,
+            otpF1,
+            otpF2,
+            otpF3,
+            otpF4,
+            resetOtpList,
+            otpPurposeChange));
   }
 
   Container forgotpass2(context) {
     return Container(
-        child: forgotpass2_body(context, isObs1, isObs2, _isObs1, _isObs2));
+        child: forgotpass2_body(
+      context,
+      isObs1,
+      isObs2,
+      _isObs1,
+      _isObs2,
+      onPageChange,
+      passwordForgot,
+      conpasswordForgot,
+      usernameEmailErrText,
+      emailErrText,
+      passwordErrText,
+      conpasswordErrText,
+      registerErrTextChange,
+      labelTextStyle,
+    ));
   }
 
   Container home(context, controller, sortedItem) {
@@ -727,7 +806,6 @@ class Apbr extends ChangeNotifier {
 //      static MySingleton? _instance_ = null;
 
 //     late Timer timer_;
-
 
 //      static GetInstance(){
 //         if (_instance_ == null) _instance_ = new MySingleton();

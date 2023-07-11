@@ -25,10 +25,7 @@ Container home_body(context, controller, sortedItem, onPageChange, nextPage,
             itemBuilder: (context, index) {
               return ListTile(
                   onTap: () {
-                    Map<String, dynamic> oneData = {
-                      names.elementAt(index): data.elementAt(index)
-                    };
-                    changeCurrentSingleItem(oneData);
+                    changeCurrentSingleItem(names, data, index);
                     onPageChange(nextPage);
                   },
                   title: Text(
@@ -51,7 +48,7 @@ Container home_body(context, controller, sortedItem, onPageChange, nextPage,
               );
             },
             itemCount: data.length),
-            // ListTile()
+        // ListTile()
       ),
     ]),
   );

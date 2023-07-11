@@ -75,9 +75,10 @@ class _MainPageState extends State<MainPage> {
     Map<String, AppBar> appbars = {
       "search_pp": prov_apbr.search_pp(),
       "tit": prov_apbr.tit(prov_apbr.current_page["title"]),
-      "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"], ""),
-      "tit_back_edit":
-          prov_apbr.tit_back_edit(prov_apbr.current_page["title"], ""),
+      "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"]),
+      "tit_double_back":
+          prov_apbr.tit_double_back(prov_apbr.current_page["title"], context),
+      "tit_back_edit": prov_apbr.tit_back_edit(prov_apbr.current_page["title"]),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -99,7 +100,8 @@ class _MainPageState extends State<MainPage> {
       ),
       "shop": prov_apbr.shop(context),
       "otp": prov_apbr.otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4),
-      "forgotpass": prov_apbr.forgotpass(context),
+      "forgotpass": prov_apbr.forgotpass(
+          context, server_profiles, otpF1, otpF2, otpF3, otpF4),
       "forgotpass2": prov_apbr.forgotpass2(context),
       "detailsitem": prov_apbr.detailsitem(context),
     };

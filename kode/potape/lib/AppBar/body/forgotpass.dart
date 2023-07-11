@@ -1,89 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:potape/AppBar/body/register.dart';
 
-Container forgotpass_body(context) {
+Container forgotpass_body(
+    context,
+    onPageChange,
+    Map<String, Map<String, Map<String, dynamic>>> server_profiles,
+    emailForgot,
+    usernameErrText,
+    emailErrText,
+    passwordErrText,
+    conpasswordErrText,
+    registerErrTextChange,
+    labelTextStyle,
+    otpstartTimer,
+    otpF1,
+    otpF2,
+    otpF3,
+    otpF4,
+    resetOtpList,
+    otpPurposeChange) {
   return Container(
     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
     child: Column(children: [
-      Row(
-        children: [
-          textFieldTitle("Email"),
-        ],
-      ),
+      textFieldTitle("Email"),
       TextField(
+        controller: emailForgot,
         decoration: InputDecoration(
+            filled: true,
+            fillColor: Color(0xFF182631),
             floatingLabelBehavior: FloatingLabelBehavior.never,
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(
                 width: 2,
-                color: Color.fromARGB(255, 146, 180, 236),
+                color: Colors.blueGrey,
               ),
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(15),
               borderSide: const BorderSide(
                 width: 2,
-                color: Color.fromARGB(255, 146, 180, 236),
+                color: Colors.blueGrey,
               ),
             ),
-            labelText: "Email"),
-      ),
-      SizedBox(
-        height: MediaQuery.of(context).size.height / 60,
-      ),
-      Row(children: [
-        Expanded(
-            child: SizedBox(
-          height: 50,
-          child: TextField(
-            decoration: InputDecoration(
-                floatingLabelBehavior: FloatingLabelBehavior.never,
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    color: Color.fromARGB(255, 146, 180, 236),
-                  ),
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(15),
-                      bottomLeft: Radius.circular(15)),
-                  borderSide: const BorderSide(
-                    width: 2,
-                    color: Color.fromARGB(255, 146, 180, 236),
-                  ),
-                ),
-                labelText: "Insert 4 digit code here"),
-          ),
-        )),
-        SizedBox(
-          height: 50,
-          child: ElevatedButton(
-            onPressed: () {},
-            child: Text("Get OTP"),
-            style: ElevatedButton.styleFrom(
-              primary: const Color(0xFF92B4EC),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(15),
-                    bottomRight: Radius.circular(15)),
-              ),
-            ),
-          ),
-        ),
-      ]),
-      Padding(
-        padding: EdgeInsets.only(
-            left: MediaQuery.of(context).size.width / 25,
-            top: MediaQuery.of(context).size.height / 50),
-      ),
-      Text(
-        "Enter your 4 digit verification code here",
-        style: TextStyle(fontWeight: FontWeight.bold),
+            labelText: "Email",
+            labelStyle: labelTextStyle,
+            errorText: emailErrText == "" ? null : emailErrText),
       ),
       SizedBox(
         height: MediaQuery.of(context).size.height / 2.50,
@@ -96,7 +58,52 @@ Container forgotpass_body(context) {
         height: 60,
         child: ElevatedButton(
           onPressed: () {
-            // onPageChange(nextPage);
+            usernameErrText = "";
+            emailErrText = "";
+            passwordErrText = "";
+            conpasswordErrText = "";
+
+            if (emailForgot.text == "") {
+              emailErrText = "Email cannot be empty";
+            } else {
+              emailErrText = "Couldn't find your Account";
+              for (Map<String, Map<String, dynamic>> data
+                  in server_profiles.values) {
+                if (data["profileData"]!["email"].toString() ==
+                    emailForgot.text) {
+                  emailErrText = "";
+                  break;
+                }
+              }
+            }
+
+            registerErrTextChange([
+              usernameErrText,
+              emailErrText,
+              passwordErrText,
+              conpasswordErrText
+            ]);
+            if (emailErrText == "") {
+              otpstartTimer();
+              otpF1.clear();
+              otpF2.clear();
+              otpF3.clear();
+              otpF4.clear();
+              resetOtpList();
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+                  "OTP Sent",
+                  style: TextStyle(color: Colors.white),
+                ),
+                behavior: SnackBarBehavior.floating,
+                backgroundColor: Colors.black,
+                margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).size.height - 100),
+              ));
+              otpPurposeChange("forgotpass");
+              onPageChange("otp");
+            }
+            ;
           },
           style: ElevatedButton.styleFrom(
             // ignore: deprecated_member_use
@@ -106,7 +113,7 @@ Container forgotpass_body(context) {
             ),
           ),
           child: const Text(
-            'Register',
+            'Next',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 20.0,

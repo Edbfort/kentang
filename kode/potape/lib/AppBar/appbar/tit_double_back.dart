@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 
-AppBar tit_back_apbr(
-  title_,
-) {
+AppBar tit_double_back_apbr(title_, context) {
   return AppBar(
     iconTheme: IconThemeData(color: Colors.white),
-    leading: BackButton(),
+    leading: BackButton(
+      onPressed: () {
+        Navigator.maybePop(context);
+        Navigator.maybePop(context);
+      },
+    ),
     backgroundColor: Colors.transparent,
     elevation: 0,
     title: Text(

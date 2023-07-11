@@ -211,7 +211,7 @@ class Sorter extends ChangeNotifier {
             {"quantity": "dummy", "harga": "dummy", "time": "dd/mm/yyyy"}
           ]
         },
-        "dummyItem": {
+        "dummyItem2": {
           "gudang": "dummy",
           "quantity": "dummy",
           "deskripsi": "dummy",

@@ -22,6 +22,7 @@ Container otp_body(
   TextEditingController otpF3,
   TextEditingController otpF4,
   OtpTextFieldWilliamTolol,
+  otpPurpose,
 ) {
   return Container(
       child: Center(
@@ -33,7 +34,7 @@ Container otp_body(
           children: [
             Expanded(
                 child: SizedBox(
-              height: 50,
+              height: 80,
               child: OtpTextFieldWilliamTolol(
                 context: context,
                 nextPage: "home",
@@ -44,13 +45,13 @@ Container otp_body(
                   otpF4,
                 ], //taruh controler agar bisa di kosongkan nanti setelah submit
                 numberOfFields: 4,
-                fieldWidth: 50,
+                fieldWidth: 70.0,
                 borderColor: Color(0xFF182631),
                 focusedBorderColor: Color(0xFF2196F3),
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
-                addNewProfile: addNewProfile,
+                addNewProfile: addNewProfile, otpPurpose: otpPurpose,
               ),
             )),
           ],
@@ -102,7 +103,11 @@ Container otp_body(
               ),
             ),
             child: Text(
-              'Register',
+              otpPurpose == "register"
+                  ? 'Register'
+                  : otpPurpose == "forgotpass"
+                      ? 'Next'
+                      : "",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20.0,

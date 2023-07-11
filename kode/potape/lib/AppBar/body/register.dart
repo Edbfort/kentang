@@ -20,33 +20,33 @@ Container textFieldTitle(title_) {
 }
 
 Container register_body(
-  context,
-  isObs1,
-  isObs2,
-  _isObs1,
-  _isObs2,
-  isTr,
-  _isTru,
-  onPageChange,
-  nextPage,
-  Map<String, Map<String, Map<String, dynamic>>> server_profiles,
-  username,
-  email,
-  password,
-  conpassword,
-  usernameErrText,
-  emailErrText,
-  passwordErrText,
-  conpasswordErrText,
-  registerErrTextChange,
-  labelTextStyle,
-  otpstartTimer,
-  otpF1,
-  otpF2,
-  otpF3,
-  otpF4,
-  resetOtpList,
-) {
+    context,
+    isObs1,
+    isObs2,
+    _isObs1,
+    _isObs2,
+    isTr,
+    _isTru,
+    onPageChange,
+    nextPage,
+    Map<String, Map<String, Map<String, dynamic>>> server_profiles,
+    username,
+    email,
+    password,
+    conpassword,
+    usernameErrText,
+    emailErrText,
+    passwordErrText,
+    conpasswordErrText,
+    registerErrTextChange,
+    labelTextStyle,
+    otpstartTimer,
+    otpF1,
+    otpF2,
+    otpF3,
+    otpF4,
+    resetOtpList,
+    otpPurposeChange) {
   // List<String> errTextType = ["empty", "incorrect", "false"];
   return Container(
       width: MediaQuery.of(context).size.width,
@@ -341,6 +341,25 @@ Container register_body(
                                                   otpF3.clear();
                                                   otpF4.clear();
                                                   resetOtpList();
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(SnackBar(
+                                                    content: Text(
+                                                      "OTP Sent",
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
+                                                    behavior: SnackBarBehavior
+                                                        .floating,
+                                                    backgroundColor:
+                                                        Colors.black,
+                                                    margin: EdgeInsets.only(
+                                                        bottom: MediaQuery.of(
+                                                                    context)
+                                                                .size
+                                                                .height -
+                                                            100),
+                                                  ));
+                                                  otpPurposeChange("register");
                                                   onPageChange(nextPage);
                                                 }
                                                 ;
