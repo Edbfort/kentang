@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:potape/AppBar/body/register.dart';
 
 Container forgotpass_body(
@@ -18,12 +19,15 @@ Container forgotpass_body(
     otpF3,
     otpF4,
     resetOtpList,
-    otpPurposeChange) {
+    otpPurposeChange,
+    emailChangePassword,
+    emailChangePasswordChange) {
   return Container(
     margin: EdgeInsets.only(top: 20, left: 20, right: 20),
     child: Column(children: [
       textFieldTitle("Email"),
       TextField(
+        inputFormatters: [FilteringTextInputFormatter.deny(RegExp(r'[ ]'))],
         controller: emailForgot,
         decoration: InputDecoration(
             filled: true,
@@ -100,6 +104,7 @@ Container forgotpass_body(
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height - 100),
               ));
+              emailChangePasswordChange(emailForgot.text);
               otpPurposeChange("forgotpass");
               onPageChange("otp");
             }

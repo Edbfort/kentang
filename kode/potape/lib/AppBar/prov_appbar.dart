@@ -317,6 +317,7 @@ class Apbr extends ChangeNotifier {
   TextEditingController emailRegis = TextEditingController();
   TextEditingController emailForgot = TextEditingController();
   TextEditingController password = TextEditingController();
+  TextEditingController passwordRegis = TextEditingController();
   TextEditingController passwordForgot = TextEditingController();
   TextEditingController conpassword = TextEditingController();
   TextEditingController conpasswordForgot = TextEditingController();
@@ -327,6 +328,13 @@ class Apbr extends ChangeNotifier {
   String passwordErrText = "";
   String conpasswordErrText = "";
   String otpErrText = "";
+
+  String emailChangePassword = "";
+
+  void emailChangePasswordChange(val) {
+    emailChangePassword = val;
+    notifyListeners();
+  }
 
   void resetErrText() {
     usernameEmailErrText = "";
@@ -420,7 +428,7 @@ class Apbr extends ChangeNotifier {
   void otpstartTimer() {
     if (otpTime.inSeconds == 0) {
       otpNum = 1234.toString();
-      // otpNum = (Random().nextDouble() * 10000).toInt().toString();
+      // otpNum = (Random().nextDouble() * 10000).toInt().toString(); // ganti saat true release
       otpTime = Duration(seconds: 60);
 
       otpCountdownTimer = Timer.periodic(
@@ -654,9 +662,9 @@ class Apbr extends ChangeNotifier {
             onPageChange,
             "otp",
             server_profiles,
-            usernameEmail,
-            email,
-            password,
+            usernameRegis,
+            emailRegis,
+            passwordRegis,
             conpassword,
             usernameEmailErrText,
             emailErrText,
@@ -718,27 +726,32 @@ class Apbr extends ChangeNotifier {
             otpF3,
             otpF4,
             resetOtpList,
-            otpPurposeChange));
+            otpPurposeChange,
+            emailChangePassword,
+            emailChangePasswordChange));
   }
 
-  Container forgotpass2(context) {
+  Container forgotpass2(context, changePassword) {
     return Container(
         child: forgotpass2_body(
-      context,
-      isObs1,
-      isObs2,
-      _isObs1,
-      _isObs2,
-      onPageChange,
-      passwordForgot,
-      conpasswordForgot,
-      usernameEmailErrText,
-      emailErrText,
-      passwordErrText,
-      conpasswordErrText,
-      registerErrTextChange,
-      labelTextStyle,
-    ));
+            context,
+            isObs1,
+            isObs2,
+            _isObs1,
+            _isObs2,
+            onPageChange,
+            emailForgot,
+            passwordForgot,
+            conpasswordForgot,
+            usernameEmailErrText,
+            emailErrText,
+            passwordErrText,
+            conpasswordErrText,
+            registerErrTextChange,
+            labelTextStyle,
+            changePassword,
+            emailChangePassword,
+            emailChangePasswordChange));
   }
 
   Container home(context, controller, sortedItem) {

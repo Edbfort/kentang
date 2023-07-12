@@ -3,21 +3,24 @@ import 'package:flutter/services.dart';
 import 'package:potape/AppBar/body/register.dart';
 
 Container forgotpass2_body(
-  context,
-  isObs1,
-  isObs2,
-  _isObs1,
-  _isObs2,
-  onPageChange,
-  passwordForgot,
-  conpasswordForgot,
-  usernameEmailErrText,
-  emailErrText,
-  passwordErrText,
-  conpasswordErrText,
-  registerErrTextChange,
-  labelTextStyle,
-) {
+    context,
+    isObs1,
+    isObs2,
+    _isObs1,
+    _isObs2,
+    onPageChange,
+    emailForgot,
+    passwordForgot,
+    conpasswordForgot,
+    usernameEmailErrText,
+    emailErrText,
+    passwordErrText,
+    conpasswordErrText,
+    registerErrTextChange,
+    labelTextStyle,
+    changePassword,
+    emailChangePassword,
+    emailChangePasswordChange) {
   return Container(
     margin: EdgeInsets.only(
       top: 20,
@@ -27,9 +30,6 @@ Container forgotpass2_body(
     child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
       textFieldTitle("Password"),
       TextField(
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]'))
-        ],
         controller: passwordForgot,
         obscureText: isObs1,
         decoration: InputDecoration(
@@ -63,9 +63,6 @@ Container forgotpass2_body(
       ),
       textFieldTitle("Confirm Password"),
       TextField(
-        inputFormatters: [
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]'))
-        ],
         autocorrect: false,
         enableSuggestions: false,
         controller: conpasswordForgot,
@@ -129,8 +126,7 @@ Container forgotpass2_body(
               conpasswordErrText
             ]);
             if (passwordErrText == "" && conpasswordErrText == "") {
-              /// Pergantian password di server aja, mungkin cek jika password sama dengan yang sebelumnya ga
-              null
+              changePassword(emailChangePassword, passwordForgot.text);
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text(
                   "Password Changed",
@@ -141,7 +137,10 @@ Container forgotpass2_body(
                 margin: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height - 100),
               ));
-              onPageChange("login");
+              emailChangePasswordChange("");
+              Navigator.maybePop(context);
+              Navigator.maybePop(context);
+              Navigator.maybePop(context);
             }
           },
           style: ElevatedButton.styleFrom(

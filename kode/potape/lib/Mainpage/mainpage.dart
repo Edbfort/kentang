@@ -102,7 +102,7 @@ class _MainPageState extends State<MainPage> {
       "otp": prov_apbr.otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4),
       "forgotpass": prov_apbr.forgotpass(
           context, server_profiles, otpF1, otpF2, otpF3, otpF4),
-      "forgotpass2": prov_apbr.forgotpass2(context),
+      "forgotpass2": prov_apbr.forgotpass2(context, sorter.changePassword),
       "detailsitem": prov_apbr.detailsitem(context),
     };
 

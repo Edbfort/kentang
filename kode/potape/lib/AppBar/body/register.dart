@@ -70,7 +70,8 @@ Container register_body(
                             TextField(
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                    RegExp(r'[0-9a-zA-Z]'))
+                                    RegExp(r'[0-9a-zA-Z]')),
+                                FilteringTextInputFormatter.deny(RegExp(r'[ ]'))
                               ],
                               controller: username,
                               decoration: InputDecoration(
@@ -100,6 +101,9 @@ Container register_body(
                             ),
                             textFieldTitle("Email"),
                             TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.deny(RegExp(r'[ ]'))
+                              ],
                               controller: email,
                               decoration: InputDecoration(
                                   filled: true,
@@ -127,10 +131,6 @@ Container register_body(
                             ),
                             textFieldTitle("Password"),
                             TextField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[0-9a-zA-Z]'))
-                              ],
                               controller: password,
                               obscureText: isObs1,
                               decoration: InputDecoration(
@@ -169,10 +169,6 @@ Container register_body(
                             ),
                             textFieldTitle("Confirm Password"),
                             TextField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp(r'[0-9a-zA-Z]'))
-                              ],
                               autocorrect: false,
                               enableSuggestions: false,
                               controller: conpassword,

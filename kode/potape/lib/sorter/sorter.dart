@@ -194,6 +194,29 @@ class Sorter extends ChangeNotifier {
     };
     notifyListeners();
   }
+
+  void changePassword(email, newPassword) {
+    for (String usernameCP in _server_profiles.keys) {
+      print("dud" +
+          " " +
+          usernameCP.toString() +
+          " " +
+          email.toString() +
+          " " +
+          newPassword.toString() +
+          " " +
+          _server_profiles[usernameCP]!["profileData"]!["password"].toString());
+      if (_server_profiles[usernameCP]!["profileData"]!["email"].toString() ==
+          email.toString()) {
+        _server_profiles[usernameCP]!["profileData"]!["password"] =
+            newPassword.toString();
+        break;
+      }
+    }
+    notifyListeners();
+    print(server_profiles.toString());
+  }
+
 //////
 
   Map<String, Map<String, Map<String, dynamic>>> _sortedItems = {

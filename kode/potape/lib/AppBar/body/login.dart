@@ -55,8 +55,7 @@ Container login_body(
                     textFieldTitle("Username/Email"),
                     TextField(
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[0-9a-zA-Z]'))
+                        FilteringTextInputFormatter.deny(RegExp(r'[ ]'))
                       ],
                       controller: usernameEmail,
                       decoration: InputDecoration(
@@ -85,10 +84,6 @@ Container login_body(
                     ),
                     textFieldTitle("Password"),
                     TextField(
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                            RegExp(r'[0-9a-zA-Z]'))
-                      ],
                       controller: password,
                       obscureText: isObs1,
                       decoration: InputDecoration(
