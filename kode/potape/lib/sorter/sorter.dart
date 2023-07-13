@@ -11,7 +11,7 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "", "harga": "", "time": ""},
+            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
           ]
         },
         "Babi": {
@@ -19,9 +19,7 @@ class Sorter extends ChangeNotifier {
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Barang A": {
           "gudang": "Gudang A",
@@ -29,36 +27,28 @@ class Sorter extends ChangeNotifier {
           "deskripsi":
               "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
           "manage_cost": "0",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Barang B": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Barang C": {
           "gudang": "Gudang A",
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Barang D": {
           "gudang": "Gudang 2",
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
       },
     },
@@ -78,7 +68,7 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "", "harga": "", "time": ""},
+            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
           ]
         },
         "Babi": {
@@ -86,9 +76,7 @@ class Sorter extends ChangeNotifier {
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
       },
     },
@@ -117,7 +105,7 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "", "harga": "", "time": ""},
+            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
           ]
         },
         "Babi": {
@@ -125,9 +113,7 @@ class Sorter extends ChangeNotifier {
           "quantity": "13",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "200000",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
       },
     },
@@ -142,27 +128,21 @@ class Sorter extends ChangeNotifier {
           "quantity": "171",
           "deskripsi": "Minuman kesukaan William",
           "manage_cost": "311520",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Promag 10 Tablet": {
           "gudang": "Bawah Meja",
           "quantity": "4",
           "deskripsi": "Makanan kesukaan William",
           "manage_cost": "0",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
         "Binder Clips no.200 JOYKO": {
           "gudang": "Sepatu William",
           "quantity": "12",
           "deskripsi": "Snack kesukaan William",
           "manage_cost": "0",
-          "history": [
-            {"quantity": "", "harga": "", "time": ""},
-          ]
+          "history": []
         },
       },
     },

@@ -23,6 +23,7 @@ import 'body/forgotpass2.dart';
 import 'body/home.dart';
 import 'body/otp.dart';
 import 'body/register.dart';
+import 'body/setting.dart';
 import 'body/shop.dart';
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
@@ -55,8 +56,8 @@ class Apbr extends ChangeNotifier {
     return curPage;
   }
 
-  List<String> pageHistory = ["gettingstarted"];
-  // List<String> pageHistory = ["home"];
+  // List<String> pageHistory = ["gettingstarted"];
+  List<String> pageHistory = ["home"];
 
   void removeHistoryOne() {
     pageHistory.removeLast();
@@ -142,7 +143,7 @@ class Apbr extends ChangeNotifier {
       "body": "home",
       "btmnav": "",
       "btm_index": "0",
-      "drawer_page": "0",
+      "drawer_page": "69",
       "title": "Home",
       "tab_length": "0",
     },
@@ -153,6 +154,16 @@ class Apbr extends ChangeNotifier {
       "btm_index": "0",
       "drawer_page": "5",
       "title": "Detail Item [Nama Barang]",
+      "tab_length": "0",
+    },
+    "setting": {
+      "appbar": "tit_back",
+      "drawer": "",
+      "body": "setting",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "0",
+      "title": "Setting",
       "tab_length": "0",
     },
     // "shop": {
@@ -760,13 +771,17 @@ class Apbr extends ChangeNotifier {
             "detailitem", currentSingleItem, changeCurrentSingleItem));
   }
 
-  Container shop(context) {
-    return Container(child: shop_body(context));
+  Container setting() {
+    return Container(child: setting_body());
   }
 
   Container detailsitem(context) {
     return Container(child: detailsietm_body(context, currentSingleItem));
   }
+
+  // Container shop(context) {
+  //   return Container(child: shop_body(context));
+  // }
 
   ///  Body Template ->
 

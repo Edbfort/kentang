@@ -348,12 +348,6 @@ Container register_body(
                                                         .floating,
                                                     backgroundColor:
                                                         Colors.black,
-                                                    margin: EdgeInsets.only(
-                                                        bottom: MediaQuery.of(
-                                                                    context)
-                                                                .size
-                                                                .height -
-                                                            100),
                                                   ));
                                                   otpPurposeChange("register");
                                                   onPageChange(nextPage);

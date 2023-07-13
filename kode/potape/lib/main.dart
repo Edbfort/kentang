@@ -42,7 +42,10 @@ class MyApp extends StatelessWidget {
       scrollBehavior: MyCustomScrollBehavior(),
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(textTheme: newTextTheme, brightness: Brightness.dark),
+      theme: ThemeData(
+          textTheme: newTextTheme,
+          brightness: Brightness.dark,
+          dividerColor: Colors.black38),
       home: MainPage(),
     );
   }
