@@ -11,7 +11,66 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
           ]
         },
         "Babi": {
@@ -68,7 +127,66 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
           ]
         },
         "Babi": {
@@ -105,7 +223,66 @@ class Sorter extends ChangeNotifier {
           "deskripsi": "Kaki kesukaan William",
           "manage_cost": "0",
           "history": [
-            {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "IN",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
+            {
+              "status": "OUT",
+              "quantity": "10",
+              "harga": "46000",
+              "time": "Jun. 1, 2023"
+            },
           ]
         },
         "Babi": {
@@ -177,15 +354,6 @@ class Sorter extends ChangeNotifier {
 
   void changePassword(email, newPassword) {
     for (String usernameCP in _server_profiles.keys) {
-      print("dud" +
-          " " +
-          usernameCP.toString() +
-          " " +
-          email.toString() +
-          " " +
-          newPassword.toString() +
-          " " +
-          _server_profiles[usernameCP]!["profileData"]!["password"].toString());
       if (_server_profiles[usernameCP]!["profileData"]!["email"].toString() ==
           email.toString()) {
         _server_profiles[usernameCP]!["profileData"]!["password"] =
@@ -194,7 +362,6 @@ class Sorter extends ChangeNotifier {
       }
     }
     notifyListeners();
-    print(server_profiles.toString());
   }
 
 //////

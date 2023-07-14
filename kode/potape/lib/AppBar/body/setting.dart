@@ -26,6 +26,7 @@ Container setting_body() {
               style: TextStyle(color: Color(0xFF2196F3))),
         )),
         Divider(
+          color: Colors.white54,
           thickness: 0.5,
         ),
         ListTile(
@@ -47,6 +48,7 @@ Container setting_body() {
               ),
             )),
         Divider(
+          color: Colors.white54,
           thickness: 0.5,
         ),
         ListTile(

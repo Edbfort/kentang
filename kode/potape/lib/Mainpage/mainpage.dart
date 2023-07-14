@@ -138,13 +138,40 @@ class _MainPageState extends State<MainPage> {
                         TextButton(
                             onPressed: () {
                               SystemNavigator.pop();
-                              Navigator.pop(context);
                             },
                             child: const Text('Yes')),
                       ]);
                 });
           } else {
-            prov_apbr.removeHistoryOne();
+            if (prov_apbr.detailsEdit == false) {
+              prov_apbr.removeHistoryOne();
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) {
+                    return AlertDialog(
+                        title: Text('Save your changes or discard them?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(false),
+                              child: const Text('Cancel')),
+                          TextButton(
+                              onPressed: () {
+                                prov_apbr
+                                    .detailsEditChange(!prov_apbr.detailsEdit);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Discard')),
+                          TextButton(
+                              onPressed: () {
+                                prov_apbr
+                                    .detailsEditChange(!prov_apbr.detailsEdit);
+                                Navigator.pop(context);
+                              },
+                              child: const Text('Save')),
+                        ]);
+                  });
+            }
           }
           return false;
         });

@@ -279,6 +279,7 @@ class Apbr extends ChangeNotifier {
     isObs1 = true;
     isObs2 = true;
     registerErrTextChange(["", "", "", ""]);
+    detailsEdit = false;
     pageHistory.add(page);
     notifyListeners();
   }
@@ -289,7 +290,9 @@ class Apbr extends ChangeNotifier {
       "quantity": "6",
       "deskripsi": "Kaki kesukaan William",
       "manage_cost": "0",
-      "history": {'stok': {}, 'harga': {}}
+      "history": [
+        {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
+      ]
     },
   };
 
@@ -588,6 +591,13 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  bool detailsEdit = false;
+
+  void detailsEditChange(val) {
+    detailsEdit = val;
+    notifyListeners();
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -612,7 +622,8 @@ class Apbr extends ChangeNotifier {
 
   AppBar tit_back_edit(title_) {
     // print(_currentSingleItem.keys.first);
-    return tit_back_edit_apbr(title_, currentSingleItem.keys.first);
+    return tit_back_edit_apbr(
+        title_, currentSingleItem.keys.first, detailsEdit, detailsEditChange);
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -776,7 +787,9 @@ class Apbr extends ChangeNotifier {
   }
 
   Container detailsitem(context) {
-    return Container(child: detailsietm_body(context, currentSingleItem));
+    return Container(
+        child: detailsietm_body(
+            context, currentSingleItem, detailsEdit, detailsEditChange));
   }
 
   // Container shop(context) {

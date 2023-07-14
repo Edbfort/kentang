@@ -7,18 +7,6 @@ Container home_body(context, controller, sortedItem, onPageChange, nextPage,
   Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
   Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   // Iterable subtitle = sortedItem[sortedItem.keys.first]!["items"]["gudang"].keys;
-  print(data.elementAt(0)["history"].length.toString() + "lolol");
-  data.elementAt(0)["history"].length > 0
-      ? int.parse(data.elementAt(0)["quantity"].toString()) >
-              int.parse(
-                  data.elementAt(0)["history"].last["quantity"].toString())
-          ? print("G" + "lolol")
-          : int.parse(data.elementAt(0)["quantity"].toString()) <
-                  int.parse(
-                      data.elementAt(0)["history"].last["quantity"].toString())
-              ? print("R" + "lolol")
-              : print("B" + "lolol")
-      : print("B" + "lolol");
   return Container(
     color: Color(0xFF182631),
     child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
