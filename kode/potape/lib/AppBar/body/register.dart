@@ -46,7 +46,10 @@ Container register_body(
     otpF3,
     otpF4,
     resetOtpList,
-    otpPurposeChange) {
+    otpPurposeChange,
+    regisEmailTextChange,
+    regisPasswordTextChange,
+    regisUsernameTextChange) {
   // List<String> errTextType = ["empty", "incorrect", "false"];
   return Container(
       width: MediaQuery.of(context).size.width,
@@ -349,6 +352,12 @@ Container register_body(
                                                     backgroundColor:
                                                         Colors.black,
                                                   ));
+                                                  regisEmailTextChange(
+                                                      email.text);
+                                                  regisPasswordTextChange(
+                                                      password.text);
+                                                  regisUsernameTextChange(
+                                                      username.text);
                                                   otpPurposeChange("register");
                                                   onPageChange(nextPage);
                                                 }

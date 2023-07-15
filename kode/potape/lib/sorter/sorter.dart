@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+import '../data/price/price_day.dart';
 
 class Sorter extends ChangeNotifier {
   Map<String, Map<String, Map<String, dynamic>>> _current_items = {
@@ -12,61 +15,61 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "0",
           "history": [
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
@@ -128,61 +131,61 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "0",
           "history": [
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
@@ -224,61 +227,61 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "0",
           "history": [
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "IN",
+              "status": "ADD",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
             },
             {
-              "status": "OUT",
+              "status": "REMOVE",
               "quantity": "10",
               "harga": "46000",
               "time": "Jun. 1, 2023"
@@ -361,6 +364,35 @@ class Sorter extends ChangeNotifier {
         break;
       }
     }
+    notifyListeners();
+  }
+
+  void manageItemAddHistory(itemName, type, quantity) {
+    int tmpQuantity = quantity;
+    String username = _current_items.keys.first.toString();
+    int basePrice = int.parse(price_day.first[itemName]!);
+
+    /// Penggunaan Package Intl
+    String currentTime = DateFormat('MMM. d, y').format(DateTime.now());
+
+    if (type == "Remove") {
+      tmpQuantity = tmpQuantity * -1;
+    }
+    _current_items[username]!["items"]![itemName]["quantity"] = (int.parse(
+                _current_items[username]!["items"]![itemName]["quantity"]
+                    .toString()) +
+            tmpQuantity)
+        .toString();
+    _current_items[username]!["items"]![itemName]["history"].insert(
+      0,
+      {
+        "status": type.toString().toUpperCase(),
+        "quantity": quantity.toString(),
+        "harga": (quantity * basePrice).toString(),
+        "time": currentTime
+      },
+    );
+
     notifyListeners();
   }
 

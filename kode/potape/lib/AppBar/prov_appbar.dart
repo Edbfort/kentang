@@ -336,17 +336,38 @@ class Apbr extends ChangeNotifier {
   TextEditingController conpassword = TextEditingController();
   TextEditingController conpasswordForgot = TextEditingController();
   TextEditingController otpText = TextEditingController();
+  TextEditingController manageItemQuantity = TextEditingController();
 
   String usernameEmailErrText = "";
   String emailErrText = "";
   String passwordErrText = "";
   String conpasswordErrText = "";
   String otpErrText = "";
+  String manageItemQuantityErrText = "";
 
   String emailChangePassword = "";
 
+  String regisUsernameText = "";
+  String regisEmailText = "";
+  String regisPasswordText = "";
+
   void emailChangePasswordChange(val) {
     emailChangePassword = val;
+    notifyListeners();
+  }
+
+  void regisUsernameTextChange(val) {
+    regisUsernameText = val;
+    notifyListeners();
+  }
+
+  void regisEmailTextChange(val) {
+    regisEmailText = val;
+    notifyListeners();
+  }
+
+  void regisPasswordTextChange(val) {
+    regisPasswordText = val;
     notifyListeners();
   }
 
@@ -364,6 +385,11 @@ class Apbr extends ChangeNotifier {
     emailErrText = value[1];
     passwordErrText = value[2];
     conpasswordErrText = value[3];
+    notifyListeners();
+  }
+
+  void manageItemErrTextChange(val) {
+    manageItemQuantityErrText = val;
     notifyListeners();
   }
 
@@ -488,8 +514,11 @@ class Apbr extends ChangeNotifier {
   }
 
   void otpRegister(addNewProfile, nextPage) {
-    addNewProfile(
-        usernameEmail.text, {"email": email.text, "password": password.text});
+    addNewProfile(regisUsernameText,
+        {"email": regisEmailText, "password": regisPasswordText});
+    regisUsernameTextChange("");
+    regisEmailTextChange("");
+    regisPasswordTextChange("");
     usernameEmail.clear();
     email.clear();
     password.clear();
@@ -598,6 +627,13 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  String manageItemType = "Add";
+
+  void manageItemTypeChange(val) {
+    manageItemType = val;
+    notifyListeners();
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -700,7 +736,10 @@ class Apbr extends ChangeNotifier {
             otpF3,
             otpF4,
             resetOtpList,
-            otpPurposeChange));
+            otpPurposeChange,
+            regisEmailTextChange,
+            regisPasswordTextChange,
+            regisUsernameTextChange));
   }
 
   Container otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4) {
@@ -786,10 +825,20 @@ class Apbr extends ChangeNotifier {
     return Container(child: setting_body());
   }
 
-  Container detailsitem(context) {
+  Container detailsitem(context, manageItemAddHistory) {
     return Container(
         child: detailsietm_body(
-            context, currentSingleItem, detailsEdit, detailsEditChange));
+            context,
+            currentSingleItem,
+            detailsEdit,
+            detailsEditChange,
+            manageItemQuantity,
+            manageItemQuantityErrText,
+            manageItemErrTextChange,
+            labelTextStyle,
+            manageItemType,
+            manageItemTypeChange,
+            manageItemAddHistory));
   }
 
   // Container shop(context) {

@@ -103,7 +103,8 @@ class _MainPageState extends State<MainPage> {
         controller,
         sortedItem,
       ),
-      "detailsitem": prov_apbr.detailsitem(context),
+      "detailsitem":
+          prov_apbr.detailsitem(context, sorter.manageItemAddHistory),
       "setting": prov_apbr.setting(),
     };
 

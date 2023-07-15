@@ -44,6 +44,7 @@ dependencies:
   image_picker: ^1.0.0
   mime: ^1.0.4
   video_player: ^2.7.0
+  dropdown_button2: ^2.3.5
 
 dev_dependencies:
   flutter_test:

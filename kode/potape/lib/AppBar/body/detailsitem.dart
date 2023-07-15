@@ -1,4 +1,6 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:potape/data/price/price_day.dart';
 
 List<Container> historyListMaker(currentItem) {
@@ -14,6 +16,7 @@ List<Container> historyListMaker(currentItem) {
           children: [
             ListTile(
               leading: Container(
+                width: 60,
                 margin: EdgeInsets.only(left: 4),
                 child: Text(
                   currentItem[currentItem.keys.first.toString()]["history"][i]
@@ -22,7 +25,7 @@ List<Container> historyListMaker(currentItem) {
                   style: TextStyle(
                       color: currentItem[currentItem.keys.first.toString()]
                                   ["history"][i]["status"] ==
-                              "IN"
+                              "ADD"
                           ? Colors.green
                           : Colors.red),
                 ),
@@ -39,7 +42,7 @@ List<Container> historyListMaker(currentItem) {
                     style: TextStyle(
                         color: currentItem[currentItem.keys.first.toString()]
                                     ["history"][i]["status"] ==
-                                "IN"
+                                "ADD"
                             ? Colors.green
                             : Colors.red),
                   ),
@@ -51,7 +54,7 @@ List<Container> historyListMaker(currentItem) {
                     style: TextStyle(
                         color: currentItem[currentItem.keys.first.toString()]
                                     ["history"][i]["status"] ==
-                                "IN"
+                                "ADD"
                             ? Colors.green
                             : Colors.red),
                   ),
@@ -93,7 +96,17 @@ List<Container> historyListMaker(currentItem) {
 }
 
 Container detailsietm_body(
-    context, currentItem, detailsEdit, detailsEditChange) {
+    context,
+    currentItem,
+    detailsEdit,
+    detailsEditChange,
+    manageItemQuantity,
+    manageItemQuantityErrText,
+    manageItemErrTextChange,
+    labelTextStyle,
+    manageItemType,
+    manageItemTypeChange,
+    manageItemAddHistory) {
   return Container(
     decoration: BoxDecoration(
       borderRadius: BorderRadius.only(
@@ -144,18 +157,18 @@ Container detailsietm_body(
                   ),
                 ),
                 Text(
-                  currentItem[currentItem.keys.first.toString()]["history"][0]
-                              ["status"] ==
-                          "IN"
-                      ? "Item Added "
-                      : "Item Removed " +
-                          currentItem[currentItem.keys.first.toString()]
-                                  ["history"][0]["quantity"]
-                              .toString(),
+                  (currentItem[currentItem.keys.first.toString()]["history"][0]
+                                  ["status"] ==
+                              "ADD"
+                          ? "Item Added "
+                          : "Item Removed ") +
+                      currentItem[currentItem.keys.first.toString()]["history"]
+                              [0]["quantity"]
+                          .toString(),
                   style: TextStyle(
                       color: currentItem[currentItem.keys.first.toString()]
                                   ["history"][0]["status"] ==
-                              "IN"
+                              "ADD"
                           ? Colors.green
                           : Colors.red),
                 ),
@@ -271,7 +284,198 @@ Container detailsietm_body(
                 Container(
                   margin: EdgeInsets.only(right: 8),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) {
+                            return Theme(
+                                data: ThemeData(
+                                  textTheme: Theme.of(context).textTheme.apply(
+                                        bodyColor: Colors.black,
+                                        displayColor: Colors.black,
+                                      ),
+                                  brightness: Brightness.light,
+                                ),
+                                child: StatefulBuilder(
+                                  builder: (context, setState) {
+                                    return AlertDialog(
+                                        backgroundColor: Colors.white,
+                                        title: Text(
+                                          'Manage Item',
+                                          style: TextStyle(color: Colors.black),
+                                        ),
+                                        content: Container(
+                                            child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              "Quantity",
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Container(
+                                              height: 4,
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.start,
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.end,
+                                              children: [
+                                                Container(
+                                                  width: MediaQuery.of(context)
+                                                          .size
+                                                          .width /
+                                                      3,
+                                                  margin:
+                                                      EdgeInsets.only(right: 8),
+                                                  child: TextField(
+                                                    controller:
+                                                        manageItemQuantity,
+                                                    keyboardType:
+                                                        TextInputType.number,
+                                                    inputFormatters: [
+                                                      FilteringTextInputFormatter
+                                                          .allow(
+                                                              RegExp(r'[0-9]')),
+                                                      FilteringTextInputFormatter
+                                                          .deny(RegExp(r'[ ]'))
+                                                    ],
+                                                    decoration: InputDecoration(
+                                                      labelText: "Quatity",
+                                                      labelStyle: TextStyle(
+                                                          color:
+                                                              Colors.black54),
+                                                      errorText:
+                                                          manageItemQuantityErrText ==
+                                                                  ""
+                                                              ? null
+                                                              : manageItemQuantityErrText,
+                                                      counterText: "",
+                                                    ),
+                                                    style: TextStyle(
+                                                      color: Colors.black,
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                /// Pemakaian package dropdown_button2
+
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                      border: BorderDirectional(
+                                                          bottom: BorderSide(
+                                                              width: 2.0,
+                                                              color: Color
+                                                                  .fromARGB(
+                                                                      255,
+                                                                      207,
+                                                                      207,
+                                                                      207)))),
+                                                  child:
+                                                      DropdownButtonHideUnderline(
+                                                    child: DropdownButton2(
+                                                        value: manageItemType,
+                                                        items: [
+                                                          DropdownMenuItem(
+                                                            child: Text("Add",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black)),
+                                                            value: "Add",
+                                                          ),
+                                                          DropdownMenuItem(
+                                                            child: Text(
+                                                                "Remove",
+                                                                style: TextStyle(
+                                                                    color: Colors
+                                                                        .black)),
+                                                            value: "Remove",
+                                                          )
+                                                        ],
+                                                        onChanged: (val) {
+                                                          setState(() {
+                                                            manageItemType =
+                                                                val;
+                                                            manageItemTypeChange(
+                                                                val);
+                                                          });
+                                                        }),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          ],
+                                        )),
+                                        actions: [
+                                          TextButton(
+                                              onPressed: () {
+                                                manageItemErrTextChange("");
+                                                manageItemQuantity.clear();
+                                                Navigator.of(context)
+                                                    .pop(false);
+                                              },
+                                              child: const Text('Cancel')),
+                                          TextButton(
+                                              onPressed: () {
+                                                setState(
+                                                  () {
+                                                    manageItemQuantityErrText =
+                                                        "";
+                                                  },
+                                                );
+                                                if (manageItemQuantity.text ==
+                                                    "") {
+                                                  setState(
+                                                    () {
+                                                      manageItemQuantityErrText =
+                                                          "Quantity cannot be empty";
+                                                    },
+                                                  );
+                                                } else if (manageItemType ==
+                                                        "Remove" &&
+                                                    int.parse(manageItemQuantity
+                                                            .text
+                                                            .toString()) >
+                                                        int.parse(currentItem[
+                                                                    currentItem
+                                                                        .keys.first
+                                                                        .toString()]
+                                                                ["quantity"]
+                                                            .toString())) {
+                                                  setState(
+                                                    () {
+                                                      manageItemQuantityErrText =
+                                                          "Cannot remove more then current quantity";
+                                                    },
+                                                  );
+                                                }
+
+                                                if (manageItemQuantityErrText ==
+                                                    "") {
+                                                  Navigator.pop(context);
+                                                  manageItemAddHistory(
+                                                      currentItem.keys.first
+                                                          .toString(),
+                                                      manageItemType,
+                                                      int.parse(
+                                                          manageItemQuantity
+                                                              .text
+                                                              .toString()));
+                                                }
+                                                manageItemQuantity.clear();
+                                              },
+                                              child: const Text('Confirm')),
+                                        ]);
+                                  },
+                                ));
+                          });
+                    },
                     child: Container(
                       padding:
                           EdgeInsets.symmetric(horizontal: 8, vertical: 12),
