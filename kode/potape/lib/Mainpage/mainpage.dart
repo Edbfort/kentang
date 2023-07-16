@@ -106,6 +106,7 @@ class _MainPageState extends State<MainPage> {
       "detailsitem":
           prov_apbr.detailsitem(context, sorter.manageItemAddHistory),
       "setting": prov_apbr.setting(),
+      "insertitem":prov_apbr.insertitem(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 Container gettingstarted_body(context, onPageChange) {
   return Container(
     width: MediaQuery.of(context).size.width,
-    child: Column(
+    child: SingleChildScrollView(
+      child: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -124,5 +125,6 @@ Container gettingstarted_body(context, onPageChange) {
         )
       ],
     ),
+    )
   );
 }

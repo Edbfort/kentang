@@ -5,7 +5,9 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'appbar/search_pp.dart';
 import 'appbar/tit.dart';
@@ -15,6 +17,7 @@ import 'appbar/tit_double_back.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/detailsitem.dart';
 import 'body/gettingstarted.dart';
+import 'body/insetitem.dart';
 import 'body/login.dart';
 import 'body/register.dart';
 import 'body/otp.dart';
@@ -150,6 +153,15 @@ class Apbr extends ChangeNotifier {
     "detailitem": {
       "appbar": "tit_back_edit",
       "body": "detailsitem",
+      "btmnav": "",
+      "btm_index": "0",
+      "drawer_page": "5",
+      "title": "Detail Item [Nama Barang]",
+      "tab_length": "0",
+    },
+    "insertitem": {
+      "appbar": "tit_back_edit",
+      "body": "insertitem",
       "btmnav": "",
       "btm_index": "0",
       "drawer_page": "5",
@@ -358,6 +370,11 @@ class Apbr extends ChangeNotifier {
   String detailsEditGudangErrText = "";
   String detailsEditDeskripsiErrText = "";
 
+  String _selectedDate = '';
+  String _dateCount = '';
+  String _range = '';
+  String _rangeCount = '';
+
   void emailChangePasswordChange(val) {
     emailChangePassword = val;
     notifyListeners();
@@ -414,6 +431,24 @@ class Apbr extends ChangeNotifier {
     detailsEditGudangErrText = val[1];
     detailsEditDeskripsiErrText = val[2];
     notifyListeners();
+  }
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    if (args.value is PickerDateRange) {
+      _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
+          // ignore: lines_longer_than_80_chars
+          ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+      notifyListeners();
+    } else if (args.value is DateTime) {
+      _selectedDate = args.value.toString();
+      notifyListeners();
+    } else if (args.value is List<DateTime>) {
+      _dateCount = args.value.length.toString();
+      notifyListeners();
+    } else {
+      _rangeCount = args.value.length.toString();
+      notifyListeners();
+    }
   }
 
   TextStyle labelTextStyle = TextStyle(color: Colors.white54);
@@ -840,9 +875,21 @@ class Apbr extends ChangeNotifier {
 
   Container home(context, controller, sortedItem) {
     return Container(
-        child: home_body(context, controller, sortedItem, onPageChange,
-            "detailitem", currentSingleItem, changeCurrentSingleItem));
+        child: home_body(
+            context,
+            controller,
+            sortedItem,
+            onPageChange,
+            "detailitem",
+            currentSingleItem,
+            changeCurrentSingleItem,
+            _selectedDate,
+            _dateCount,
+            _range,
+            _rangeCount,
+            _onSelectionChanged));
   }
+
 
   Container setting() {
     return Container(child: setting_body());
@@ -868,6 +915,12 @@ class Apbr extends ChangeNotifier {
             detailsEditItemNameErrText,
             detailsEditGudangErrText,
             detailsEditDeskripsiErrText));
+  }
+  
+  Container insertitem(context){
+    return Container(
+      child: insertitem_body(context),
+    );
   }
 
   // Container shop(context) {

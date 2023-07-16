@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../data/price/price_day.dart';
 
-Container home_body(context, controller, sortedItem, onPageChange, nextPage,
-    currentSingleItem, changeCurrentSingleItem) {
+Container home_body(
+    context,
+    controller,
+    sortedItem,
+    onPageChange,
+    nextPage,
+    currentSingleItem,
+    changeCurrentSingleItem,
+    _selectedDate,
+    _dateCount,
+    _range,
+    _rangeCount,
+    _onSelectionChanged) {
   Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
   Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   // Iterable subtitle = sortedItem[sortedItem.keys.first]!["items"]["gudang"].keys;
@@ -14,6 +26,52 @@ Container home_body(context, controller, sortedItem, onPageChange, nextPage,
         height: MediaQuery.of(context).size.height / 3,
         color: Colors.white,
       ),
+      // StatefulBuilder(
+      //   builder: (context, setState) {
+      //     return AlertDialog(
+      //         backgroundColor: Colors.white,
+      //         title: Text(
+      //           'Manage Item',
+      //           style: TextStyle(color: Colors.black),
+      //         ),
+      //         content: Container(
+      //             child: Column(
+      //           children: [
+      //             Positioned(
+      //               left: 0,
+      //               right: 0,
+      //               top: 0,
+      //               height: 80,
+      //               child: Column(
+      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      //                 mainAxisSize: MainAxisSize.min,
+      //                 crossAxisAlignment: CrossAxisAlignment.start,
+      //                 children: <Widget>[
+      //                   Text('Selected date: $_selectedDate'),
+      //                   Text('Selected date count: $_dateCount'),
+      //                   Text('Selected range: $_range'),
+      //                   Text('Selected ranges count: $_rangeCount')
+      //                 ],
+      //               ),
+      //             ),
+      //             Positioned(
+      //               left: 0,
+      //               top: 80,
+      //               right: 0,
+      //               bottom: 0,
+      //               child: SfDateRangePicker(
+      //                 onSelectionChanged: _onSelectionChanged,
+      //                 selectionMode: DateRangePickerSelectionMode.range,
+      //                 initialSelectedRange: PickerDateRange(
+      //                     DateTime.now().subtract(const Duration(days: 4)),
+      //                     DateTime.now().add(const Duration(days: 3))),
+      //               ),
+      //             )
+      //           ],
+      //         )),
+      //         actions: []);
+      //   },
+      // ),
       Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(
