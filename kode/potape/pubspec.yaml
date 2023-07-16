@@ -46,6 +46,7 @@ dependencies:
   video_player: ^2.7.0
   dropdown_button2: ^2.3.5
   syncfusion_flutter_datepicker: ^22.1.38
+  syncfusion_flutter_charts: ^22.1.38
 
 dev_dependencies:
   flutter_test:

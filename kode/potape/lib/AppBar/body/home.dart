@@ -1,77 +1,81 @@
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../data/price/price_day.dart';
 
+
+
 Container home_body(
-    context,
-    controller,
-    sortedItem,
-    onPageChange,
-    nextPage,
-    currentSingleItem,
-    changeCurrentSingleItem,
-    _selectedDate,
-    _dateCount,
-    _range,
-    _rangeCount,
-    _onSelectionChanged) {
+  context,
+  controller,
+  sortedItem,
+  onPageChange,
+  nextPage,
+  currentSingleItem,
+  changeCurrentSingleItem,
+  DateTimeRange selDateRange,
+  selDateRangeChange,
+   homeChartData,
+) {
+  selRangePicker(context) async {
+    final DateTimeRange? rangePicker = await showDateRangePicker(
+      context: context,
+      initialDateRange: selDateRange,
+      firstDate: DateTime(DateTime.now().year - 100, 1),
+      lastDate: DateTime(DateTime.now().year + 100, 1),
+    );
+    if (rangePicker != null && rangePicker != selDateRange) {
+      selDateRangeChange(rangePicker);
+    }
+  }
+
   Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
   Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   // Iterable subtitle = sortedItem[sortedItem.keys.first]!["items"]["gudang"].keys;
   return Container(
     color: Color(0xFF182631),
     child: Column(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Container(
-        height: MediaQuery.of(context).size.height / 3,
-        color: Colors.white,
+      Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            margin: EdgeInsets.only(top: 16, bottom: 8, left: 16),
+            child: TextButton(
+              onPressed: () {
+                selRangePicker(context);
+              },
+              child: Row(
+                children: [
+                  Text(
+                    DateFormat('MMM. d, y').format(selDateRange.start) +
+                        " - " +
+                        DateFormat('MMM. d, y').format(selDateRange.end),
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.arrow_drop_down,
+                    color: Colors.white,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
-      // StatefulBuilder(
-      //   builder: (context, setState) {
-      //     return AlertDialog(
-      //         backgroundColor: Colors.white,
-      //         title: Text(
-      //           'Manage Item',
-      //           style: TextStyle(color: Colors.black),
-      //         ),
-      //         content: Container(
-      //             child: Column(
-      //           children: [
-      //             Positioned(
-      //               left: 0,
-      //               right: 0,
-      //               top: 0,
-      //               height: 80,
-      //               child: Column(
-      //                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      //                 mainAxisSize: MainAxisSize.min,
-      //                 crossAxisAlignment: CrossAxisAlignment.start,
-      //                 children: <Widget>[
-      //                   Text('Selected date: $_selectedDate'),
-      //                   Text('Selected date count: $_dateCount'),
-      //                   Text('Selected range: $_range'),
-      //                   Text('Selected ranges count: $_rangeCount')
-      //                 ],
-      //               ),
-      //             ),
-      //             Positioned(
-      //               left: 0,
-      //               top: 80,
-      //               right: 0,
-      //               bottom: 0,
-      //               child: SfDateRangePicker(
-      //                 onSelectionChanged: _onSelectionChanged,
-      //                 selectionMode: DateRangePickerSelectionMode.range,
-      //                 initialSelectedRange: PickerDateRange(
-      //                     DateTime.now().subtract(const Duration(days: 4)),
-      //                     DateTime.now().add(const Duration(days: 3))),
-      //               ),
-      //             )
-      //           ],
-      //         )),
-      //         actions: []);
-      //   },
-      // ),
+      Container(
+          height: 200,
+          child: BarChart(
+            BarChartData(
+                barGroups: homeChartData
+                // read about it in the BarChartData section
+                ),
+            swapAnimationDuration: Duration(milliseconds: 150), // Optional
+            swapAnimationCurve: Curves.linear, // Optional
+          )),
       Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.only(

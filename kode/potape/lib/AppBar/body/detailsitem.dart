@@ -35,6 +35,13 @@ List<Container> historyListMaker(currentItem) {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Container(
+                    height: 14,
+                    child: VerticalDivider(
+                      color: Colors.black26,
+                      thickness: 1,
+                    ),
+                  ),
                   Text(
                     currentItem[currentItem.keys.first.toString()]["history"][i]
                             ["quantity"]
@@ -45,6 +52,13 @@ List<Container> historyListMaker(currentItem) {
                                 "ADD"
                             ? Colors.green
                             : Colors.red),
+                  ),
+                  Container(
+                    height: 14,
+                    child: VerticalDivider(
+                      color: Colors.black26,
+                      thickness: 1,
+                    ),
                   ),
                   Text(
                     "Rp." +
@@ -57,6 +71,13 @@ List<Container> historyListMaker(currentItem) {
                                 "ADD"
                             ? Colors.green
                             : Colors.red),
+                  ),
+                  Container(
+                    height: 14,
+                    child: VerticalDivider(
+                      color: Colors.black26,
+                      thickness: 1,
+                    ),
                   ),
                 ],
               ),
@@ -146,8 +167,8 @@ Container detailsietm_body(
                               child: TextField(
                                 controller: detailsEditItemName,
                                 decoration: InputDecoration(
-                                  labelText: "Item Name",
-                                  labelStyle: TextStyle(color: Colors.black54),
+                                  hintText: "Item Name",
+                                  hintStyle: TextStyle(color: Colors.black54),
                                   errorText: detailsEditItemNameErrText == ""
                                       ? null
                                       : detailsEditItemNameErrText,
@@ -172,8 +193,8 @@ Container detailsietm_body(
                               child: TextField(
                                 controller: detailsEditGudang,
                                 decoration: InputDecoration(
-                                  labelText: "Lokasi",
-                                  labelStyle: TextStyle(color: Colors.black54),
+                                  hintText: "Lokasi",
+                                  hintStyle: TextStyle(color: Colors.black54),
                                   errorText: detailsEditGudangErrText == ""
                                       ? null
                                       : detailsEditGudangErrText,
@@ -264,8 +285,9 @@ Container detailsietm_body(
                 children: [
                   if (detailsEdit)
                     ExpansionTile(
+                      initiallyExpanded: true,
                       title: Text(
-                        "Deskripsi",
+                        "Description",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -282,8 +304,8 @@ Container detailsietm_body(
                               child: TextField(
                                 controller: detailsEditDeskripsi,
                                 decoration: InputDecoration(
-                                  labelText: "Deskripsi",
-                                  labelStyle: TextStyle(color: Colors.black54),
+                                  hintText: "Description",
+                                  hintStyle: TextStyle(color: Colors.black54),
                                   errorText: detailsEditDeskripsiErrText == ""
                                       ? null
                                       : detailsEditDeskripsiErrText,
@@ -299,7 +321,7 @@ Container detailsietm_body(
                   else
                     ExpansionTile(
                       title: Text(
-                        "Deskripsi",
+                        "Description",
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -641,13 +663,14 @@ Container detailsietm_body(
                     margin: EdgeInsets.only(right: 20),
                     child: PopupMenuButton(
                       icon: Icon(Icons.sort),
-                      color: Colors.black54,
                       tooltip: "Sort By",
                       itemBuilder: (context) {
                         return [
                           PopupMenuItem(
                             onTap: () {},
-                            child: Text("Ascending"),
+                            child: Text(
+                              "Ascending",
+                            ),
                           ),
                           PopupMenuItem(
                             onTap: () {},

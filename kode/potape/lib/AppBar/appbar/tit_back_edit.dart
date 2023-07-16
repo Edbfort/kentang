@@ -36,39 +36,49 @@ AppBar tit_back_edit_apbr(
                         style: TextStyle(color: Colors.black),
                       ),
                       onTap: () {
-                        print("dd");
-                        showDialog(
-                            context: context,
-                            builder: (context) {
-                              return Theme(
-                                  data: ThemeData(brightness: Brightness.light),
-                                  child: AlertDialog(
-                                      title:
-                                          Text('Do you really want to quit?'),
-                                      actions: [
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            TextButton(
-                                                onPressed: () =>
-                                                    Navigator.of(context)
-                                                        .pop(false),
-                                                child: const Text('Cancel')),
-                                            Container(
-                                              height: 14,
-                                              child: VerticalDivider(
-                                                color: Colors.black26,
-                                                thickness: 1,
-                                              ),
+                        Future.delayed(
+                            const Duration(seconds: 0),
+                            () => showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Theme(
+                                      data: ThemeData(
+                                          brightness: Brightness.light),
+                                      child: AlertDialog(
+                                          title: Text('Remove Item?'),
+                                          content: Text(
+                                              "Do you really want to remove item?"),
+                                          actions: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(false),
+                                                    child:
+                                                        const Text('Cancel')),
+                                                Container(
+                                                  height: 14,
+                                                  child: VerticalDivider(
+                                                    color: Colors.black26,
+                                                    thickness: 1,
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop("Remove");
+                                                      Navigator.maybePop(
+                                                          context);
+                                                    },
+                                                    child:
+                                                        const Text('Remove')),
+                                              ],
                                             ),
-                                            TextButton(
-                                                onPressed: () {},
-                                                child: const Text('Yes')),
-                                          ],
-                                        ),
-                                      ]));
-                            });
+                                          ]));
+                                }));
                       },
                     ),
                   ];

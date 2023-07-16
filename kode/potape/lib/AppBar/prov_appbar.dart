@@ -2,10 +2,15 @@ import 'dart:convert';
 import 'dart:io';
 import 'dart:async';
 import 'dart:math';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:intl/intl.dart';
+import 'package:potape/data/price/price_day.dart';
+import 'package:potape/data/price/price_mon.dart';
+import 'package:potape/data/price/price_week.dart';
+import 'package:potape/data/price/price_year.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
@@ -443,23 +448,23 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
-    if (args.value is PickerDateRange) {
-      _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
-          // ignore: lines_longer_than_80_chars
-          ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
-      notifyListeners();
-    } else if (args.value is DateTime) {
-      _selectedDate = args.value.toString();
-      notifyListeners();
-    } else if (args.value is List<DateTime>) {
-      _dateCount = args.value.length.toString();
-      notifyListeners();
-    } else {
-      _rangeCount = args.value.length.toString();
-      notifyListeners();
-    }
-  }
+  // void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+  //   if (args.value is PickerDateRange) {
+  //     _range = '${DateFormat('dd/MM/yyyy').format(args.value.startDate)} -'
+  //         // ignore: lines_longer_than_80_chars
+  //         ' ${DateFormat('dd/MM/yyyy').format(args.value.endDate ?? args.value.startDate)}';
+  //     notifyListeners();
+  //   } else if (args.value is DateTime) {
+  //     _selectedDate = args.value.toString();
+  //     notifyListeners();
+  //   } else if (args.value is List<DateTime>) {
+  //     _dateCount = args.value.length.toString();
+  //     notifyListeners();
+  //   } else {
+  //     _rangeCount = args.value.length.toString();
+  //     notifyListeners();
+  //   }
+  // }
 
   TextStyle labelTextStyle = TextStyle(color: Colors.white54);
 
@@ -702,6 +707,63 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
+  String homeGrafBy = "day";
+
+  String homeGrafItem = "Kaki William";
+
+  List<BarChartGroupData> _homeChartData = [];
+
+  List<BarChartGroupData> get homeChartData => homeChartDataChange();
+
+  List<BarChartGroupData> homeChartDataChange() {
+    List<BarChartGroupData> listChartData = [];
+    var currentPriceData = (homeGrafBy == "day"
+            ? price_day
+            : homeGrafBy == "week"
+                ? price_week
+                : homeGrafBy == "mon"
+                    ? price_mon
+                    : price_year)
+        .reversed;
+    int currItemIndex = 0;
+
+    for (var tmpData in currentPriceData) {
+      var tmpListTime = tmpData["time"]!.split("_");
+      DateTime tmpTime = DateTime.parse(
+          tmpListTime[2] + "-" + tmpListTime[1] + "-" + tmpListTime[0]);
+      if ((selDateRange.start.isBefore(tmpTime) &&
+              selDateRange.end.isAfter(tmpTime)) ||
+          selDateRange.start == tmpTime ||
+          selDateRange.end == tmpTime) {
+        listChartData.add(BarChartGroupData(
+            x: int.parse(DateFormat(homeGrafBy == "day"
+                    ? "d"
+                    : homeGrafBy == "week"
+                        ? "d"
+                        : homeGrafBy == "mon"
+                            ? "M"
+                            : "y")
+                .format(tmpTime)),
+            barRods: [
+              BarChartRodData(
+                  toY: int.parse(tmpData[homeGrafItem].toString()).toDouble(),
+                  color: currItemIndex > 0
+                      ? (int.parse(tmpData[homeGrafItem].toString()) >=
+                              int.parse(currentPriceData.elementAt(
+                                  currItemIndex - 1)["homeGrafItem"]!)
+                          ? Colors.cyan
+                          : Colors.red)
+                      : Colors.cyan)
+            ]));
+      }
+    }
+
+    _homeChartData = listChartData;
+
+    notifyListeners();
+    return _homeChartData;
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -893,11 +955,9 @@ class Apbr extends ChangeNotifier {
             "detailitem",
             currentSingleItem,
             changeCurrentSingleItem,
-            _selectedDate,
-            _dateCount,
-            _range,
-            _rangeCount,
-            _onSelectionChanged));
+            selDateRange,
+            selDateRangeChange,
+            homeChartData));
   }
 
   Container setting() {
@@ -975,8 +1035,8 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  DateTimeRange selDateRange =
-      DateTimeRange(start: DateTime(2023, 6, 26), end: DateTime(2023, 6, 27));
+  DateTimeRange selDateRange = DateTimeRange(
+      start: DateTime.now().subtract(Duration(days: 5)), end: DateTime.now());
 
   void selDateRangeChange(val) {
     selDateRange = val;
