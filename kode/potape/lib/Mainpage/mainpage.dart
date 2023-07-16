@@ -106,7 +106,6 @@ class _MainPageState extends State<MainPage> {
       "detailsitem":
           prov_apbr.detailsitem(context, sorter.manageItemAddHistory),
       "setting": prov_apbr.setting(),
-      "insertitem":prov_apbr.insertitem(context),
     };
 
     Map<String, BottomNavigationBar> btmnavs = {
@@ -114,6 +113,10 @@ class _MainPageState extends State<MainPage> {
           .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
       "btmnav_unselec": prov_apbr
           .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
+    };
+
+    Map<String, FloatingActionButton> fabs = {
+      "insertItem": prov_apbr.insertItem(context),
     };
 
     return WillPopScope(
@@ -125,24 +128,40 @@ class _MainPageState extends State<MainPage> {
               drawer: drawers[prov_apbr.current_page["drawer"]],
               body: bodys[prov_apbr.current_page["body"]],
               bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
+              floatingActionButton: fabs[prov_apbr.current_page["fab"]],
             )),
         onWillPop: () async {
           if (prov_apbr.pageHistory.length <= 1) {
             showDialog(
                 context: context,
                 builder: (context) {
-                  return AlertDialog(
-                      title: Text('Do you really want to quit?'),
-                      actions: [
-                        TextButton(
-                            onPressed: () => Navigator.of(context).pop(false),
-                            child: const Text('Cancel')),
-                        TextButton(
-                            onPressed: () {
-                              SystemNavigator.pop();
-                            },
-                            child: const Text('Yes')),
-                      ]);
+                  return Theme(
+                      data: ThemeData(brightness: Brightness.light),
+                      child: AlertDialog(
+                          title: Text('Do you really want to quit?'),
+                          actions: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                TextButton(
+                                    onPressed: () =>
+                                        Navigator.of(context).pop(false),
+                                    child: const Text('Cancel')),
+                                Container(
+                                  height: 14,
+                                  child: VerticalDivider(
+                                    color: Colors.black26,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      SystemNavigator.pop();
+                                    },
+                                    child: const Text('Yes')),
+                              ],
+                            ),
+                          ]));
                 });
           } else {
             if (prov_apbr.detailsEdit == false) {
@@ -151,27 +170,50 @@ class _MainPageState extends State<MainPage> {
               showDialog(
                   context: context,
                   builder: (context) {
-                    return AlertDialog(
-                        title: Text('Save your changes or discard them?'),
-                        actions: [
-                          TextButton(
-                              onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('Cancel')),
-                          TextButton(
-                              onPressed: () {
-                                prov_apbr
-                                    .detailsEditChange(!prov_apbr.detailsEdit);
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Discard')),
-                          TextButton(
-                              onPressed: () {
-                                prov_apbr
-                                    .detailsEditChange(!prov_apbr.detailsEdit);
-                                Navigator.pop(context);
-                              },
-                              child: const Text('Save')),
-                        ]);
+                    return Theme(
+                        data: ThemeData(brightness: Brightness.light),
+                        child: AlertDialog(
+                            title: Text('Save your changes or discard them?'),
+                            actions: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  TextButton(
+                                      onPressed: () =>
+                                          Navigator.of(context).pop(false),
+                                      child: const Text('Cancel')),
+                                  Container(
+                                    height: 14,
+                                    child: VerticalDivider(
+                                      color: Colors.black26,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        prov_apbr.detailsEditChange(
+                                            !prov_apbr.detailsEdit);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Discard')),
+                                  Container(
+                                    height: 14,
+                                    child: VerticalDivider(
+                                      color: Colors.black26,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        prov_apbr.detailsEditChange(
+                                            !prov_apbr.detailsEdit);
+                                        Navigator.pop(context);
+                                      },
+                                      child: const Text('Save')),
+                                ],
+                              ),
+                            ]));
                   });
             }
           }

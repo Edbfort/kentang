@@ -460,7 +460,7 @@ Container detailsietm_body(
                                                           decoration:
                                                               InputDecoration(
                                                             labelText:
-                                                                "Quatity",
+                                                                "Quantity",
                                                             labelStyle: TextStyle(
                                                                 color: Colors
                                                                     .black54),

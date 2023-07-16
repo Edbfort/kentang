@@ -17,7 +17,7 @@ import 'appbar/tit_double_back.dart';
 import 'appbar/tit_tabs.dart';
 import 'body/detailsitem.dart';
 import 'body/gettingstarted.dart';
-import 'body/insetitem.dart';
+import 'fab/insetitem.dart';
 import 'body/login.dart';
 import 'body/register.dart';
 import 'body/otp.dart';
@@ -89,6 +89,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "",
       "tab_length": "0",
+      "fab": "",
     },
     "login": {
       "appbar": "tit_back",
@@ -99,6 +100,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Login",
       "tab_length": "0",
+      "fab": "",
     },
     "register": {
       "appbar": "tit_back",
@@ -109,6 +111,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Register",
       "tab_length": "0",
+      "fab": "",
     },
     "otp": {
       "appbar": "tit_back",
@@ -119,6 +122,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Verification",
       "tab_length": "0",
+      "fab": "",
     },
     "forgotpass": {
       "appbar": "tit_back",
@@ -129,6 +133,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Forgot Password",
       "tab_length": "0",
+      "fab": "",
     },
     "forgotpass2": {
       "appbar": "tit_double_back",
@@ -139,6 +144,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Forgot Password",
       "tab_length": "0",
+      "fab": "",
     },
     "home": {
       "appbar": "search_pp",
@@ -149,6 +155,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "69",
       "title": "Home",
       "tab_length": "0",
+      "fab": "insertItem",
     },
     "detailitem": {
       "appbar": "tit_back_edit",
@@ -158,6 +165,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "5",
       "title": "Detail Item [Nama Barang]",
       "tab_length": "0",
+      "fab": "",
     },
     "insertitem": {
       "appbar": "tit_back_edit",
@@ -167,6 +175,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "5",
       "title": "Detail Item [Nama Barang]",
       "tab_length": "0",
+      "fab": "",
     },
     "setting": {
       "appbar": "tit_back",
@@ -177,6 +186,7 @@ class Apbr extends ChangeNotifier {
       "drawer_page": "0",
       "title": "Setting",
       "tab_length": "0",
+      "fab": "",
     },
     // "shop": {
     //   "appbar": "search_pp",
@@ -890,7 +900,6 @@ class Apbr extends ChangeNotifier {
             _onSelectionChanged));
   }
 
-
   Container setting() {
     return Container(child: setting_body());
   }
@@ -916,12 +925,6 @@ class Apbr extends ChangeNotifier {
             detailsEditGudangErrText,
             detailsEditDeskripsiErrText));
   }
-  
-  Container insertitem(context){
-    return Container(
-      child: insertitem_body(context),
-    );
-  }
 
   // Container shop(context) {
   //   return Container(child: shop_body(context));
@@ -940,6 +943,15 @@ class Apbr extends ChangeNotifier {
   }
 
   /// Bottom Navigation Template ->
+
+  /// <- FAB
+
+  FloatingActionButton insertItem(context) {
+    return insertItem_fab(context);
+  }
+
+  /// FAB ->
+
   ///
   /// <- Kelas
 

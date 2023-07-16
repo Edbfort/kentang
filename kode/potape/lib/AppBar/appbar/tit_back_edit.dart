@@ -17,12 +17,64 @@ AppBar tit_back_edit_apbr(
       Container(
         margin: EdgeInsets.only(right: 8),
         child: detailsEdit == false
-            ? IconButton(
-                onPressed: () {
-                  detailsEditChange(!detailsEdit);
-                  detailsEditSetBaseText();
+            ? PopupMenuButton(
+                itemBuilder: (context) {
+                  return [
+                    PopupMenuItem(
+                      child: Text(
+                        "Edit",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () {
+                        detailsEditChange(!detailsEdit);
+                        detailsEditSetBaseText();
+                      },
+                    ),
+                    PopupMenuItem(
+                      child: Text(
+                        "Remove",
+                        style: TextStyle(color: Colors.black),
+                      ),
+                      onTap: () {
+                        print("dd");
+                        showDialog(
+                            context: context,
+                            builder: (context) {
+                              return Theme(
+                                  data: ThemeData(brightness: Brightness.light),
+                                  child: AlertDialog(
+                                      title:
+                                          Text('Do you really want to quit?'),
+                                      actions: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context)
+                                                        .pop(false),
+                                                child: const Text('Cancel')),
+                                            Container(
+                                              height: 14,
+                                              child: VerticalDivider(
+                                                color: Colors.black26,
+                                                thickness: 1,
+                                              ),
+                                            ),
+                                            TextButton(
+                                                onPressed: () {},
+                                                child: const Text('Yes')),
+                                          ],
+                                        ),
+                                      ]));
+                            });
+                      },
+                    ),
+                  ];
                 },
-                icon: Icon(Icons.edit))
+                color: Colors.white,
+              )
             : TextButton(
                 onPressed: () {
                   detailsEditChange(!detailsEdit);
