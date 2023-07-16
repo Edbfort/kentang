@@ -337,6 +337,9 @@ class Apbr extends ChangeNotifier {
   TextEditingController conpasswordForgot = TextEditingController();
   TextEditingController otpText = TextEditingController();
   TextEditingController manageItemQuantity = TextEditingController();
+  TextEditingController detailsEditItemName = TextEditingController();
+  TextEditingController detailsEditGudang = TextEditingController();
+  TextEditingController detailsEditDeskripsi = TextEditingController();
 
   String usernameEmailErrText = "";
   String emailErrText = "";
@@ -350,6 +353,10 @@ class Apbr extends ChangeNotifier {
   String regisUsernameText = "";
   String regisEmailText = "";
   String regisPasswordText = "";
+
+  String detailsEditItemNameErrText = "";
+  String detailsEditGudangErrText = "";
+  String detailsEditDeskripsiErrText = "";
 
   void emailChangePasswordChange(val) {
     emailChangePassword = val;
@@ -390,6 +397,22 @@ class Apbr extends ChangeNotifier {
 
   void manageItemErrTextChange(val) {
     manageItemQuantityErrText = val;
+    notifyListeners();
+  }
+
+  void detailsEditSetBaseText() {
+    detailsEditItemName.text = _currentSingleItem.keys.first.toString();
+    detailsEditGudang.text =
+        _currentSingleItem.values.first["gudang"].toString();
+    detailsEditDeskripsi.text =
+        _currentSingleItem.values.first["deskripsi"].toString();
+    notifyListeners();
+  }
+
+  void detailsEditErrTextChange(val) {
+    detailsEditItemNameErrText = val[0];
+    detailsEditGudangErrText = val[1];
+    detailsEditDeskripsiErrText = val[2];
     notifyListeners();
   }
 
@@ -658,8 +681,8 @@ class Apbr extends ChangeNotifier {
 
   AppBar tit_back_edit(title_) {
     // print(_currentSingleItem.keys.first);
-    return tit_back_edit_apbr(
-        title_, currentSingleItem.keys.first, detailsEdit, detailsEditChange);
+    return tit_back_edit_apbr(title_, currentSingleItem.keys.first, detailsEdit,
+        detailsEditChange, detailsEditSetBaseText);
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -838,7 +861,13 @@ class Apbr extends ChangeNotifier {
             labelTextStyle,
             manageItemType,
             manageItemTypeChange,
-            manageItemAddHistory));
+            manageItemAddHistory,
+            detailsEditItemName,
+            detailsEditGudang,
+            detailsEditDeskripsi,
+            detailsEditItemNameErrText,
+            detailsEditGudangErrText,
+            detailsEditDeskripsiErrText));
   }
 
   // Container shop(context) {

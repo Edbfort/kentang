@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-AppBar tit_back_edit_apbr(title_, itemName, detailsEdit, detailsEditChange) {
+AppBar tit_back_edit_apbr(
+    title_, itemName, detailsEdit, detailsEditChange, detailsEditSetBaseText) {
   return AppBar(
     leading: BackButton(),
     iconTheme: IconThemeData(color: Colors.white),
@@ -8,7 +9,7 @@ AppBar tit_back_edit_apbr(title_, itemName, detailsEdit, detailsEditChange) {
     elevation: 0,
     centerTitle: true,
     title: Text(
-      "Details",
+      detailsEdit == false ? "Details" : "Edit",
       textAlign: TextAlign.center,
       style: TextStyle(fontWeight: FontWeight.bold),
     ),
@@ -19,6 +20,7 @@ AppBar tit_back_edit_apbr(title_, itemName, detailsEdit, detailsEditChange) {
             ? IconButton(
                 onPressed: () {
                   detailsEditChange(!detailsEdit);
+                  detailsEditSetBaseText();
                 },
                 icon: Icon(Icons.edit))
             : TextButton(

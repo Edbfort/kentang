@@ -83,35 +83,35 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "200000",
           "history": []
         },
-        "Barang A": {
-          "gudang": "Gudang A",
-          "quantity": "60",
-          "deskripsi":
-              "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
-          "manage_cost": "0",
-          "history": []
-        },
-        "Barang B": {
-          "gudang": "Gudang 2",
-          "quantity": "13",
-          "deskripsi": "Makanan kesukaan William",
-          "manage_cost": "200000",
-          "history": []
-        },
-        "Barang C": {
-          "gudang": "Gudang A",
-          "quantity": "6",
-          "deskripsi": "Kaki kesukaan William",
-          "manage_cost": "0",
-          "history": []
-        },
-        "Barang D": {
-          "gudang": "Gudang 2",
-          "quantity": "13",
-          "deskripsi": "Makanan kesukaan William",
-          "manage_cost": "200000",
-          "history": []
-        },
+        // "Barang A": {
+        //   "gudang": "Gudang A",
+        //   "quantity": "60",
+        //   "deskripsi":
+        //       "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
+        //   "manage_cost": "0",
+        //   "history": []
+        // },
+        // "Barang B": {
+        //   "gudang": "Gudang 2",
+        //   "quantity": "13",
+        //   "deskripsi": "Makanan kesukaan William",
+        //   "manage_cost": "200000",
+        //   "history": []
+        // },
+        // "Barang C": {
+        //   "gudang": "Gudang A",
+        //   "quantity": "6",
+        //   "deskripsi": "Kaki kesukaan William",
+        //   "manage_cost": "0",
+        //   "history": []
+        // },
+        // "Barang D": {
+        //   "gudang": "Gudang 2",
+        //   "quantity": "13",
+        //   "deskripsi": "Makanan kesukaan William",
+        //   "manage_cost": "200000",
+        //   "history": []
+        // },
       },
     },
   };
