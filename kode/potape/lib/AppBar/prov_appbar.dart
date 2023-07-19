@@ -674,7 +674,8 @@ class Apbr extends ChangeNotifier {
                           } else {
                             homeGrafItemChange("");
                           }
-                        } else if (otpPurpose == "forgotpass") ;
+                        } else if (otpPurpose == "forgotpass")
+                          onPageChange("forgotpass2");
                       } else {}
                     }
                   }

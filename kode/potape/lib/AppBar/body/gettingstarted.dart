@@ -5,11 +5,11 @@ Container gettingstarted_body(context, onPageChange) {
       width: MediaQuery.of(context).size.width,
       child: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height / 14,
+              height: MediaQuery.of(context).size.height / 7,
             ),
             Padding(
               padding: EdgeInsets.only(top: 0.0, bottom: 10.0),
@@ -114,23 +114,27 @@ Container gettingstarted_body(context, onPageChange) {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 90,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 0),
-              child: Text(
-                "If you have a problem contact us at ",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey[600],
-                ),
-              ),
-            ),
-            const Text(
-              'Customer Service',
-              style: TextStyle(color: Color(0xFF92B4EC)),
-            )
+            Positioned(
+                bottom: 0,
+                child: Container(
+                    margin: EdgeInsets.symmetric(vertical: 16),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "If you have a problem contact us at ",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                        Text(
+                          'Customer Service',
+                          style: TextStyle(color: Color(0xFF92B4EC)),
+                        )
+                      ],
+                    ))),
           ],
         ),
       ));
