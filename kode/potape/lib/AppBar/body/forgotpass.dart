@@ -27,7 +27,7 @@ Container forgotpass_body(
       child: SingleChildScrollView(
           child: Center(
               child: Container(
-        height: MediaQuery.of(context).size.height - 50,
+        height: MediaQuery.of(context).size.height - 80,
         width: MediaQuery.of(context).size.width * 8 / 10,
         child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -117,6 +117,7 @@ Container home_body(
                   },
                   child: ListTile(
                       leading: Container(
+                        width: 80,
                         margin: EdgeInsets.only(left: 4),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
