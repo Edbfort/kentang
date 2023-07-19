@@ -38,7 +38,9 @@ Container login_body(
     labelTextStyle,
     loginProfile,
     userCheck,
-    usernameEmailCheck) {
+    usernameEmailCheck,
+    homeGrafItemChange,
+    sortedItem) {
   return Container(
     child: Center(
       child: Container(
@@ -217,6 +219,19 @@ Container login_body(
                                   passwordErrText == "" &&
                                   conpasswordErrText == "") {
                                 loginProfile(userCheck[1].toString());
+                                if (sortedItem.values
+                                        .elementAt(0)["items"]
+                                        .keys
+                                        .length >
+                                    0) {
+                                  homeGrafItemChange(sortedItem.values
+                                      .elementAt(0)["items"]
+                                      .keys
+                                      .elementAt(0)
+                                      .toString());
+                                } else {
+                                  homeGrafItemChange("");
+                                }
                                 onPageChange(nextPage);
                               }
                             },

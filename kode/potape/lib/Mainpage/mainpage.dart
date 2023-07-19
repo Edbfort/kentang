@@ -90,11 +90,13 @@ class _MainPageState extends State<MainPage> {
 
     Map<String, Container> bodys = {
       "gettingstarted": prov_apbr.gettingstarted(context),
-      "login": prov_apbr.login(context, server_profiles, loginProfile),
+      "login":
+          prov_apbr.login(context, server_profiles, loginProfile, sortedItem),
       "register": prov_apbr.register(
           context, server_profiles, otpF1, otpF2, otpF3, otpF4),
       // "shop": prov_apbr.shop(context),
-      "otp": prov_apbr.otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4),
+      "otp": prov_apbr.otp(
+          context, addNewProfile, otpF1, otpF2, otpF3, otpF4, sortedItem),
       "forgotpass": prov_apbr.forgotpass(
           context, server_profiles, otpF1, otpF2, otpF3, otpF4),
       "forgotpass2": prov_apbr.forgotpass2(context, sorter.changePassword),

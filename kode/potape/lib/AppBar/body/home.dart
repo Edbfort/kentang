@@ -6,8 +6,6 @@ import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../data/price/price_day.dart';
 
-
-
 Container home_body(
   context,
   controller,
@@ -18,7 +16,9 @@ Container home_body(
   changeCurrentSingleItem,
   DateTimeRange selDateRange,
   selDateRangeChange,
-   homeChartData,
+  homeChartData,
+  bottomTitles,
+  homeGrafItemChange,
 ) {
   selRangePicker(context) async {
     final DateTimeRange? rangePicker = await showDateRangePicker(
@@ -68,11 +68,30 @@ Container home_body(
       ),
       Container(
           height: 200,
+          margin: EdgeInsets.only(right: 42, left: 10),
           child: BarChart(
             BarChartData(
-                barGroups: homeChartData
+                barGroups: homeChartData,
                 // read about it in the BarChartData section
+                titlesData: FlTitlesData(
+                  show: true,
+                  rightTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: false,
+                    ),
+                  ),
+                  topTitles: const AxisTitles(
+                    sideTitles: SideTitles(showTitles: false),
+                  ),
+                  bottomTitles: AxisTitles(
+                    sideTitles: SideTitles(
+                      showTitles: true,
+                      getTitlesWidget: bottomTitles,
+                      reservedSize: 42,
+                    ),
+                  ),
                 ),
+                gridData: FlGridData(show: false)),
             swapAnimationDuration: Duration(milliseconds: 150), // Optional
             swapAnimationCurve: Curves.linear, // Optional
           )),
@@ -89,6 +108,9 @@ Container home_body(
             padding: EdgeInsets.only(top: 8),
             itemBuilder: (context, index) {
               return GestureDetector(
+                  onLongPress: () {
+                    homeGrafItemChange(names.elementAt(index).toString());
+                  },
                   onTap: () {
                     changeCurrentSingleItem(names, data, index);
                     onPageChange(nextPage);

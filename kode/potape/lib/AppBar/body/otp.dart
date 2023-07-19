@@ -3,27 +3,28 @@ import 'package:flutter/services.dart';
 // import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 Container otp_body(
-  context,
-  onPageChange,
-  nextPage,
-  username,
-  email,
-  password,
-  addNewProfile,
-  otpText,
-  otpErrText,
-  otpNum,
-  otpTime,
-  dgoNum,
-  dgoTime,
-  dgostartTimer,
-  TextEditingController otpF1,
-  TextEditingController otpF2,
-  TextEditingController otpF3,
-  TextEditingController otpF4,
-  OtpTextFieldWilliamTolol,
-  otpPurpose,
-) {
+    context,
+    onPageChange,
+    nextPage,
+    username,
+    email,
+    password,
+    addNewProfile,
+    otpText,
+    otpErrText,
+    otpNum,
+    otpTime,
+    dgoNum,
+    dgoTime,
+    dgostartTimer,
+    TextEditingController otpF1,
+    TextEditingController otpF2,
+    TextEditingController otpF3,
+    TextEditingController otpF4,
+    OtpTextFieldWilliamTolol,
+    otpPurpose,
+    homeGrafItemChange,
+    sortedItem) {
   return Container(
       child: Center(
           child: Container(
@@ -52,6 +53,7 @@ Container otp_body(
                   FilteringTextInputFormatter.allow(RegExp(r'[0-9]'))
                 ],
                 addNewProfile: addNewProfile, otpPurpose: otpPurpose,
+                sortedItem: sortedItem,
               ),
             )),
           ],

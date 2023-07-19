@@ -86,7 +86,7 @@ class Apbr extends ChangeNotifier {
 
   Map<String, Map<String, String>> _pages = {
     "gettingstarted": {
-      "appbar": "tit",
+      "appbar": "",
       "drawer": "",
       "body": "gettingstarted",
       "btmnav": "",
@@ -282,12 +282,6 @@ class Apbr extends ChangeNotifier {
     {"Logout": Icon(Icons.exit_to_app)},
   ];
 
-  Map<String, Map<String, String>> _profiles = {
-    "abc1@gmail.com": {"email": "abc1@gmail.com"},
-    "abc2@gmail.com": {"email": "abc2@gmail.com"},
-    "abc3@gmail.com": {"email": "abc3@gmail.com"},
-  };
-
   void _ondrawertap(index, context) {
     Map<int, String> drawer_pages = {
       0: "setting",
@@ -384,11 +378,6 @@ class Apbr extends ChangeNotifier {
   String detailsEditItemNameErrText = "";
   String detailsEditGudangErrText = "";
   String detailsEditDeskripsiErrText = "";
-
-  String _selectedDate = '';
-  String _dateCount = '';
-  String _range = '';
-  String _rangeCount = '';
 
   void emailChangePasswordChange(val) {
     emailChangePassword = val;
@@ -621,6 +610,7 @@ class Apbr extends ChangeNotifier {
     String? nextPage,
     dynamic addNewProfile,
     String? otpPurpose,
+    var sortedItem,
   }) {
     return Container(
       child: Row(
@@ -669,11 +659,22 @@ class Apbr extends ChangeNotifier {
                     ///
                     if (otpList.join().length == 4) {
                       if (otpList.join() == otpNum) {
-                        otpPurpose == "register"
-                            ? otpRegister(addNewProfile, nextPage)
-                            : otpPurpose == "forgotpass"
-                                ? otpForgotpass()
-                                : null;
+                        if (otpPurpose == "register") {
+                          otpRegister(addNewProfile, nextPage);
+                          if (sortedItem.values
+                                  .elementAt(0)["items"]
+                                  .keys
+                                  .length >
+                              0) {
+                            homeGrafItemChange(sortedItem.values
+                                .elementAt(0)["items"]
+                                .keys
+                                .elementAt(0)
+                                .toString());
+                          } else {
+                            homeGrafItemChange("");
+                          }
+                        } else if (otpPurpose == "forgotpass") ;
                       } else {}
                     }
                   }
@@ -709,14 +710,51 @@ class Apbr extends ChangeNotifier {
 
   String homeGrafBy = "day";
 
-  String homeGrafItem = "Kaki William";
+  String _homeGrafItem = "Babi";
+
+  String get homeGrafItem => _homeGrafItem;
+
+  void homeGrafItemChange(val) {
+    _homeGrafItem = val;
+    notifyListeners();
+  }
 
   List<BarChartGroupData> _homeChartData = [];
 
   List<BarChartGroupData> get homeChartData => homeChartDataChange();
 
+  List<String> chartXAxixData = [];
+
+  void chartXAxixDataAdd(val) {
+    chartXAxixData.add(val);
+    notifyListeners();
+  }
+
+  void chartXAxixDataClear() {
+    chartXAxixData.clear();
+    notifyListeners();
+  }
+
+  Widget bottomTitles(double value, TitleMeta meta) {
+    final Widget text = Text(
+      chartXAxixData[value.toInt()],
+      style: const TextStyle(
+        color: Color(0xff7589a2),
+        fontWeight: FontWeight.bold,
+        fontSize: 14,
+      ),
+    );
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 16, //margin top
+      child: text,
+    );
+  }
+
   List<BarChartGroupData> homeChartDataChange() {
     List<BarChartGroupData> listChartData = [];
+    chartXAxixDataClear();
     var currentPriceData = (homeGrafBy == "day"
             ? price_day
             : homeGrafBy == "week"
@@ -725,37 +763,37 @@ class Apbr extends ChangeNotifier {
                     ? price_mon
                     : price_year)
         .reversed;
-    int currItemIndex = 0;
 
+    var chartHeightBefore = 0;
+    int chartIndex = 0;
     for (var tmpData in currentPriceData) {
       var tmpListTime = tmpData["time"]!.split("_");
       DateTime tmpTime = DateTime.parse(
           tmpListTime[2] + "-" + tmpListTime[1] + "-" + tmpListTime[0]);
+      if (homeGrafItem == "") break;
+      var chartHeight = int.parse(tmpData[homeGrafItem].toString());
+
       if ((selDateRange.start.isBefore(tmpTime) &&
               selDateRange.end.isAfter(tmpTime)) ||
           selDateRange.start == tmpTime ||
           selDateRange.end == tmpTime) {
-        listChartData.add(BarChartGroupData(
-            x: int.parse(DateFormat(homeGrafBy == "day"
+        listChartData.add(BarChartGroupData(x: chartIndex, barRods: [
+          BarChartRodData(
+              toY: chartHeight.toDouble(),
+              color:
+                  chartHeight > chartHeightBefore ? Colors.green : Colors.red)
+        ]));
+        chartXAxixDataAdd(DateFormat(homeGrafBy == "day"
+                ? "d"
+                : homeGrafBy == "week"
                     ? "d"
-                    : homeGrafBy == "week"
-                        ? "d"
-                        : homeGrafBy == "mon"
-                            ? "M"
-                            : "y")
-                .format(tmpTime)),
-            barRods: [
-              BarChartRodData(
-                  toY: int.parse(tmpData[homeGrafItem].toString()).toDouble(),
-                  color: currItemIndex > 0
-                      ? (int.parse(tmpData[homeGrafItem].toString()) >=
-                              int.parse(currentPriceData.elementAt(
-                                  currItemIndex - 1)["homeGrafItem"]!)
-                          ? Colors.cyan
-                          : Colors.red)
-                      : Colors.cyan)
-            ]));
+                    : homeGrafBy == "mon"
+                        ? "MMM"
+                        : "y")
+            .format(tmpTime));
+        chartIndex++;
       }
+      chartHeightBefore = chartHeight;
     }
 
     _homeChartData = listChartData;
@@ -810,10 +848,12 @@ class Apbr extends ChangeNotifier {
   /// <- Body Template
 
   Container gettingstarted(context) {
-    return gettingstarted_body(context, onPageChange);
+    return Container(
+      child: gettingstarted_body(context, onPageChange),
+    );
   }
 
-  Container login(context, server_profiles, loginProfile) {
+  Container login(context, server_profiles, loginProfile, sortedItem) {
     return Container(
         child: login_body(
             context,
@@ -834,7 +874,9 @@ class Apbr extends ChangeNotifier {
             labelTextStyle,
             loginProfile,
             userCheck,
-            usernameEmailCheck));
+            usernameEmailCheck,
+            homeGrafItemChange,
+            sortedItem));
   }
 
   Container register(context, server_profiles, otpF1, otpF2, otpF3, otpF4) {
@@ -872,30 +914,32 @@ class Apbr extends ChangeNotifier {
             regisUsernameTextChange));
   }
 
-  Container otp(context, addNewProfile, otpF1, otpF2, otpF3, otpF4) {
+  Container otp(
+      context, addNewProfile, otpF1, otpF2, otpF3, otpF4, sortedItem) {
     return Container(
         child: otp_body(
-      context,
-      onPageChange,
-      "home",
-      usernameEmail,
-      email,
-      password,
-      addNewProfile,
-      otpText,
-      otpErrText,
-      otpNum,
-      otpTime,
-      dgoNum,
-      dgoTime,
-      dgostartTimer,
-      otpF1,
-      otpF2,
-      otpF3,
-      otpF4,
-      OtpTextFieldWilliamTolol,
-      otpPurpose,
-    ));
+            context,
+            onPageChange,
+            "home",
+            usernameEmail,
+            email,
+            password,
+            addNewProfile,
+            otpText,
+            otpErrText,
+            otpNum,
+            otpTime,
+            dgoNum,
+            dgoTime,
+            dgostartTimer,
+            otpF1,
+            otpF2,
+            otpF3,
+            otpF4,
+            OtpTextFieldWilliamTolol,
+            otpPurpose,
+            homeGrafItemChange,
+            sortedItem));
   }
 
   Container forgotpass(context, server_profiles, otpF1, otpF2, otpF3, otpF4) {
@@ -957,7 +1001,9 @@ class Apbr extends ChangeNotifier {
             changeCurrentSingleItem,
             selDateRange,
             selDateRangeChange,
-            homeChartData));
+            homeChartData,
+            bottomTitles,
+            homeGrafItemChange));
   }
 
   Container setting() {
@@ -967,23 +1013,26 @@ class Apbr extends ChangeNotifier {
   Container detailsitem(context, manageItemAddHistory) {
     return Container(
         child: detailsietm_body(
-            context,
-            currentSingleItem,
-            detailsEdit,
-            detailsEditChange,
-            manageItemQuantity,
-            manageItemQuantityErrText,
-            manageItemErrTextChange,
-            labelTextStyle,
-            manageItemType,
-            manageItemTypeChange,
-            manageItemAddHistory,
-            detailsEditItemName,
-            detailsEditGudang,
-            detailsEditDeskripsi,
-            detailsEditItemNameErrText,
-            detailsEditGudangErrText,
-            detailsEditDeskripsiErrText));
+      context,
+      currentSingleItem,
+      detailsEdit,
+      detailsEditChange,
+      manageItemQuantity,
+      manageItemQuantityErrText,
+      manageItemErrTextChange,
+      labelTextStyle,
+      manageItemType,
+      manageItemTypeChange,
+      manageItemAddHistory,
+      detailsEditItemName,
+      detailsEditGudang,
+      detailsEditDeskripsi,
+      detailsEditItemNameErrText,
+      detailsEditGudangErrText,
+      detailsEditDeskripsiErrText,
+      homeChartData,
+      bottomTitles,
+    ));
   }
 
   // Container shop(context) {

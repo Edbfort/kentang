@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:potape/data/price/price_day.dart';
@@ -117,23 +118,26 @@ List<Container> historyListMaker(currentItem) {
 }
 
 Container detailsietm_body(
-    context,
-    currentItem,
-    detailsEdit,
-    detailsEditChange,
-    manageItemQuantity,
-    manageItemQuantityErrText,
-    manageItemErrTextChange,
-    labelTextStyle,
-    manageItemType,
-    manageItemTypeChange,
-    manageItemAddHistory,
-    detailsEditItemName,
-    detailsEditGudang,
-    detailsEditDeskripsi,
-    detailsEditItemNameErrText,
-    detailsEditGudangErrText,
-    detailsEditDeskripsiErrText) {
+  context,
+  currentItem,
+  detailsEdit,
+  detailsEditChange,
+  manageItemQuantity,
+  manageItemQuantityErrText,
+  manageItemErrTextChange,
+  labelTextStyle,
+  manageItemType,
+  manageItemTypeChange,
+  manageItemAddHistory,
+  detailsEditItemName,
+  detailsEditGudang,
+  detailsEditDeskripsi,
+  detailsEditItemNameErrText,
+  detailsEditGudangErrText,
+  detailsEditDeskripsiErrText,
+  homeChartData,
+  bottomTitles,
+) {
   return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -267,13 +271,44 @@ Container detailsietm_body(
               height: 12,
             ),
             Container(
-              height: 200,
-              margin: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.circular(16),
-              ),
-            ),
+                height: 200,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                decoration: BoxDecoration(
+                  color: Colors.black,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Container(
+                  margin: EdgeInsets.only(right: 42, left: 10),
+                  child: BarChart(
+                    BarChartData(
+                        barGroups: homeChartData,
+                        // read about it in the BarChartData section
+                        titlesData: FlTitlesData(
+                          show: true,
+                          rightTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: false,
+                            ),
+                          ),
+                          topTitles: const AxisTitles(
+                            sideTitles: SideTitles(showTitles: false),
+                          ),
+                          bottomTitles: AxisTitles(
+                            sideTitles: SideTitles(
+                              showTitles: true,
+                              getTitlesWidget: bottomTitles,
+                              reservedSize: 42,
+                            ),
+                          ),
+                        ),
+                        gridData: FlGridData(show: false),
+                        borderData: FlBorderData(show: false)),
+
+                    swapAnimationDuration:
+                        Duration(milliseconds: 150), // Optional
+                    swapAnimationCurve: Curves.linear, // Optional
+                  ),
+                )),
             Container(
               height: 16,
             ),
