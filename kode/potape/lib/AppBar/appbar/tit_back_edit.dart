@@ -1,7 +1,19 @@
 import 'package:flutter/material.dart';
 
 AppBar tit_back_edit_apbr(
-    title_, itemName, detailsEdit, detailsEditChange, detailsEditSetBaseText) {
+    title_,
+    itemName,
+    detailsEdit,
+    detailsEditChange,
+    detailsEditSetBaseText,
+    detailsEditItemNameErrText,
+    detailsEditGudangErrText,
+    detailsEditErrTextChange,
+    detailsEditItemName,
+    detailsEditGudang,
+    detailsEditDeskripsi,
+    sortedItem,
+    editItem) {
   return AppBar(
     leading: BackButton(),
     iconTheme: IconThemeData(color: Colors.white),
@@ -87,7 +99,30 @@ AppBar tit_back_edit_apbr(
               )
             : TextButton(
                 onPressed: () {
-                  detailsEditChange(!detailsEdit);
+                  detailsEditItemNameErrText = "";
+                  detailsEditGudangErrText = "";
+
+                  if (detailsEditItemName.text == "") {
+                    detailsEditItemNameErrText = "Item name cannot be empty";
+                  } else if (sortedItem.values
+                      .elementAt(0)["items"]
+                      .containsKey(detailsEditItemName.text)) {
+                    detailsEditItemNameErrText = "Item name is already used";
+                  }
+
+                  if (detailsEditGudang.text == "") {
+                    detailsEditGudangErrText = "Location cannot be empty";
+                  }
+
+                  detailsEditErrTextChange(
+                      [detailsEditItemNameErrText, detailsEditGudangErrText]);
+
+                  if (detailsEditItemNameErrText == "" &&
+                      detailsEditGudangErrText == "") {
+                    editItem(itemName, detailsEditItemName, detailsEditGudang,
+                        detailsEditDeskripsi);
+                    detailsEditChange(!detailsEdit);
+                  }
                 },
                 child: Text(
                   "Save",

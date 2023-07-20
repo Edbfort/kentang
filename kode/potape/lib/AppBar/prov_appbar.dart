@@ -31,7 +31,7 @@ import 'body/forgotpass2.dart';
 import 'body/home.dart';
 import 'body/otp.dart';
 import 'body/register.dart';
-import 'body/setting.dart';
+import 'body/profile.dart';
 import 'body/shop.dart';
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
@@ -182,14 +182,14 @@ class Apbr extends ChangeNotifier {
       "tab_length": "0",
       "fab": "",
     },
-    "setting": {
+    "profile": {
       "appbar": "tit_back",
       "drawer": "",
-      "body": "setting",
+      "body": "profile",
       "btmnav": "",
       "btm_index": "0",
       "drawer_page": "0",
-      "title": "Setting",
+      "title": "Profile",
       "tab_length": "0",
       "fab": "",
     },
@@ -257,34 +257,34 @@ class Apbr extends ChangeNotifier {
     // },
   };
 
-  List<Map<String, Icon>> btmnavdata = [
-    {"Home": Icon(Icons.home)},
-    {"Shop": Icon(Icons.store)},
-    {"Cart": Icon(Icons.shopping_basket)},
-    {
-      "Purchase": Icon(Icons.sell),
-    }
-  ];
+  // List<Map<String, Icon>> btmnavdata = [
+  //   {"Home": Icon(Icons.home)},
+  //   {"Shop": Icon(Icons.store)},
+  //   {"Cart": Icon(Icons.shopping_basket)},
+  //   {
+  //     "Purchase": Icon(Icons.sell),
+  //   }
+  // ];
 
-  void _onbtmtap(index) {
-    Map<int, String> btm_pages = {
-      0: "home",
-      1: "shop",
-      2: "cart",
-      3: "ongoing",
-    };
-    pageHistory.add(btm_pages[index]!);
-    notifyListeners();
-  }
+  // void _onbtmtap(index) {
+  //   Map<int, String> btm_pages = {
+  //     0: "home",
+  //     1: "shop",
+  //     2: "cart",
+  //     3: "ongoing",
+  //   };
+  //   pageHistory.add(btm_pages[index]!);
+  //   notifyListeners();
+  // }
 
   List<Map<String, Icon>> drawer_pages = [
-    {"Setting": Icon(Icons.home)},
+    {"profile": Icon(Icons.person_outlined)},
     {"Logout": Icon(Icons.exit_to_app)},
   ];
 
   void _ondrawertap(index, context) {
     Map<int, String> drawer_pages = {
-      0: "setting",
+      0: "profile",
       1: "logout",
     };
     if ("logout" == drawer_pages[index]) {
@@ -361,6 +361,10 @@ class Apbr extends ChangeNotifier {
   TextEditingController detailsEditItemName = TextEditingController();
   TextEditingController detailsEditGudang = TextEditingController();
   TextEditingController detailsEditDeskripsi = TextEditingController();
+  TextEditingController itemNameAdd = TextEditingController();
+  TextEditingController locationAdd = TextEditingController();
+  TextEditingController quantityAdd = TextEditingController();
+  TextEditingController descripAdd = TextEditingController();
 
   String usernameEmailErrText = "";
   String emailErrText = "";
@@ -378,6 +382,11 @@ class Apbr extends ChangeNotifier {
   String detailsEditItemNameErrText = "";
   String detailsEditGudangErrText = "";
   String detailsEditDeskripsiErrText = "";
+
+  String itemNameErrText = "";
+  String locationErrText = "";
+  String quantityErrText = "";
+  String descripErrText = "";
 
   void emailChangePasswordChange(val) {
     emailChangePassword = val;
@@ -433,7 +442,6 @@ class Apbr extends ChangeNotifier {
   void detailsEditErrTextChange(val) {
     detailsEditItemNameErrText = val[0];
     detailsEditGudangErrText = val[1];
-    detailsEditDeskripsiErrText = val[2];
     notifyListeners();
   }
 
@@ -711,6 +719,11 @@ class Apbr extends ChangeNotifier {
 
   String homeGrafBy = "day";
 
+  void homeGrafByChange(val) {
+    homeGrafBy = val;
+    notifyListeners();
+  }
+
   String _homeGrafItem = "Babi";
 
   String get homeGrafItem => _homeGrafItem;
@@ -772,6 +785,9 @@ class Apbr extends ChangeNotifier {
       DateTime tmpTime = DateTime.parse(
           tmpListTime[2] + "-" + tmpListTime[1] + "-" + tmpListTime[0]);
       if (homeGrafItem == "") break;
+      if (tmpData[homeGrafItem].toString() == "null") {
+        break;
+      }
       var chartHeight = int.parse(tmpData[homeGrafItem].toString());
 
       if ((selDateRange.start.isBefore(tmpTime) &&
@@ -803,6 +819,13 @@ class Apbr extends ChangeNotifier {
     return _homeChartData;
   }
 
+  void addErrTextChange(val) {
+    itemNameErrText = val[0];
+    locationErrText = val[1];
+    quantityErrText = val[2];
+    notifyListeners();
+  }
+
   /// Data ->
 
   /// <- AppBar Template
@@ -825,10 +848,21 @@ class Apbr extends ChangeNotifier {
     return tit_double_back_apbr(title_, context);
   }
 
-  AppBar tit_back_edit(title_) {
-    // print(_currentSingleItem.keys.first);
-    return tit_back_edit_apbr(title_, currentSingleItem.keys.first, detailsEdit,
-        detailsEditChange, detailsEditSetBaseText);
+  AppBar tit_back_edit(title_, sortedItem, editItem) {
+    return tit_back_edit_apbr(
+        title_,
+        currentSingleItem.keys.first,
+        detailsEdit,
+        detailsEditChange,
+        detailsEditSetBaseText,
+        detailsEditItemNameErrText,
+        detailsEditGudangErrText,
+        detailsEditErrTextChange,
+        detailsEditItemName,
+        detailsEditGudang,
+        detailsEditDeskripsi,
+        sortedItem,
+        editItem);
   }
 
   AppBar tit_tabs(title_, tabs) {
@@ -1004,11 +1038,13 @@ class Apbr extends ChangeNotifier {
             selDateRangeChange,
             homeChartData,
             bottomTitles,
-            homeGrafItemChange));
+            homeGrafItemChange,
+            homeGrafBy,
+            homeGrafByChange));
   }
 
-  Container setting() {
-    return Container(child: setting_body());
+  Container profile() {
+    return Container(child: profile_body());
   }
 
   Container detailsitem(context, manageItemAddHistory) {
@@ -1033,6 +1069,10 @@ class Apbr extends ChangeNotifier {
       detailsEditDeskripsiErrText,
       homeChartData,
       bottomTitles,
+      homeGrafBy,
+      homeGrafByChange,
+      selDateRange,
+      selDateRangeChange,
     ));
   }
 
@@ -1044,20 +1084,31 @@ class Apbr extends ChangeNotifier {
 
   /// <- Bottom Navigation Template
 
-  BottomNavigationBar base_btmnav(btm_index) {
-    return base_btmnav_btmnav(btm_index, _onbtmtap, btmnavdata);
-  }
+  // BottomNavigationBar base_btmnav(btm_index) {
+  //   return base_btmnav_btmnav(btm_index, _onbtmtap, btmnavdata);
+  // }
 
-  BottomNavigationBar btmnav_unselec(btm_index) {
-    return btmnav_unselec_btmnav(btm_index, _onbtmtap, btmnavdata);
-  }
+  // BottomNavigationBar btmnav_unselec(btm_index) {
+  //   return btmnav_unselec_btmnav(btm_index, _onbtmtap, btmnavdata);
+  // }
 
   /// Bottom Navigation Template ->
 
   /// <- FAB
 
-  FloatingActionButton insertItem(context) {
-    return insertItem_fab(context);
+  FloatingActionButton insertItem(context, sortedItem, addItemSingle) {
+    return insertItem_fab(
+        context,
+        itemNameAdd,
+        locationAdd,
+        quantityAdd,
+        descripAdd,
+        itemNameErrText,
+        locationErrText,
+        quantityErrText,
+        sortedItem,
+        addErrTextChange,
+        addItemSingle);
   }
 
   /// FAB ->

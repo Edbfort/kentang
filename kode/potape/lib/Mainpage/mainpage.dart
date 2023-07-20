@@ -78,7 +78,8 @@ class _MainPageState extends State<MainPage> {
       "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"]),
       "tit_double_back":
           prov_apbr.tit_double_back(prov_apbr.current_page["title"], context),
-      "tit_back_edit": prov_apbr.tit_back_edit(prov_apbr.current_page["title"]),
+      "tit_back_edit": prov_apbr.tit_back_edit(
+          prov_apbr.current_page["title"], sortedItem, sorter.editItem),
       "tit_tabs": prov_apbr.tit_tabs(
           prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
     };
@@ -107,18 +108,19 @@ class _MainPageState extends State<MainPage> {
       ),
       "detailsitem":
           prov_apbr.detailsitem(context, sorter.manageItemAddHistory),
-      "setting": prov_apbr.setting(),
+      "profile": prov_apbr.profile(),
     };
 
-    Map<String, BottomNavigationBar> btmnavs = {
-      "base_btmnav": prov_apbr
-          .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
-      "btmnav_unselec": prov_apbr
-          .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
-    };
+    // Map<String, BottomNavigationBar> btmnavs = {
+    //   "base_btmnav": prov_apbr
+    //       .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
+    //   "btmnav_unselec": prov_apbr
+    //       .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
+    // };
 
     Map<String, FloatingActionButton> fabs = {
-      "insertItem": prov_apbr.insertItem(context),
+      "insertItem":
+          prov_apbr.insertItem(context, sortedItem, sorter.addItemSingle),
     };
 
     return WillPopScope(
@@ -129,7 +131,7 @@ class _MainPageState extends State<MainPage> {
               appBar: appbars[prov_apbr.current_page["appbar"]],
               drawer: drawers[prov_apbr.current_page["drawer"]],
               body: bodys[prov_apbr.current_page["body"]],
-              bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
+              // bottomNavigationBar: btmnavs[prov_apbr.current_page["btmnav"]],
               floatingActionButton: fabs[prov_apbr.current_page["fab"]],
             )),
         onWillPop: () async {

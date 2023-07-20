@@ -83,6 +83,41 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "200000",
           "history": []
         },
+        "Babi2": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi3": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi4": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi5": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi6": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
         // "Barang A": {
         //   "gudang": "Gudang A",
         //   "quantity": "60",
@@ -199,6 +234,41 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "200000",
           "history": []
         },
+        "Babi2": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi3": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi4": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi5": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi6": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
       },
     },
   };
@@ -295,6 +365,41 @@ class Sorter extends ChangeNotifier {
           "manage_cost": "200000",
           "history": []
         },
+        "Kentang": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi3": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi4": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi5": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
+        "Babi6": {
+          "gudang": "Gudang 2",
+          "quantity": "13",
+          "deskripsi": "Makanan kesukaan William",
+          "manage_cost": "200000",
+          "history": []
+        },
       },
     },
     "ElwinLagiTidur": {
@@ -370,7 +475,8 @@ class Sorter extends ChangeNotifier {
   void manageItemAddHistory(itemName, type, quantity) {
     int tmpQuantity = quantity;
     String username = _current_items.keys.first.toString();
-    int basePrice = int.parse(price_day.first[itemName]!);
+    int basePrice = int.parse(
+        price_day.first[itemName] == null ? "-1" : price_day.first[itemName]!);
 
     /// Penggunaan Package Intl
     String currentTime = DateFormat('MMM. d, y').format(DateTime.now());
@@ -388,11 +494,104 @@ class Sorter extends ChangeNotifier {
       {
         "status": type.toString().toUpperCase(),
         "quantity": quantity.toString(),
-        "harga": (quantity * basePrice).toString(),
+        "harga":
+            basePrice == -1 ? "NO DATA" : (quantity * basePrice).toString(),
         "time": currentTime
       },
     );
+    notifyListeners();
+  }
 
+  void addItemSingle(itemName, location, quantity, descrip) {
+    current_items[current_items.keys.first.toString()]!["items"]![itemName] = {
+      "gudang": location,
+      "quantity": quantity,
+      "deskripsi": descrip,
+      "history": []
+    };
+    local_profiles[current_items.keys.first.toString()]!["items"]![itemName] = {
+      "gudang": location,
+      "quantity": quantity,
+      "deskripsi": descrip,
+      "history": []
+    };
+    server_profiles[current_items.keys.first.toString()]!["items"]![itemName] =
+        {
+      "gudang": location,
+      "quantity": quantity,
+      "deskripsi": descrip,
+      "history": []
+    };
+    notifyListeners();
+  }
+
+  void editItem(currentItemName, detailsEditItemName, detailsEditGudang,
+      detailsEditDeskripsi) {
+    var tmpCurrent_items =
+        _current_items[_current_items.keys.first.toString()]!["items"];
+    var tmpLocal_profiles =
+        _local_profiles[_current_items.keys.first.toString()]!["items"];
+    var tmpServer_profiles =
+        _server_profiles[_current_items.keys.first.toString()]!["items"];
+
+    var tmpCurrent_itemsKeys = tmpCurrent_items!.keys;
+    var tmpLocal_profilesKeys = tmpLocal_profiles!.keys;
+    var tmpServer_profilesKeys = tmpServer_profiles!.keys;
+
+    var tmpCurrent_itemsValues = tmpCurrent_items!.values;
+    var tmpLocal_profilesValues = tmpLocal_profiles!.values;
+    var tmpServer_profilesValues = tmpServer_profiles!.values;
+
+    var currentItemIndex = 0;
+
+    for (int i = 0; i < tmpCurrent_itemsKeys.length; i++) {
+      if (tmpCurrent_itemsKeys.elementAt(i) == currentItemName) {
+        currentItemIndex = i;
+        break;
+      }
+    }
+
+    var editDatas = [detailsEditGudang, detailsEditDeskripsi];
+
+    var tmpKeys = [
+      tmpCurrent_itemsKeys,
+      tmpLocal_profilesKeys,
+      tmpServer_profilesKeys
+    ];
+
+    var tmpValues = [
+      tmpCurrent_itemsValues,
+      tmpLocal_profilesValues,
+      tmpServer_profilesValues
+    ];
+
+    // for (var j = 0; j < tmpKeys.length; j++) {
+    //   tmpKeys[j].elementAt(currentItemIndex) = detailsEditItemName;
+    // }
+    for (var j = 0; j < tmpValues.length; j++) {
+      tmpValues[j].elementAt(currentItemIndex) != detailsEditItemName;
+    }
+    // current_items[current_items.keys.first.toString()]!["items"]![
+    //     currentItemName] = {
+    //   "gudang": location,
+    //   "quantity": quantity,
+    //   "deskripsi": descrip,
+    //   "history": []
+    // };
+    // local_profiles[current_items.keys.first.toString()]!["items"]![
+    //     currentItemName] = {
+    //   "gudang": location,
+    //   "quantity": quantity,
+    //   "deskripsi": descrip,
+    //   "history": []
+    // };
+    // server_profiles[current_items.keys.first.toString()]!["items"]![
+    //     currentItemName] = {
+    //   "gudang": location,
+    //   "quantity": quantity,
+    //   "deskripsi": descrip,
+    //   "history": []
+    // };
     notifyListeners();
   }
 

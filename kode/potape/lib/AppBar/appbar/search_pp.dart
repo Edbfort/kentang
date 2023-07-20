@@ -5,6 +5,8 @@ AppBar search_pp_apbr() {
     iconTheme: IconThemeData(color: Colors.white),
     backgroundColor: Colors.transparent,
     elevation: 0,
+    title: Text("Home"),
+    centerTitle: true,
     actions: [
       Padding(
         padding: EdgeInsets.only(right: 10),
@@ -13,13 +15,6 @@ AppBar search_pp_apbr() {
           icon: Icon(
             Icons.search,
           ),
-        ),
-      ),
-      Padding(
-        padding: EdgeInsets.only(right: 20),
-        child: CircleAvatar(
-          radius: 20,
-          backgroundColor: Colors.white,
         ),
       ),
     ],

@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           textTheme: newTextTheme,
           brightness: Brightness.dark,
-          dividerColor: Colors.black38),
+          dividerColor: Colors.black26),
       home: MainPage(),
     );
   }

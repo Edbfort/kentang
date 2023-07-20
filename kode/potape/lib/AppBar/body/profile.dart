@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container setting_body() {
+Container profile_body() {
   return Container(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,

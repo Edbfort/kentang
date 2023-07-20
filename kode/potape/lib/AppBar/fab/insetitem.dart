@@ -26,7 +26,18 @@ Container textFieldTitle2(title_) {
   );
 }
 
-FloatingActionButton insertItem_fab(context) {
+FloatingActionButton insertItem_fab(
+    context,
+    itemNameAdd,
+    locationAdd,
+    quantityAdd,
+    descripAdd,
+    itemNameErrText,
+    locationErrText,
+    quantityErrText,
+    sortedItem,
+    addErrTextChange,
+    addItemSingle) {
   return FloatingActionButton(
     onPressed: () {
       showDialog(
@@ -54,7 +65,50 @@ FloatingActionButton insertItem_fab(context) {
                         actions: [
                           TextButton(
                               onPressed: () {
-                                Navigator.maybePop(context);
+                                setState(
+                                  () {
+                                    itemNameErrText = "";
+                                    locationErrText = "";
+                                    quantityErrText = "";
+
+                                    if (itemNameAdd.text == "") {
+                                      itemNameErrText =
+                                          "Item name cannot be empty";
+                                    } else if (sortedItem.values
+                                        .elementAt(0)["items"]
+                                        .containsKey(itemNameAdd.text)) {
+                                      itemNameErrText =
+                                          "Item name is already used";
+                                    }
+
+                                    if (locationAdd.text == "") {
+                                      locationErrText =
+                                          "Location cannot be empty";
+                                    }
+
+                                    if (quantityAdd.text == "") {
+                                      quantityErrText =
+                                          "Quantity cannot be empty";
+                                    }
+
+                                    addErrTextChange([
+                                      itemNameErrText,
+                                      locationErrText,
+                                      quantityErrText
+                                    ]);
+
+                                    if (itemNameErrText == "" &&
+                                        locationErrText == "" &&
+                                        quantityErrText == "") {
+                                      addItemSingle(
+                                          itemNameAdd.text,
+                                          locationAdd.text,
+                                          quantityAdd.text,
+                                          descripAdd.text);
+                                      Navigator.maybePop(context);
+                                    }
+                                  },
+                                );
                               },
                               child: Text(
                                 "Save",
@@ -67,64 +121,36 @@ FloatingActionButton insertItem_fab(context) {
                         ],
                       ),
                       body: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.only(
-                            topRight: Radius.circular(30),
-                            topLeft: Radius.circular(30),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              topRight: Radius.circular(30),
+                              topLeft: Radius.circular(30),
+                            ),
+                            color: Colors.white,
                           ),
-                          color: Colors.white,
-                        ),
-                        width: MediaQuery.of(context).size.width,
-                        child: Container(
-                          margin: EdgeInsets.only(top: 20, right: 20, left: 20),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                  child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  textFieldTitle2("Item Name"),
-                                  TextField(
-                                    // inputFormatters: [
-                                    //   FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]'))
-                                    // ],
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                      hintText: "Item Name",
-                                      hintStyle:
-                                          TextStyle(color: Colors.black26),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                      // labelStyle: labelTextStyle,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
-                                          color: Colors.blueGrey,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
-                                          color: Colors.blueGrey,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Row(children: [
-                                    Expanded(
-                                      flex: 1,
+                          width: MediaQuery.of(context).size.width,
+                          height: MediaQuery.of(context).size.height,
+                          child: SingleChildScrollView(
+                            child: Container(
+                                width: MediaQuery.of(context).size.width,
+                                child: Center(
+                                  child: Container(
+                                      margin: EdgeInsets.only(
+                                          top: 20, left: 20, right: 20),
                                       child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            textFieldTitle2("Location"),
-                                            TextField(
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                              decoration: InputDecoration(
-                                                hintText: "Location",
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          textFieldTitle2("Item Name"),
+                                          TextField(
+                                            controller: itemNameAdd,
+                                            // inputFormatters: [
+                                            //   FilteringTextInputFormatter.allow(RegExp(r'[0-9a-zA-Z]'))
+                                            // ],
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            decoration: InputDecoration(
+                                                hintText: "Item Name",
                                                 hintStyle: TextStyle(
                                                     color: Colors.black26),
                                                 floatingLabelBehavior:
@@ -134,97 +160,160 @@ FloatingActionButton insertItem_fab(context) {
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                     width: 2,
-                                                    color: Colors.blueGrey,
+                                                    color: Colors.black26,
                                                   ),
                                                 ),
                                                 focusedBorder:
                                                     OutlineInputBorder(
                                                   borderSide: BorderSide(
                                                     width: 2,
-                                                    color: Colors.blueGrey,
+                                                    color: Colors.black,
                                                   ),
+                                                ),
+                                                errorText: itemNameErrText == ""
+                                                    ? null
+                                                    : itemNameErrText),
+                                          ),
+                                          Row(children: [
+                                            Expanded(
+                                              flex: 1,
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    textFieldTitle2("Location"),
+                                                    TextField(
+                                                      controller: locationAdd,
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                      decoration:
+                                                          InputDecoration(
+                                                              hintText:
+                                                                  "Location",
+                                                              hintStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .black26),
+                                                              floatingLabelBehavior:
+                                                                  FloatingLabelBehavior
+                                                                      .never,
+                                                              // labelStyle: labelTextStyle,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                      .black26,
+                                                                ),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              ),
+                                                              errorText:
+                                                                  locationErrText ==
+                                                                          ""
+                                                                      ? null
+                                                                      : locationErrText),
+                                                    ),
+                                                  ]),
+                                            ),
+                                            Container(
+                                              width: 10,
+                                            ),
+                                            Expanded(
+                                              flex: 1,
+                                              child: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    textFieldTitle2("Quantity"),
+                                                    TextField(
+                                                      controller: quantityAdd,
+                                                      keyboardType:
+                                                          TextInputType.number,
+                                                      inputFormatters: [
+                                                        FilteringTextInputFormatter
+                                                            .allow(RegExp(
+                                                                r'[0-9]'))
+                                                      ],
+                                                      style: TextStyle(
+                                                          color: Colors.black),
+                                                      decoration:
+                                                          InputDecoration(
+                                                              hintText:
+                                                                  "Quantity",
+                                                              hintStyle: TextStyle(
+                                                                  color: Colors
+                                                                      .black26),
+                                                              floatingLabelBehavior:
+                                                                  FloatingLabelBehavior
+                                                                      .never,
+                                                              // labelStyle: labelTextStyle,
+                                                              enabledBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                      .black26,
+                                                                ),
+                                                              ),
+                                                              focusedBorder:
+                                                                  OutlineInputBorder(
+                                                                borderSide:
+                                                                    BorderSide(
+                                                                  width: 2,
+                                                                  color: Colors
+                                                                      .black,
+                                                                ),
+                                                              ),
+                                                              errorText:
+                                                                  quantityErrText ==
+                                                                          ""
+                                                                      ? null
+                                                                      : quantityErrText),
+                                                    ),
+                                                  ]),
+                                            ),
+                                          ]),
+                                          textFieldTitle2("Description"),
+                                          TextField(
+                                            controller: descripAdd,
+                                            // minLines: 1,
+                                            maxLines: 5,
+                                            style:
+                                                TextStyle(color: Colors.black),
+                                            decoration: InputDecoration(
+                                              hintText: "Description",
+                                              hintStyle: TextStyle(
+                                                  color: Colors.black26),
+                                              floatingLabelBehavior:
+                                                  FloatingLabelBehavior.never,
+                                              // labelStyle: labelTextStyle,
+                                              enabledBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Colors.black26,
+                                                ),
+                                              ),
+                                              focusedBorder: OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                  width: 2,
+                                                  color: Colors.black,
                                                 ),
                                               ),
                                             ),
-                                          ]),
-                                    ),
-                                    Container(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      flex: 1,
-                                      child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            textFieldTitle2("Quantity"),
-                                            TextField(
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              inputFormatters: [
-                                                FilteringTextInputFormatter
-                                                    .allow(RegExp(r'[0-9]'))
-                                              ],
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                              decoration: InputDecoration(
-                                                hintText: "Quantity",
-                                                hintStyle: TextStyle(
-                                                    color: Colors.black26),
-                                                floatingLabelBehavior:
-                                                    FloatingLabelBehavior.never,
-                                                // labelStyle: labelTextStyle,
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    width: 2,
-                                                    color: Colors.blueGrey,
-                                                  ),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderSide: BorderSide(
-                                                    width: 2,
-                                                    color: Colors.blueGrey,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ]),
-                                    ),
-                                  ]),
-                                  textFieldTitle2("Description"),
-                                  TextField(
-                                    // minLines: 1,
-                                    maxLines: 5,
-                                    style: TextStyle(color: Colors.black),
-                                    decoration: InputDecoration(
-                                      hintText: "Description",
-                                      hintStyle:
-                                          TextStyle(color: Colors.black26),
-                                      floatingLabelBehavior:
-                                          FloatingLabelBehavior.never,
-                                      // labelStyle: labelTextStyle,
-                                      enabledBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
-                                          color: Colors.blueGrey,
-                                        ),
-                                      ),
-                                      focusedBorder: OutlineInputBorder(
-                                        borderSide: BorderSide(
-                                          width: 2,
-                                          color: Colors.blueGrey,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              )),
-                            ],
-                          ),
-                        ),
-                      )));
+                                          ),
+                                        ],
+                                      )),
+                                )),
+                          ))));
             });
           });
     },

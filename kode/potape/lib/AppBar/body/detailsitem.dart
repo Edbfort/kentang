@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:potape/data/price/price_day.dart';
 
 List<Container> historyListMaker(currentItem) {
@@ -16,82 +17,91 @@ List<Container> historyListMaker(currentItem) {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             ListTile(
-              leading: Container(
-                width: 60,
-                margin: EdgeInsets.only(left: 4),
-                child: Text(
+                title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(left: 4),
+                  child: Text(
+                    currentItem[currentItem.keys.first.toString()]["history"][i]
+                            ["status"]
+                        .toString(),
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: currentItem[currentItem.keys.first.toString()]
+                                    ["history"][i]["status"] ==
+                                "ADD"
+                            ? Colors.green
+                            : Colors.red),
+                  ),
+                ),
+                Container(
+                  height: 14,
+                  child: VerticalDivider(
+                    color: Colors.black26,
+                    thickness: 1,
+                  ),
+                ),
+                Text(
                   currentItem[currentItem.keys.first.toString()]["history"][i]
-                          ["status"]
+                          ["quantity"]
                       .toString(),
                   style: TextStyle(
+                      fontSize: 11,
                       color: currentItem[currentItem.keys.first.toString()]
                                   ["history"][i]["status"] ==
                               "ADD"
                           ? Colors.green
                           : Colors.red),
                 ),
-              ),
-              title: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    height: 14,
-                    child: VerticalDivider(
-                      color: Colors.black26,
-                      thickness: 1,
-                    ),
+                Container(
+                  height: 14,
+                  child: VerticalDivider(
+                    color: Colors.black26,
+                    thickness: 1,
                   ),
-                  Text(
-                    currentItem[currentItem.keys.first.toString()]["history"][i]
-                            ["quantity"]
-                        .toString(),
-                    style: TextStyle(
-                        color: currentItem[currentItem.keys.first.toString()]
-                                    ["history"][i]["status"] ==
-                                "ADD"
-                            ? Colors.green
-                            : Colors.red),
-                  ),
-                  Container(
-                    height: 14,
-                    child: VerticalDivider(
-                      color: Colors.black26,
-                      thickness: 1,
-                    ),
-                  ),
-                  Text(
-                    "Rp." +
-                        currentItem[currentItem.keys.first.toString()]
-                                ["history"][i]["harga"]
-                            .toString(),
-                    style: TextStyle(
-                        color: currentItem[currentItem.keys.first.toString()]
-                                    ["history"][i]["status"] ==
-                                "ADD"
-                            ? Colors.green
-                            : Colors.red),
-                  ),
-                  Container(
-                    height: 14,
-                    child: VerticalDivider(
-                      color: Colors.black26,
-                      thickness: 1,
-                    ),
-                  ),
-                ],
-              ),
-              trailing: Container(
-                margin: EdgeInsets.only(right: 4),
-                child: Text(
-                  currentItem[currentItem.keys.first.toString()]["history"][i]
-                          ["time"]
-                      .toString(),
-                  style: TextStyle(color: Colors.black),
                 ),
-              ),
-            ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Text(
+                    currentItem[currentItem.keys.first.toString()]["history"][i]
+                                    ["harga"]
+                                .toString() !=
+                            "NO DATA"
+                        ? "Rp." +
+                            currentItem[currentItem.keys.first.toString()]
+                                    ["history"][i]["harga"]
+                                .toString()
+                        : "NO DATA",
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                        fontSize: 11,
+                        color: currentItem[currentItem.keys.first.toString()]
+                                    ["history"][i]["status"] ==
+                                "ADD"
+                            ? Colors.green
+                            : Colors.red),
+                  ),
+                ),
+                Container(
+                  height: 14,
+                  child: VerticalDivider(
+                    color: Colors.black26,
+                    thickness: 1,
+                  ),
+                ),
+                Container(
+                  margin: EdgeInsets.only(right: 4),
+                  child: Text(
+                    currentItem[currentItem.keys.first.toString()]["history"][i]
+                            ["time"]
+                        .toString(),
+                    style: TextStyle(fontSize: 11, color: Colors.black),
+                  ),
+                ),
+              ],
+            )),
             Divider(
               color: Colors.black54,
               thickness: 0.5,
@@ -137,7 +147,23 @@ Container detailsietm_body(
   detailsEditDeskripsiErrText,
   homeChartData,
   bottomTitles,
+  homeGrafBy,
+  homeGrafByChange,
+  DateTimeRange selDateRange,
+  selDateRangeChange,
 ) {
+  selRangePicker(context) async {
+    final DateTimeRange? rangePicker = await showDateRangePicker(
+      context: context,
+      initialDateRange: selDateRange,
+      firstDate: DateTime(DateTime.now().year - 100),
+      lastDate: DateTime.now(),
+    );
+    if (rangePicker != null && rangePicker != selDateRange) {
+      selDateRangeChange(rangePicker);
+    }
+  }
+
   return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -167,7 +193,7 @@ Container detailsietm_body(
                         children: [
                           if (detailsEdit)
                             Container(
-                              width: MediaQuery.of(context).size.width / 4,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: TextField(
                                 controller: detailsEditItemName,
                                 decoration: InputDecoration(
@@ -189,15 +215,15 @@ Container detailsietm_body(
                               style: TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                                  fontSize: 16),
                             ),
                           if (detailsEdit)
                             Container(
-                              width: MediaQuery.of(context).size.width / 4,
+                              width: MediaQuery.of(context).size.width / 2,
                               child: TextField(
                                 controller: detailsEditGudang,
                                 decoration: InputDecoration(
-                                  hintText: "Lokasi",
+                                  hintText: "Location",
                                   hintStyle: TextStyle(color: Colors.black54),
                                   errorText: detailsEditGudangErrText == ""
                                       ? null
@@ -214,7 +240,8 @@ Container detailsietm_body(
                               currentItem[currentItem.keys.first.toString()]
                                       ["gudang"]
                                   .toString(),
-                              style: TextStyle(color: Colors.black45),
+                              style: TextStyle(
+                                  fontSize: 12, color: Colors.black45),
                             ),
                         ],
                       )),
@@ -229,7 +256,7 @@ Container detailsietm_body(
                           style: TextStyle(
                             color: Colors.black,
                             fontWeight: FontWeight.bold,
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                         ),
                         if (currentItem[currentItem.keys.first.toString()]
@@ -246,6 +273,7 @@ Container detailsietm_body(
                                         ["history"][0]["quantity"]
                                     .toString(),
                             style: TextStyle(
+                                fontSize: 12,
                                 color: currentItem[currentItem.keys.first
                                                 .toString()]["history"][0]
                                             ["status"] ==
@@ -259,7 +287,7 @@ Container detailsietm_body(
                                 currentItem[currentItem.keys.first.toString()]
                                         ["quantity"]
                                     .toString(),
-                            style: TextStyle(color: Colors.green),
+                            style: TextStyle(fontSize: 12, color: Colors.green),
                           )
                       ],
                     ),
@@ -268,10 +296,39 @@ Container detailsietm_body(
               ),
             ),
             Container(
-              height: 12,
+              height: 8,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  margin: EdgeInsets.only(bottom: 4, left: 16),
+                  child: TextButton(
+                    onPressed: () {
+                      selRangePicker(context);
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          DateFormat('MMM. d, y').format(selDateRange.start) +
+                              " - " +
+                              DateFormat('MMM. d, y').format(selDateRange.end),
+                          style: TextStyle(color: Colors.black54),
+                        ),
+                        Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.black54,
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             Container(
-                height: 200,
+                padding: EdgeInsets.only(top: 24),
+                height: 224,
                 margin: EdgeInsets.symmetric(horizontal: 20),
                 decoration: BoxDecoration(
                   color: Colors.black,
@@ -281,28 +338,27 @@ Container detailsietm_body(
                   margin: EdgeInsets.only(right: 42, left: 10),
                   child: BarChart(
                     BarChartData(
-                        barGroups: homeChartData,
-                        // read about it in the BarChartData section
-                        titlesData: FlTitlesData(
-                          show: true,
-                          rightTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: false,
-                            ),
-                          ),
-                          topTitles: const AxisTitles(
-                            sideTitles: SideTitles(showTitles: false),
-                          ),
-                          bottomTitles: AxisTitles(
-                            sideTitles: SideTitles(
-                              showTitles: true,
-                              getTitlesWidget: bottomTitles,
-                              reservedSize: 42,
-                            ),
+                      barGroups: homeChartData,
+                      // read about it in the BarChartData section
+                      titlesData: FlTitlesData(
+                        show: true,
+                        rightTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: false,
                           ),
                         ),
-                        gridData: FlGridData(show: false),
-                        borderData: FlBorderData(show: false)),
+                        topTitles: const AxisTitles(
+                          sideTitles: SideTitles(showTitles: false),
+                        ),
+                        bottomTitles: AxisTitles(
+                          sideTitles: SideTitles(
+                            showTitles: true,
+                            getTitlesWidget: bottomTitles,
+                            reservedSize: 42,
+                          ),
+                        ),
+                      ),
+                    ),
 
                     swapAnimationDuration:
                         Duration(milliseconds: 150), // Optional
@@ -310,8 +366,142 @@ Container detailsietm_body(
                   ),
                 )),
             Container(
-              height: 16,
+              height: 8,
             ),
+            Theme(
+                data: ThemeData(brightness: Brightness.light),
+                child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      child: Center(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width / 10 * 8,
+                          margin: EdgeInsets.only(top: 4, bottom: 8),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: [
+                              homeGrafBy == "day"
+                                  ? ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("Day"),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: Color(0xFF92B4EC),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    )
+                                  : OutlinedButton(
+                                      onPressed: () {
+                                        homeGrafByChange("day");
+                                      },
+                                      child: Text(
+                                        "Day",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.black12,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    ),
+                              homeGrafBy == "week"
+                                  ? ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("Week"),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: Color(0xFF92B4EC),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    )
+                                  : OutlinedButton(
+                                      onPressed: () {
+                                        homeGrafByChange("week");
+                                      },
+                                      child: Text(
+                                        "Week",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.black12,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    ),
+                              homeGrafBy == "mon"
+                                  ? ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("Month"),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: Color(0xFF92B4EC),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    )
+                                  : OutlinedButton(
+                                      onPressed: () {
+                                        homeGrafByChange("mon");
+                                      },
+                                      child: Text(
+                                        "Month",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.black12,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    ),
+                              homeGrafBy == "year"
+                                  ? ElevatedButton(
+                                      onPressed: () {},
+                                      child: Text("Year"),
+                                      style: ElevatedButton.styleFrom(
+                                        elevation: 0,
+                                        backgroundColor: Color(0xFF92B4EC),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    )
+                                  : OutlinedButton(
+                                      onPressed: () {
+                                        homeGrafByChange("year");
+                                      },
+                                      child: Text(
+                                        "Year",
+                                        style: TextStyle(color: Colors.black),
+                                      ),
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.black12,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(20.0),
+                                        ),
+                                      ),
+                                    ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ))),
             Container(
               margin: EdgeInsets.symmetric(horizontal: 16),
               child: Column(
@@ -326,7 +516,7 @@ Container detailsietm_body(
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 15,
                         ),
                       ),
                       collapsedIconColor: Colors.black54,
@@ -360,7 +550,7 @@ Container detailsietm_body(
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
-                          fontSize: 17,
+                          fontSize: 15,
                         ),
                       ),
                       collapsedIconColor: Colors.black54,
@@ -401,25 +591,34 @@ Container detailsietm_body(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Rp." +
-                                (int.parse(currentItem[currentItem.keys.first
-                                                .toString()]["quantity"]
-                                            .toString()) *
-                                        int.parse(price_day.first[currentItem
-                                            .keys.first
-                                            .toString()]!))
-                                    .toString(),
+                            price_day.first[
+                                        currentItem.keys.first.toString()] !=
+                                    null
+                                ? "Rp." +
+                                    (int.parse(currentItem[currentItem
+                                                    .keys.first
+                                                    .toString()]["quantity"]
+                                                .toString()) *
+                                            int.parse(price_day.first[
+                                                currentItem.keys.first
+                                                    .toString()]!))
+                                        .toString()
+                                : "NO DATA",
                             style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
+                                fontSize: 15, fontWeight: FontWeight.bold),
                           ),
                           Container(
                             height: 6,
                             width: 1,
                           ),
                           Text(
-                            "Rp." +
-                                price_day
-                                    .first[currentItem.keys.first.toString()]!,
+                            price_day.first[
+                                        currentItem.keys.first.toString()] !=
+                                    null
+                                ? "Rp." +
+                                    price_day.first[
+                                        currentItem.keys.first.toString()]!
+                                : "NO DATA",
                             style: TextStyle(
                                 color: price_day.first[currentItem.keys.first.toString()]
                                             .toString() !=
@@ -435,9 +634,9 @@ Container detailsietm_body(
                                                             .toString()]
                                                     .toString())
                                             ? Colors.red
-                                            : Colors.black54
-                                    : Colors.black54,
-                                fontSize: 20),
+                                            : Colors.white60
+                                    : Colors.white60,
+                                fontSize: 14),
                           )
                         ],
                       ),
@@ -541,12 +740,8 @@ Container detailsietm_body(
                                                             border: BorderDirectional(
                                                                 bottom: BorderSide(
                                                                     width: 2.0,
-                                                                    color: Color
-                                                                        .fromARGB(
-                                                                            255,
-                                                                            207,
-                                                                            207,
-                                                                            207)))),
+                                                                    color: Color(
+                                                                        0xFFCFCFCF)))),
                                                         child:
                                                             DropdownButtonHideUnderline(
                                                           child: DropdownButton2(
@@ -610,7 +805,7 @@ Container detailsietm_body(
                                                         setState(
                                                           () {
                                                             manageItemQuantityErrText =
-                                                                "Quantity cannot be empty";
+                                                                "Cannot be empty";
                                                           },
                                                         );
                                                       } else if (manageItemType ==
@@ -627,7 +822,7 @@ Container detailsietm_body(
                                                         setState(
                                                           () {
                                                             manageItemQuantityErrText =
-                                                                "Cannot remove more then current quantity";
+                                                                "Cannot remove";
                                                           },
                                                         );
                                                       }
@@ -663,7 +858,7 @@ Container detailsietm_body(
                           child: Text(
                             "Manage",
                             style: TextStyle(
-                                color: Colors.black,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
@@ -684,7 +879,7 @@ Container detailsietm_body(
                   "History",
                   style: TextStyle(
                     color: Colors.black,
-                    fontSize: 17,
+                    fontSize: 15,
                     fontWeight: FontWeight.bold,
                   ),
                 ),

@@ -58,7 +58,7 @@ Container register_body(
           children: [
             Center(
               child: Container(
-                height: MediaQuery.of(context).size.height - 90,
+                height: MediaQuery.of(context).size.height - 100,
                 width: MediaQuery.of(context).size.width * 8 / 10,
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -238,29 +238,26 @@ Container register_body(
                                       children: [
                                         Text(
                                           " I agree to the ",
-                                          style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          style: TextStyle(),
                                         ),
                                         Text(
                                           "Terms of Service",
                                           style: TextStyle(
-                                              fontWeight: FontWeight.bold,
                                               color: Color(0xFF92B4EC)),
                                         ),
-                                        Text(" and",
-                                            style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                            ))
                                       ],
                                     ),
-                                    Text(
-                                      " Privacy Policy",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        color: Color(0xFF92B4EC),
-                                      ),
-                                    )
+                                    Row(
+                                      children: [
+                                        Text(" and", style: TextStyle()),
+                                        Text(
+                                          " Privacy Policy",
+                                          style: TextStyle(
+                                            color: Color(0xFF92B4EC),
+                                          ),
+                                        )
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ],
