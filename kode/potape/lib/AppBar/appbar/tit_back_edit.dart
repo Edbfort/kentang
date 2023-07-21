@@ -13,7 +13,10 @@ AppBar tit_back_edit_apbr(
     detailsEditGudang,
     detailsEditDeskripsi,
     sortedItem,
-    editItem) {
+    editItem,
+    homeGrafItemChange,
+    changeCurrentSingleItem,
+    removeSingleItem) {
   return AppBar(
     leading: BackButton(),
     iconTheme: IconThemeData(color: Colors.white),
@@ -84,6 +87,8 @@ AppBar tit_back_edit_apbr(
                                                           .pop("Remove");
                                                       Navigator.maybePop(
                                                           context);
+                                                      removeSingleItem(
+                                                          itemName);
                                                     },
                                                     child:
                                                         const Text('Remove')),
@@ -105,8 +110,9 @@ AppBar tit_back_edit_apbr(
                   if (detailsEditItemName.text == "") {
                     detailsEditItemNameErrText = "Item name cannot be empty";
                   } else if (sortedItem.values
-                      .elementAt(0)["items"]
-                      .containsKey(detailsEditItemName.text)) {
+                          .elementAt(0)["items"]
+                          .containsKey(detailsEditItemName.text) &&
+                      itemName != detailsEditItemName.text) {
                     detailsEditItemNameErrText = "Item name is already used";
                   }
 
@@ -119,9 +125,14 @@ AppBar tit_back_edit_apbr(
 
                   if (detailsEditItemNameErrText == "" &&
                       detailsEditGudangErrText == "") {
-                    editItem(itemName, detailsEditItemName, detailsEditGudang,
-                        detailsEditDeskripsi);
+                    editItem(itemName, detailsEditItemName.text,
+                        detailsEditGudang.text, detailsEditDeskripsi.text);
                     detailsEditChange(!detailsEdit);
+                    homeGrafItemChange(detailsEditItemName.text);
+                    changeCurrentSingleItem(
+                        detailsEditItemName.text,
+                        sortedItem.values.elementAt(0)["items"]
+                            [detailsEditItemName.text]);
                   }
                 },
                 child: Text(

@@ -7,7 +7,9 @@ import 'Mainpage/mainpage.dart';
 import '/sorter/sorter.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(
     MultiProvider(
       providers: [

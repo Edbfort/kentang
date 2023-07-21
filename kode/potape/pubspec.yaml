@@ -47,6 +47,20 @@ dependencies:
   dropdown_button2: ^2.3.5
   syncfusion_flutter_datepicker: ^22.1.38
   syncfusion_flutter_charts: ^22.1.38
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.3.1
+
+flutter_native_splash:
+  color: "#141d26"
+  image: assets/logo_AppGudangPotape.png
+  
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo_AppGudangPotapeAppIcon.png"
+  adaptive_icon_background: "#141d26"
+  adaptive_icon_foreground: "assets/ic_launcher_foreground.png"
 
 dev_dependencies:
   flutter_test:

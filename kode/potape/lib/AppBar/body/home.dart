@@ -33,7 +33,7 @@ Container home_body(
       selDateRangeChange(rangePicker);
     }
   }
-
+print(sortedItem);
   Iterable data = sortedItem[sortedItem.keys.first]!["items"].values;
   Iterable names = sortedItem[sortedItem.keys.first]!["items"].keys;
   // Iterable subtitle = sortedItem[sortedItem.keys.first]!["items"]["gudang"].keys;
@@ -268,7 +268,7 @@ Container home_body(
                             onTap: () {
                               homeGrafItemChange(
                                   names.elementAt(index).toString());
-                              changeCurrentSingleItem(names, data, index);
+                              changeCurrentSingleItem(names.elementAt(index), data.elementAt(index));
                               onPageChange(nextPage);
                             },
                             child: ListTile(

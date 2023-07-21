@@ -1,7 +1,7 @@
 List<Map<String, String>> price_week = [
   {
     "time": "01_06_2023",
-    "Kaki William": "4600",
+    "Roti": "4600",
     "Hati William": "1900",
     "Ban": "690400",
     "Babi": "50340000",
@@ -14,7 +14,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "25_05_2023",
-    "Kaki William": "4540",
+    "Roti": "4540",
     "Hati William": "1920",
     "Ban": "691000",
     "Babi": "50289000",
@@ -27,7 +27,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "18_05_2023",
-    "Kaki William": "4340",
+    "Roti": "4340",
     "Hati William": "1990",
     "Ban": "691300",
     "Babi": "50489000",
@@ -40,7 +40,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "11_05_2023",
-    "Kaki William": "4550",
+    "Roti": "4550",
     "Hati William": "1991",
     "Ban": "691400",
     "Babi": "50289040",
@@ -53,7 +53,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "04_05_2023",
-    "Kaki William": "4540",
+    "Roti": "4540",
     "Hati William": "1930",
     "Ban": "692200",
     "Babi": "50289900",
@@ -66,7 +66,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "27_04_2023",
-    "Kaki William": "4530",
+    "Roti": "4530",
     "Hati William": "1920",
     "Ban": "691290",
     "Babi": "50579000",
@@ -79,7 +79,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "20_04_2023",
-    "Kaki William": "4770",
+    "Roti": "4770",
     "Hati William": "1970",
     "Ban": "693000",
     "Babi": "50339000",
@@ -92,7 +92,7 @@ List<Map<String, String>> price_week = [
   },
   {
     "time": "13_04_2023",
-    "Kaki William": "4540",
+    "Roti": "4540",
     "Hati William": "1930",
     "Ban": "691030",
     "Babi": "50289030",

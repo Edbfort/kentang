@@ -5,10 +5,10 @@ import '../data/price/price_day.dart';
 
 class Sorter extends ChangeNotifier {
   Map<String, Map<String, Map<String, dynamic>>> _current_items = {
-    "WilliamTolol": {
+    "Kaleng": {
       "profileData": {"email": "william@gmail.com", "password": "bebas"},
       "items": {
-        "Kaki William": {
+        "Roti": {
           "gudang": "Gudang A",
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
@@ -122,7 +122,7 @@ class Sorter extends ChangeNotifier {
         //   "gudang": "Gudang A",
         //   "quantity": "60",
         //   "deskripsi":
-        //       "Kaki William adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
+        //       "Roti adalah bagian tubuh yang terletak di bagian bawah dari tubuh manusia yang dikenal dengan sebutan anggota gerak. Kaki ini terhubung dengan tulang belakang melalui panggul dan memainkan peran yang sangat penting dalam mobilitas dan keseimbangan manusia.",
         //   "manage_cost": "0",
         //   "history": []
         // },
@@ -156,10 +156,10 @@ class Sorter extends ChangeNotifier {
 //////
 
   Map<String, Map<String, Map<String, dynamic>>> _local_profiles = {
-    "WilliamTolol": {
+    "Kaleng": {
       "profileData": {"email": "william@gmail.com", "password": "bebas"},
       "items": {
-        "Kaki William": {
+        "Roti": {
           "gudang": "Gudang A",
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
@@ -287,10 +287,10 @@ class Sorter extends ChangeNotifier {
 //////
 
   Map<String, Map<String, Map<String, dynamic>>> _server_profiles = {
-    "WilliamTolol": {
+    "Kaleng": {
       "profileData": {"email": "william@gmail.com", "password": "bebas"},
       "items": {
-        "Kaki William": {
+        "Roti": {
           "gudang": "Gudang A",
           "quantity": "6",
           "deskripsi": "Kaki kesukaan William",
@@ -529,18 +529,9 @@ class Sorter extends ChangeNotifier {
       detailsEditDeskripsi) {
     var tmpCurrent_items =
         _current_items[_current_items.keys.first.toString()]!["items"];
-    var tmpLocal_profiles =
-        _local_profiles[_current_items.keys.first.toString()]!["items"];
-    var tmpServer_profiles =
-        _server_profiles[_current_items.keys.first.toString()]!["items"];
 
     var tmpCurrent_itemsKeys = tmpCurrent_items!.keys;
-    var tmpLocal_profilesKeys = tmpLocal_profiles!.keys;
-    var tmpServer_profilesKeys = tmpServer_profiles!.keys;
-
-    var tmpCurrent_itemsValues = tmpCurrent_items!.values;
-    var tmpLocal_profilesValues = tmpLocal_profiles!.values;
-    var tmpServer_profilesValues = tmpServer_profiles!.values;
+    var tmpCurrent_itemsValues = tmpCurrent_items.values;
 
     var currentItemIndex = 0;
 
@@ -551,47 +542,52 @@ class Sorter extends ChangeNotifier {
       }
     }
 
-    var editDatas = [detailsEditGudang, detailsEditDeskripsi];
+    var tmpKeys = [];
+    var tmpValues = [];
 
-    var tmpKeys = [
-      tmpCurrent_itemsKeys,
-      tmpLocal_profilesKeys,
-      tmpServer_profilesKeys
-    ];
-
-    var tmpValues = [
-      tmpCurrent_itemsValues,
-      tmpLocal_profilesValues,
-      tmpServer_profilesValues
-    ];
-
-    // for (var j = 0; j < tmpKeys.length; j++) {
-    //   tmpKeys[j].elementAt(currentItemIndex) = detailsEditItemName;
-    // }
-    for (var j = 0; j < tmpValues.length; j++) {
-      tmpValues[j].elementAt(currentItemIndex) != detailsEditItemName;
+    for (var j = 0; j < tmpCurrent_itemsKeys.length; j++) {
+      if (j != currentItemIndex) {
+        tmpKeys.add(tmpCurrent_itemsKeys.elementAt(j));
+      } else {
+        tmpKeys.add(detailsEditItemName);
+      }
     }
-    // current_items[current_items.keys.first.toString()]!["items"]![
-    //     currentItemName] = {
-    //   "gudang": location,
-    //   "quantity": quantity,
-    //   "deskripsi": descrip,
-    //   "history": []
-    // };
-    // local_profiles[current_items.keys.first.toString()]!["items"]![
-    //     currentItemName] = {
-    //   "gudang": location,
-    //   "quantity": quantity,
-    //   "deskripsi": descrip,
-    //   "history": []
-    // };
-    // server_profiles[current_items.keys.first.toString()]!["items"]![
-    //     currentItemName] = {
-    //   "gudang": location,
-    //   "quantity": quantity,
-    //   "deskripsi": descrip,
-    //   "history": []
-    // };
+
+    for (var j = 0; j < tmpCurrent_itemsValues.length; j++) {
+      if (j != currentItemIndex) {
+        tmpValues.add(tmpCurrent_itemsValues.elementAt(j));
+      } else {
+        var tmpChangeValue = tmpCurrent_itemsValues.elementAt(j);
+        tmpChangeValue["gudang"] = detailsEditGudang;
+        tmpChangeValue["deskripsi"] = detailsEditDeskripsi;
+        tmpValues.add(tmpChangeValue);
+      }
+    }
+    _current_items[_current_items.keys.first.toString()]!["items"]!.clear();
+    _local_profiles[_current_items.keys.first.toString()]!["items"]!.clear();
+    _server_profiles[_current_items.keys.first.toString()]!["items"]!.clear();
+
+    notifyListeners();
+
+    for (var o = 0; o < tmpKeys.length; o++) {
+      _current_items[_current_items.keys.first.toString()]!["items"]![
+          tmpKeys[o]] = tmpValues[o];
+      _local_profiles[_current_items.keys.first.toString()]!["items"]![
+          tmpKeys[o]] = tmpValues[o];
+      _server_profiles[_current_items.keys.first.toString()]!["items"]![
+          tmpKeys[o]] = tmpValues[o];
+    }
+
+    notifyListeners();
+  }
+
+  void removeSingleItem(itemName) {
+    _current_items[_current_items.keys.first.toString()]!["items"]!
+        .remove(itemName);
+    _local_profiles[_current_items.keys.first.toString()]!["items"]!
+        .remove(itemName);
+    _server_profiles[_current_items.keys.first.toString()]!["items"]!
+        .remove(itemName);
     notifyListeners();
   }
 

@@ -19,7 +19,7 @@ import 'appbar/tit.dart';
 import 'appbar/tit_back.dart';
 import 'appbar/tit_back_edit.dart';
 import 'appbar/tit_double_back.dart';
-import 'appbar/tit_tabs.dart';
+
 import 'body/detailsitem.dart';
 import 'body/gettingstarted.dart';
 import 'fab/insetitem.dart';
@@ -32,7 +32,7 @@ import 'body/home.dart';
 import 'body/otp.dart';
 import 'body/register.dart';
 import 'body/profile.dart';
-import 'body/shop.dart';
+
 import 'btmnav/base_btmnav.dart';
 import 'btmnav/btmnav_unselec.dart';
 import 'drawer/base_drawer.dart';
@@ -64,8 +64,8 @@ class Apbr extends ChangeNotifier {
     return curPage;
   }
 
-  // List<String> pageHistory = ["gettingstarted"];
-  List<String> pageHistory = ["home"];
+  List<String> pageHistory = ["gettingstarted"];
+  // List<String> pageHistory = ["home"];
 
   void removeHistoryOne() {
     pageHistory.removeLast();
@@ -278,7 +278,7 @@ class Apbr extends ChangeNotifier {
   // }
 
   List<Map<String, Icon>> drawer_pages = [
-    {"profile": Icon(Icons.person_outlined)},
+    {"Profile": Icon(Icons.person_outlined)},
     {"Logout": Icon(Icons.exit_to_app)},
   ];
 
@@ -306,23 +306,19 @@ class Apbr extends ChangeNotifier {
   }
 
   Map<String, dynamic> _currentSingleItem = {
-    "Kaki William": {
-      "gudang": "Gudang A",
-      "quantity": "6",
-      "deskripsi": "Kaki kesukaan William",
-      "manage_cost": "0",
-      "history": [
-        {"quantity": "10", "harga": "4600", "time": "1-6-2023"},
-      ]
+    "Babi": {
+      "gudang": "Gudang 2",
+      "quantity": "13",
+      "deskripsi": "Makanan kesukaan William",
+      "manage_cost": "200000",
+      "history": []
     },
   };
 
   Map<String, dynamic> get currentSingleItem => _currentSingleItem;
 
-  void changeCurrentSingleItem(names, data, index) {
-    Map<String, dynamic> oneData = {
-      names.elementAt(index): data.elementAt(index)
-    };
+  void changeCurrentSingleItem(itemName, data) {
+    Map<String, dynamic> oneData = {itemName: data};
     _currentSingleItem = oneData;
     notifyListeners();
   }
@@ -486,7 +482,7 @@ class Apbr extends ChangeNotifier {
     return [true];
   }
 
-  String dgoNum = "WilliamTolol";
+  String dgoNum = "Kaleng";
 
   var dgoCountdownTimer;
   Duration dgoTime = Duration(seconds: 0);
@@ -513,7 +509,7 @@ class Apbr extends ChangeNotifier {
 
   void dgoResetTimer(dgoCountdownTimer) {
     dgoStopTimer(dgoCountdownTimer);
-    otpNum = "WilliamTolol";
+    otpNum = "Kaleng";
     dgoTime = Duration(seconds: 0);
     notifyListeners();
   }
@@ -529,7 +525,7 @@ class Apbr extends ChangeNotifier {
     notifyListeners();
   }
 
-  String otpNum = "WilliamTolol";
+  String otpNum = "Kaleng";
 
   var otpCountdownTimer;
 
@@ -554,7 +550,7 @@ class Apbr extends ChangeNotifier {
 
   void otpResetTimer(otpCountdownTimer) {
     otpStopTimer(otpCountdownTimer);
-    otpNum = "WilliamTolol";
+    otpNum = "Kaleng";
     otpTime = Duration(seconds: 0);
     notifyListeners();
   }
@@ -563,7 +559,7 @@ class Apbr extends ChangeNotifier {
     int reduceSecondsBy = 1;
     int seconds = otpTime.inSeconds - reduceSecondsBy;
     if (seconds < 0) {
-      otpNum = "WilliamTolol";
+      otpNum = "Kaleng";
       otpCountdownTimer!.cancel();
     } else {
       otpTime = Duration(seconds: seconds);
@@ -607,7 +603,7 @@ class Apbr extends ChangeNotifier {
 
   List<FocusNode> focusNodes = [for (int j = 0; j < 4; j++) FocusNode()];
 
-  Container OtpTextFieldWilliamTolol({
+  Container OtpTextFieldKaleng({
     List<TextEditingController>? handleControllers,
     int numberOfFields = 4,
     double fieldWidth = 50.0,
@@ -848,7 +844,7 @@ class Apbr extends ChangeNotifier {
     return tit_double_back_apbr(title_, context);
   }
 
-  AppBar tit_back_edit(title_, sortedItem, editItem) {
+  AppBar tit_back_edit(title_, sortedItem, editItem, removeSingleItem) {
     return tit_back_edit_apbr(
         title_,
         currentSingleItem.keys.first,
@@ -862,11 +858,10 @@ class Apbr extends ChangeNotifier {
         detailsEditGudang,
         detailsEditDeskripsi,
         sortedItem,
-        editItem);
-  }
-
-  AppBar tit_tabs(title_, tabs) {
-    return tit_tabs_apbr(title_, tabs);
+        editItem,
+        homeGrafItemChange,
+        changeCurrentSingleItem,
+        removeSingleItem);
   }
 
   /// AppBar Template ->
@@ -971,7 +966,7 @@ class Apbr extends ChangeNotifier {
             otpF2,
             otpF3,
             otpF4,
-            OtpTextFieldWilliamTolol,
+            OtpTextFieldKaleng,
             otpPurpose,
             homeGrafItemChange,
             sortedItem));
@@ -1043,8 +1038,8 @@ class Apbr extends ChangeNotifier {
             homeGrafByChange));
   }
 
-  Container profile() {
-    return Container(child: profile_body());
+  Container profile(currentAccount) {
+    return Container(child: profile_body(currentAccount));
   }
 
   Container detailsitem(context, manageItemAddHistory) {
@@ -1137,7 +1132,9 @@ class Apbr extends ChangeNotifier {
   }
 
   DateTimeRange selDateRange = DateTimeRange(
-      start: DateTime.now().subtract(Duration(days: 5)), end: DateTime.now());
+      // start: DateTime.now().subtract(Duration(days: 5)), end: DateTime.now() // true release
+      start: DateTime(2023, 5, 26),
+      end: DateTime(2023, 6, 1));
 
   void selDateRangeChange(val) {
     selDateRange = val;
@@ -1146,18 +1143,3 @@ class Apbr extends ChangeNotifier {
 
   /// Kelas ->
 }
-
-//  class MySingleton {
-//      static MySingleton? _instance_ = null;
-
-//     late Timer timer_;
-
-//      static GetInstance(){
-//         if (_instance_ == null) _instance_ = new MySingleton();
-//         return _instance_;
-//     }
-
-//      _MySingleton(){
-//          timer_ = new Timer(Callback, ...);
-//     }
-// }

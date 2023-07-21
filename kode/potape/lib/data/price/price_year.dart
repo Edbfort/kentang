@@ -1,7 +1,7 @@
 List<Map<String, String>> price_year = [
   {
     "time": "01_06_2023",
-    "Kaki William": "4600",
+    "Roti": "4600",
     "Hati William": "1900",
     "Ban": "690400",
     "Babi": "50340000",
@@ -14,7 +14,7 @@ List<Map<String, String>> price_year = [
   },
   {
     "time": "01_06_2022",
-    "Kaki William": "4540",
+    "Roti": "4540",
     "Hati William": "1920",
     "Ban": "691000",
     "Babi": "50289999",
@@ -27,7 +27,7 @@ List<Map<String, String>> price_year = [
   },
   {
     "time": "01_06_2021",
-    "Kaki William": "4340",
+    "Roti": "4340",
     "Hati William": "1930",
     "Ban": "695040",
     "Babi": "50235000",
@@ -40,7 +40,7 @@ List<Map<String, String>> price_year = [
   },
   {
     "time": "01_06_2020",
-    "Kaki William": "4240",
+    "Roti": "4240",
     "Hati William": "1940",
     "Ban": "696700",
     "Babi": "50879000",
@@ -53,7 +53,7 @@ List<Map<String, String>> price_year = [
   },
   {
     "time": "01_06_2019",
-    "Kaki William": "4540",
+    "Roti": "4540",
     "Hati William": "1980",
     "Ban": "692000",
     "Babi": "50229000",

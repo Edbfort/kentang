@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-Container profile_body() {
+Container profile_body(currentAccount) {
   return Container(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -15,7 +15,7 @@ Container profile_body() {
         )),
         ListTile(
           leading: Text(
-            'William',
+            currentAccount.keys.first,
             style: TextStyle(),
           ),
         ),
@@ -38,7 +38,7 @@ Container profile_body() {
         )),
         ListTile(
             leading: Text(
-              'Fortin',
+              currentAccount.keys.first,
               style: TextStyle(),
             ),
             trailing: IconButton(
@@ -60,11 +60,13 @@ Container profile_body() {
         )),
         ListTile(
             leading: Text(
-          'Enter your email address for \nnew updates and lastest news.',
-          style: TextStyle(
-            color: Colors.grey,
-          ),
-        )),
+              currentAccount.values.first["profileData"]["email"],
+              style: TextStyle(),
+            ),
+            trailing: IconButton(
+              onPressed: () {},
+              icon: Icon(Icons.edit),
+            )),
       ],
     ),
   );

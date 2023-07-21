@@ -78,10 +78,8 @@ class _MainPageState extends State<MainPage> {
       "tit_back": prov_apbr.tit_back(prov_apbr.current_page["title"]),
       "tit_double_back":
           prov_apbr.tit_double_back(prov_apbr.current_page["title"], context),
-      "tit_back_edit": prov_apbr.tit_back_edit(
-          prov_apbr.current_page["title"], sortedItem, sorter.editItem),
-      "tit_tabs": prov_apbr.tit_tabs(
-          prov_apbr.current_page["title"], prov_apbr.current_page["tabs"])
+      "tit_back_edit": prov_apbr.tit_back_edit(prov_apbr.current_page["title"],
+          sortedItem, sorter.editItem, sorter.removeSingleItem),
     };
 
     Map<String, Drawer> drawers = {
@@ -108,15 +106,8 @@ class _MainPageState extends State<MainPage> {
       ),
       "detailsitem":
           prov_apbr.detailsitem(context, sorter.manageItemAddHistory),
-      "profile": prov_apbr.profile(),
+      "profile": prov_apbr.profile(sorter.current_items),
     };
-
-    // Map<String, BottomNavigationBar> btmnavs = {
-    //   "base_btmnav": prov_apbr
-    //       .base_btmnav(int.parse(prov_apbr.current_page["btm_index"]!)),
-    //   "btmnav_unselec": prov_apbr
-    //       .btmnav_unselec(int.parse(prov_apbr.current_page["btm_index"]!))
-    // };
 
     Map<String, FloatingActionButton> fabs = {
       "insertItem":
@@ -162,7 +153,7 @@ class _MainPageState extends State<MainPage> {
                                     onPressed: () {
                                       SystemNavigator.pop();
                                     },
-                                    child: const Text('Yes')),
+                                    child: const Text('Quit')),
                               ],
                             ),
                           ]));

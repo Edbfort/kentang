@@ -40,6 +40,11 @@ FloatingActionButton insertItem_fab(
     addItemSingle) {
   return FloatingActionButton(
     onPressed: () {
+      itemNameAdd.clear();
+      locationAdd.clear();
+      quantityAdd.clear();
+      descripAdd.clear();
+      addErrTextChange(["", "", ""]);
       showDialog(
           context: context,
           builder: (context) {
@@ -51,7 +56,117 @@ FloatingActionButton insertItem_fab(
                         leading: IconButton(
                           icon: Icon(Icons.close),
                           onPressed: () {
-                            Navigator.maybePop(context);
+                            showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Theme(
+                                      data: ThemeData(
+                                          brightness: Brightness.light),
+                                      child: AlertDialog(
+                                          title: Text(
+                                              'Save your changes or discard them?'),
+                                          actions: [
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.of(context)
+                                                            .pop(false),
+                                                    child:
+                                                        const Text('Cancel')),
+                                                Container(
+                                                  height: 14,
+                                                  child: VerticalDivider(
+                                                    color: Colors.black26,
+                                                    thickness: 1,
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child:
+                                                        const Text('Discard')),
+                                                Container(
+                                                  height: 14,
+                                                  child: VerticalDivider(
+                                                    color: Colors.black26,
+                                                    thickness: 1,
+                                                  ),
+                                                ),
+                                                TextButton(
+                                                    onPressed: () {
+                                                      setState(
+                                                        () {
+                                                          itemNameErrText = "";
+                                                          locationErrText = "";
+                                                          quantityErrText = "";
+
+                                                          if (itemNameAdd
+                                                                  .text ==
+                                                              "") {
+                                                            itemNameErrText =
+                                                                "Item name cannot be empty";
+                                                          } else if (sortedItem
+                                                              .values
+                                                              .elementAt(
+                                                                  0)["items"]
+                                                              .containsKey(
+                                                                  itemNameAdd
+                                                                      .text)) {
+                                                            itemNameErrText =
+                                                                "Item name is already used";
+                                                          }
+
+                                                          if (locationAdd
+                                                                  .text ==
+                                                              "") {
+                                                            locationErrText =
+                                                                "Location cannot be empty";
+                                                          }
+
+                                                          if (quantityAdd
+                                                                  .text ==
+                                                              "") {
+                                                            quantityErrText =
+                                                                "Quantity cannot be empty";
+                                                          }
+
+                                                          addErrTextChange([
+                                                            itemNameErrText,
+                                                            locationErrText,
+                                                            quantityErrText
+                                                          ]);
+
+                                                          if (itemNameErrText == "" &&
+                                                              locationErrText ==
+                                                                  "" &&
+                                                              quantityErrText ==
+                                                                  "") {
+                                                            addItemSingle(
+                                                                itemNameAdd
+                                                                    .text,
+                                                                locationAdd
+                                                                    .text,
+                                                                quantityAdd
+                                                                    .text,
+                                                                descripAdd
+                                                                    .text);
+                                                            Navigator.pop(
+                                                                context);
+                                                          }
+                                                        },
+                                                      );
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Text('Save')),
+                                              ],
+                                            ),
+                                          ]));
+                                });
                           },
                         ),
                         backgroundColor: Colors.transparent,
